@@ -1,0 +1,537 @@
+/* ─────────────────────────────────────────────
+   Dynamic StyleDetail Themes
+───────────────────────────────────────────── */
+
+/* Hide background blur circles on stark/clean themes */
+html[data-active-style="brutalism"] [style*="blur("],
+html[data-active-style="minimalism"] [style*="blur("],
+html[data-active-style="retro"] [style*="blur("],
+html[data-active-style="light-ui"] [style*="blur("],
+html[data-active-style="skeuomorphism"] [style*="blur("] {
+  display: none !important;
+}
+
+/* --- Glassmorphism --- */
+html[data-active-style="glassmorphism"] {
+  --bg-primary: transparent;
+  --bg-secondary: transparent;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: #a8a2c2;
+  --text-muted: #6e6794;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --accent: #6c63ff;
+  --accent-2: #ff6584;
+}
+html[data-active-style="glassmorphism"] body {
+  background: radial-gradient(circle at top left, #291b5c, #120e2b) !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="glassmorphism"] .glass-card, 
+html[data-active-style="glassmorphism"] [style*="var(--bg-card)"] {
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+}
+html[data-active-style="glassmorphism"] button {
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: rgba(108, 99, 255, 0.2) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2) !important;
+}
+
+/* --- Neumorphism --- */
+html[data-active-style="neumorphism"] {
+  --bg-primary: #e0e0f0;
+  --bg-secondary: #e0e0f0;
+  --bg-card: #e0e0f0;
+  --bg-glass: #e0e0f0;
+  --text-primary: #4a5568;
+  --text-secondary: #718096;
+  --border: rgba(255,255,255,0.2);
+  --accent: #6c63ff;
+  --accent-2: #a0a0c0;
+  --radius-sm: 16px;
+  --radius-md: 20px;
+}
+html[data-active-style="neumorphism"] .glass-card,
+html[data-active-style="neumorphism"] [style*="var(--bg-card)"] {
+  background: #e0e0f0 !important;
+  box-shadow: 9px 9px 16px #c8c8e0, -9px -9px 16px rgba(255,255,255, 0.7) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+}
+html[data-active-style="neumorphism"] button {
+  background: #e0e0f0 !important;
+  box-shadow: 5px 5px 10px #c8c8e0, -5px -5px 10px rgba(255,255,255, 0.7) !important;
+  border: none !important;
+  color: #6c63ff !important;
+  border-radius: 12px !important;
+}
+html[data-active-style="neumorphism"] button:active {
+  box-shadow: inset 5px 5px 10px #c8c8e0, inset -5px -5px 10px rgba(255,255,255, 0.7) !important;
+}
+html[data-active-style="neumorphism"] span[style*="uppercase"] {
+  box-shadow: 3px 3px 6px #c8c8e0, -3px -3px 6px rgba(255,255,255, 0.7) !important;
+  border: none !important;
+}
+
+/* --- Brutalism --- */
+html[data-active-style="brutalism"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --border: #000000;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --accent: #ff0000;
+  --accent-2: #ffff00;
+}
+html[data-active-style="brutalism"],
+html[data-active-style="brutalism"] h1,
+html[data-active-style="brutalism"] h2,
+html[data-active-style="brutalism"] h3,
+html[data-active-style="brutalism"] h4,
+html[data-active-style="brutalism"] p,
+html[data-active-style="brutalism"] button,
+html[data-active-style="brutalism"] a {
+  font-family: "Courier New", Courier, monospace !important;
+}
+html[data-active-style="brutalism"] .glass-card,
+html[data-active-style="brutalism"] [style*="var(--bg-card)"] {
+  box-shadow: 6px 6px 0px #000000 !important;
+  border: 3px solid #000000 !important;
+  backdrop-filter: none !important;
+  border-radius: 0px !important;
+  transition: transform 0.1s !important;
+  background: #ffffff !important;
+}
+html[data-active-style="brutalism"] .glass-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 8px 8px 0px #000000 !important;
+}
+html[data-active-style="brutalism"] button {
+  box-shadow: 4px 4px 0px #000000 !important;
+  border: 3px solid #000000 !important;
+  border-radius: 0px !important;
+  background: #ff0000 !important;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  font-weight: 900 !important;
+}
+html[data-active-style="brutalism"] button:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0px #000000 !important;
+}
+html[data-active-style="brutalism"] span[style*="uppercase"] {
+  border: 2px solid #000 !important;
+  border-radius: 0 !important;
+  background: #ffff00 !important;
+  color: #000 !important;
+  box-shadow: 2px 2px 0px #000 !important;
+}
+
+/* --- Cyberpunk --- */
+html[data-active-style="cyberpunk"] {
+  --bg-primary: #0d0d1e;
+  --bg-secondary: #0a0a1a;
+  --bg-card: #0d0d1e;
+  --text-primary: #00ffff;
+  --text-secondary: #ff00ff;
+  --border: #ff00ff;
+  --accent: #00ffff;
+  --accent-2: #ffff00;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+}
+html[data-active-style="cyberpunk"] h1, 
+html[data-active-style="cyberpunk"] h2, 
+html[data-active-style="cyberpunk"] h3 {
+  font-family: 'Space Grotesk', sans-serif !important;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0px #ff00ff;
+}
+html[data-active-style="cyberpunk"] .glass-card,
+html[data-active-style="cyberpunk"] [style*="var(--bg-card)"] {
+  border: 1px solid #00ffff !important;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(255, 0, 255, 0.1) !important;
+  backdrop-filter: none !important;
+  border-radius: 0px !important;
+  background: #0d0d1e !important;
+}
+html[data-active-style="cyberpunk"] button {
+  border: 1px solid #ff00ff !important;
+  background: transparent !important;
+  color: #00ffff !important;
+  box-shadow: 0 0 10px rgba(255,0,255,0.4), inset 0 0 10px rgba(255,0,255,0.2) !important;
+  border-radius: 0px !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+html[data-active-style="cyberpunk"] span[style*="uppercase"] {
+  border: 1px solid #ffff00 !important;
+  background: transparent !important;
+  color: #ffff00 !important;
+  border-radius: 0 !important;
+  box-shadow: 0 0 5px rgba(255,255,0,0.5) !important;
+}
+
+/* --- Bento UI --- */
+html[data-active-style="bento-ui"] {
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #16213e;
+  --bg-card: #1a1a2e;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --border: transparent;
+  --accent: #6c63ff;
+  --accent-2: #ff6584;
+  --radius-sm: 24px;
+  --radius-md: 32px;
+  --radius-lg: 40px;
+}
+html[data-active-style="bento-ui"] .glass-card,
+html[data-active-style="bento-ui"] [style*="var(--bg-card)"] {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+  border: none !important;
+  border-radius: 32px !important;
+  background: #16213e !important;
+}
+html[data-active-style="bento-ui"] button {
+  border-radius: 100px !important;
+  box-shadow: 0 4px 12px rgba(108,99,255,0.3) !important;
+  background: #6c63ff !important;
+  border: none !important;
+}
+html[data-active-style="bento-ui"] span[style*="uppercase"] {
+  border-radius: 100px !important;
+  border: none !important;
+  background: rgba(255, 101, 132, 0.2) !important;
+  color: #ff6584 !important;
+}
+
+/* --- Material Design --- */
+html[data-active-style="material-design"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --border: transparent;
+  --accent: #6200ee;
+  --accent-2: #03dac6;
+  --radius-sm: 4px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+}
+html[data-active-style="material-design"] body {
+  background: #f5f5f5 !important;
+}
+html[data-active-style="material-design"] .glass-card,
+html[data-active-style="material-design"] [style*="var(--bg-card)"] {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  backdrop-filter: none !important;
+  background: #ffffff !important;
+}
+html[data-active-style="material-design"] button {
+  border-radius: 4px !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+  text-transform: uppercase;
+  background: #6200ee !important;
+  border: none !important;
+}
+html[data-active-style="material-design"] span[style*="uppercase"] {
+  background: #03dac6 !important;
+  color: #000 !important;
+}
+
+/* --- Retro --- */
+html[data-active-style="retro"] {
+  --bg-primary: #f7c59f;
+  --bg-secondary: #f7c59f;
+  --bg-card: #e8c547;
+  --text-primary: #1a1a2e;
+  --text-secondary: #3a3a4e;
+  --border: #1a1a2e;
+  --accent: #ff6b35;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+}
+html[data-active-style="retro"],
+html[data-active-style="retro"] h1,
+html[data-active-style="retro"] h2,
+html[data-active-style="retro"] h3,
+html[data-active-style="retro"] h4,
+html[data-active-style="retro"] p,
+html[data-active-style="retro"] button,
+html[data-active-style="retro"] a {
+  font-family: "Courier New", Courier, monospace !important;
+}
+html[data-active-style="retro"] body {
+  background-color: #f7c59f !important;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px) !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="retro"] .glass-card,
+html[data-active-style="retro"] [style*="var(--bg-card)"] {
+  border: 3px solid #1a1a2e !important;
+  background: #e8c547 !important;
+  box-shadow: 6px 6px 0px rgba(0,0,0,0.15) !important;
+  backdrop-filter: none !important;
+  border-radius: 0px !important;
+}
+html[data-active-style="retro"] button {
+  border: 3px solid #1a1a2e !important;
+  border-radius: 0px !important;
+  background: #ff6b35 !important;
+  color: #1a1a2e !important;
+  box-shadow: 4px 4px 0px #1a1a2e !important;
+  text-transform: uppercase;
+  font-weight: 900 !important;
+}
+html[data-active-style="retro"] span[style*="uppercase"] {
+  border: 2px solid #1a1a2e !important;
+  border-radius: 0px !important;
+  box-shadow: 2px 2px 0px #1a1a2e !important;
+}
+
+/* --- Light UI --- */
+html[data-active-style="light-ui"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafafa;
+  --bg-card: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --border: #f8f9fa;
+  --accent: #3b5bdb;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+html[data-active-style="light-ui"] body {
+  background: #ffffff !important;
+}
+html[data-active-style="light-ui"] .glass-card,
+html[data-active-style="light-ui"] [style*="var(--bg-card)"] {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
+  border: 1px solid #f8f9fa !important;
+  border-radius: 12px !important;
+  backdrop-filter: none !important;
+  background: #ffffff !important;
+}
+html[data-active-style="light-ui"] button {
+  background: #3b5bdb !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(59,91,219,0.2) !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+/* --- Fluent Design --- */
+html[data-active-style="fluent-design"] {
+  --bg-primary: #f3f3f3;
+  --bg-secondary: #f3f3f3;
+  --bg-card: rgba(255,255,255,0.45);
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --border: rgba(255,255,255,0.6);
+  --accent: #0078d4;
+  --accent-2: #005a9e;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+html[data-active-style="fluent-design"] body {
+  background: radial-gradient(circle at top right, #d0e4ff 0%, #f3f3f3 40%),
+              radial-gradient(circle at bottom left, #ffcde0 0%, #f3f3f3 40%) !important;
+  background-color: #f3f3f3 !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="fluent-design"] .glass-card,
+html[data-active-style="fluent-design"] [style*="var(--bg-card)"] {
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+  border: 1px solid rgba(255,255,255,0.8) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06) !important;
+  border-radius: 8px !important;
+}
+html[data-active-style="fluent-design"] button {
+  border-radius: 4px !important;
+  background: rgba(0,120,212,0.9) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+/* --- Minimalism --- */
+html[data-active-style="minimalism"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --border: #111111;
+  --accent: #111111;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+}
+html[data-active-style="minimalism"] body {
+  background: #ffffff !important;
+}
+html[data-active-style="minimalism"] .glass-card,
+html[data-active-style="minimalism"] [style*="var(--bg-card)"] {
+  box-shadow: none !important;
+  border: 1px solid #111111 !important;
+  border-radius: 0px !important;
+  backdrop-filter: none !important;
+  background: #ffffff !important;
+}
+html[data-active-style="minimalism"] button {
+  border: 1px solid #111 !important;
+  background: #111 !important;
+  color: #fff !important;
+  border-radius: 0px !important;
+}
+html[data-active-style="minimalism"] span[style*="uppercase"] {
+  border: 1px solid #111 !important;
+  border-radius: 0px !important;
+  background: transparent !important;
+  color: #111 !important;
+}
+
+/* --- Claymorphism --- */
+html[data-active-style="claymorphism"] {
+  --bg-primary: #ffd6e0;
+  --bg-secondary: #ffd6e0;
+  --bg-card: #ffd6e0;
+  --text-primary: #5a3a44;
+  --border: transparent;
+  --accent: #a8d8ea;
+  --accent-2: #c3f0ca;
+  --radius-sm: 24px;
+  --radius-md: 40px;
+  --radius-lg: 48px;
+}
+html[data-active-style="claymorphism"] body {
+  background: #ffd6e0 !important;
+}
+html[data-active-style="claymorphism"] .glass-card,
+html[data-active-style="claymorphism"] [style*="var(--bg-card)"] {
+  background: #ffd6e0 !important;
+  box-shadow: 10px 10px 24px #e6c1c9, -10px -10px 24px #ffebf7, inset 4px 4px 8px rgba(255,255,255,0.8) !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  border-radius: 40px !important;
+}
+html[data-active-style="claymorphism"] button {
+  background: #a8d8ea !important;
+  border-radius: 24px !important;
+  box-shadow: 6px 6px 12px #e6c1c9, -6px -6px 12px #ffebf7, inset 2px 2px 4px rgba(255,255,255,0.5) !important;
+  border: none !important;
+  color: #1a5c7a !important;
+}
+html[data-active-style="claymorphism"] span[style*="uppercase"] {
+  background: #c3f0ca !important;
+  color: #2b7034 !important;
+  box-shadow: inset 2px 2px 4px rgba(255,255,255,0.5) !important;
+}
+
+/* --- Skeuomorphism --- */
+html[data-active-style="skeuomorphism"] {
+  --bg-primary: #d4a76a;
+  --bg-secondary: #d4a76a;
+  --bg-card: #d4a76a;
+  --text-primary: #2c1a0e;
+  --text-secondary: #5c4433;
+  --border: #8b4513;
+  --accent: #8b4513;
+  --accent-2: #2c5f2e;
+  --radius-md: 8px;
+}
+html[data-active-style="skeuomorphism"] body {
+  background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px) !important;
+  background-color: #d4a76a !important;
+}
+html[data-active-style="skeuomorphism"] .glass-card,
+html[data-active-style="skeuomorphism"] [style*="var(--bg-card)"] {
+  background: linear-gradient(to bottom, #d4a76a, #c49658) !important;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.4) !important;
+  border: 1px solid #8b4513 !important;
+  backdrop-filter: none !important;
+}
+html[data-active-style="skeuomorphism"] button {
+  background: linear-gradient(to bottom, #8b4513, #5a2e0c) !important;
+  border: 1px solid #3c1e08 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+  border-radius: 6px !important;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  color: #fff !important;
+}
+html[data-active-style="skeuomorphism"] span[style*="uppercase"] {
+  background: #2c5f2e !important;
+  border: 1px solid #1a3c1c !important;
+  color: #fff !important;
+}
+
+/* --- Dark UI --- */
+html[data-active-style="dark-ui"] {
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #0a0a0f;
+  --bg-card: #1a1a2e;
+  --text-primary: #f0f0ff;
+  --border: rgba(255,255,255,0.08);
+  --accent: #6c63ff;
+  --accent-2: #9999bb;
+}
+html[data-active-style="dark-ui"] body {
+  background: #0a0a0f !important;
+}
+html[data-active-style="dark-ui"] .glass-card,
+html[data-active-style="dark-ui"] [style*="var(--bg-card)"] {
+  background: #1a1a2e !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+}
+html[data-active-style="dark-ui"] button {
+  background: #6c63ff !important;
+  box-shadow: 0 0 16px rgba(108,99,255,0.4) !important;
+  border: none !important;
+}
+
+/* --- Gradient UI --- */
+html[data-active-style="gradient-ui"] {
+  --bg-primary: transparent;
+  --bg-secondary: transparent;
+  --bg-card: rgba(255,255,255,0.15);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.85);
+  --border: rgba(255,255,255,0.2);
+  --accent: #ffffff;
+}
+html[data-active-style="gradient-ui"] body {
+  background: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%) !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="gradient-ui"] .glass-card,
+html[data-active-style="gradient-ui"] [style*="var(--bg-card)"] {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255,255,255,0.5) !important;
+  background: rgba(255,255,255,0.15) !important;
+}
+html[data-active-style="gradient-ui"] button {
+  background: rgba(255,255,255,0.2) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255,255,255,0.4) !important;
+  color: #fff !important;
+}

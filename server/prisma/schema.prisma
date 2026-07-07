@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id              String            @id @default(uuid())
+  email           String            @unique
+  name            String?
+  savedComponents SavedComponent[]
+  progress        LearningProgress?
+  createdAt       DateTime          @default(now())
+}
+
+model SavedComponent {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  componentId String
+  styleId     String
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, componentId, styleId])
+}
+
+model LearningProgress {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  completed   Int      @default(0)
+  total       Int      @default(100)
+  updatedAt   DateTime @updatedAt
+}

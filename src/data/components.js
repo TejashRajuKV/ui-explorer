@@ -1,0 +1,88 @@
+export const componentTypes = [
+  {
+    id: 'button',
+    name: 'Button',
+    icon: '🔘',
+    description: 'Interactive call-to-action buttons in every design style',
+    count: 14,
+  },
+  {
+    id: 'card',
+    name: 'Card',
+    icon: '🃏',
+    description: 'Content cards for displaying grouped information',
+    count: 14,
+  },
+  {
+    id: 'input',
+    name: 'Form Input',
+    icon: '📝',
+    description: 'Text fields, search bars, and form controls',
+    count: 14,
+  },
+  {
+    id: 'navbar',
+    name: 'Navbar',
+    icon: '🧭',
+    description: 'Navigation bars and header layouts',
+    count: 14,
+  },
+  {
+    id: 'pricing',
+    name: 'Pricing Card',
+    icon: '💳',
+    description: 'Pricing tiers with features and CTA buttons',
+    count: 14,
+  },
+  {
+    id: 'login',
+    name: 'Login Page',
+    icon: '🔐',
+    description: 'Authentication forms and sign-in UI',
+    count: 14,
+  },
+  {
+    id: 'modal',
+    name: 'Modal',
+    icon: '🪟',
+    description: 'Dialog boxes, pop-ups, and overlay panels',
+    count: 14,
+  },
+  {
+    id: 'hero',
+    name: 'Hero Section',
+    icon: '🚀',
+    description: 'Page hero sections with headline and CTA',
+    count: 14,
+  },
+  {
+    id: 'badge',
+    name: 'Badge',
+    icon: '🏷️',
+    description: 'Small status indicators and semantic tags',
+    count: 14,
+  },
+  {
+    id: 'toggle',
+    name: 'Toggle Switch',
+    icon: '🎚️',
+    description: 'Interactive toggle switches for settings',
+    count: 14,
+  },
+  {
+    id: 'avatar',
+    name: 'Avatar',
+    icon: '🧑',
+    description: 'User profile images and status indicators',
+    count: 14,
+  },
+  {
+    id: 'progress',
+    name: 'Progress Bar',
+    icon: '📊',
+    description: 'Loading bars and completion indicators',
+    count: 14,
+  },
+]
+
+export const getComponentById = (id) => componentTypes.find(c => c.id === id)
