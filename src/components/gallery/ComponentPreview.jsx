@@ -569,6 +569,257 @@ const progressPreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([
   )
 ]))
 
+/* shared style tokens reused across new previews */
+const newStyleMap = {
+  glassmorphism: { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', card:'rgba(255,255,255,0.13)', border:'1px solid rgba(255,255,255,0.28)', radius:12, text:'#fff', sub:'rgba(255,255,255,0.6)', pill:'rgba(255,255,255,0.18)', accent:'#fff', shadow:'none', blur:true, font:'inherit', dark:true },
+  neumorphism:   { bg:'#e0e5ec', card:'#e0e5ec', border:'none', radius:12, text:'#333', sub:'#888', pill:'#e0e5ec', accent:'#6c63ff', shadow:'4px 4px 10px #b8bec7,-4px -4px 10px #fff', blur:false, font:'inherit', dark:false },
+  minimalism:    { bg:'#fff', card:'#fff', border:'1px solid #e0e0e0', radius:4, text:'#111', sub:'#777', pill:'#111', accent:'#111', shadow:'none', blur:false, font:'inherit', dark:false },
+  brutalism:     { bg:'#f5f500', card:'#fff', border:'3px solid #000', radius:0, text:'#000', sub:'#333', pill:'#000', accent:'#000', shadow:'4px 4px 0 #000', blur:false, font:'monospace', dark:false },
+  'material-design': { bg:'#f5f5f5', card:'#fff', border:'none', radius:6, text:'#1a1a1a', sub:'#757575', pill:'#6200ee', accent:'#6200ee', shadow:'0 2px 8px rgba(0,0,0,0.12)', blur:false, font:'inherit', dark:false },
+  'fluent-design':{ bg:'linear-gradient(135deg,#0078d4,#005a9e)', card:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', radius:6, text:'#fff', sub:'rgba(255,255,255,0.55)', pill:'#0078d4', accent:'#fff', shadow:'0 2px 8px rgba(0,0,0,0.15)', blur:true, font:'inherit', dark:true },
+  'bento-ui':    { bg:'#0f0f1a', card:'#1a1a2e', border:'1px solid rgba(255,255,255,0.08)', radius:10, text:'rgba(255,255,255,0.9)', sub:'rgba(255,255,255,0.38)', pill:'linear-gradient(135deg,#6c63ff,#ff6584)', accent:'#a78bfa', shadow:'none', blur:false, font:'inherit', dark:true },
+  claymorphism:  { bg:'#f0f4ff', card:'#f0f4ff', border:'none', radius:16, text:'#1a5276', sub:'rgba(26,82,118,0.55)', pill:'#a8d8ea', accent:'#1a5276', shadow:'4px 4px 10px #d0d8ea,-3px -3px 8px #fff,inset 2px 2px 5px rgba(255,255,255,0.6)', blur:false, font:'inherit', dark:false },
+  skeuomorphism: { bg:'linear-gradient(180deg,#c9a96e,#8B6914)', card:'linear-gradient(180deg,#f5e6c3,#e8d4a0)', border:'1px solid #c4a054', radius:4, text:'#5a3e0a', sub:'rgba(90,62,10,0.55)', pill:'linear-gradient(180deg,#4a8c3f,#2d6b22)', accent:'#5a3e0a', shadow:'2px 2px 4px rgba(0,0,0,0.3)', blur:false, font:'inherit', dark:false },
+  cyberpunk:     { bg:'#050510', card:'#050510', border:'1px solid #00ffff', radius:0, text:'#00ffff', sub:'rgba(0,255,255,0.5)', pill:'transparent', accent:'#00ffff', shadow:'0 0 8px rgba(0,255,255,0.4)', blur:false, font:'monospace', dark:true },
+  retro:         { bg:'#1a0a00', card:'#1a0a00', border:'2px solid #ff9d4d', radius:0, text:'#ff6b35', sub:'rgba(255,107,53,0.55)', pill:'#ff6b35', accent:'#ff6b35', shadow:'3px 3px 0 #ff9d4d', blur:false, font:'monospace', dark:true },
+  'dark-ui':     { bg:'#0a0a0f', card:'#1a1a2e', border:'1px solid rgba(255,255,255,0.08)', radius:10, text:'rgba(255,255,255,0.9)', sub:'rgba(255,255,255,0.38)', pill:'linear-gradient(135deg,#6c63ff,#9b5de5)', accent:'#a78bfa', shadow:'0 0 14px rgba(108,99,255,0.2)', blur:false, font:'inherit', dark:true },
+  'light-ui':    { bg:'#f8f9ff', card:'#fff', border:'1px solid rgba(0,0,0,0.07)', radius:10, text:'#1a1a2e', sub:'#777', pill:'#3f51b5', accent:'#3f51b5', shadow:'0 2px 10px rgba(63,81,181,0.15)', blur:false, font:'inherit', dark:false },
+  'gradient-ui': { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', card:'rgba(255,255,255,0.13)', border:'1px solid rgba(255,255,255,0.28)', radius:12, text:'#fff', sub:'rgba(255,255,255,0.6)', pill:'rgba(255,255,255,0.2)', accent:'#fff', shadow:'none', blur:true, font:'inherit', dark:true },
+}
+
+/* ── TOAST PREVIEWS ── */
+const toastPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:20, borderRadius:16, display:'flex', flexDirection:'column', gap:10, justifyContent:'center', minHeight:220 }}>
+    {[['✓','#4caf50','Saved successfully!','Changes saved to cloud.'],['ℹ','#3b82f6','Update ready','New version available.']].map(([icon,ic,title,msg]) => (
+      <div key={title} style={{ display:'flex', alignItems:'flex-start', gap:10, padding:'11px 14px', background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, fontFamily:s.font, backdropFilter:s.blur?'blur(14px)':'none' }}>
+        <span style={{ fontSize:16, fontWeight:900, color:ic, flexShrink:0 }}>{icon}</span>
+        <div style={{ flex:1 }}>
+          <div style={{ fontSize:13, fontWeight:700, color:s.text, marginBottom:2 }}>{title}</div>
+          <div style={{ fontSize:11, color:s.sub }}>{msg}</div>
+        </div>
+        <span style={{ color:s.sub, fontSize:16, cursor:'pointer' }}>×</span>
+      </div>
+    ))}
+  </div>
+]))
+
+/* ── TOOLTIP PREVIEWS ── */
+const tooltipPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:28, borderRadius:16, display:'flex', gap:40, alignItems:'flex-end', justifyContent:'center', minHeight:220, flexWrap:'wrap' }}>
+    {[['Hover Me','above'],['More Info','right']].map(([label, pos]) => (
+      <div key={label} style={{ position:'relative', display:'inline-flex', flexDirection:'column', alignItems:'center', gap:8 }}>
+        <div style={{ padding:'7px 16px', background:s.pill, border:s.border, borderRadius:s.radius, color:s.accent, fontWeight:700, fontSize:12, fontFamily:s.font, boxShadow:s.shadow, cursor:'pointer', backdropFilter:s.blur?'blur(10px)':'none', textTransform:['brutalism','cyberpunk','retro'].includes(id)?'uppercase':'none' }}>{label}</div>
+        <div style={{ padding:'6px 12px', background:s.dark?'rgba(0,0,0,0.82)':'#1a1a2e', border:id==='cyberpunk'?'1px solid #00ffff':id==='brutalism'?'2px solid #f5f500':'none', borderRadius:s.radius===0?0:6, color:'#fff', fontSize:11, fontWeight:600, fontFamily:s.font, whiteSpace:'nowrap', boxShadow:'0 4px 12px rgba(0,0,0,0.25)' }}>
+          {pos === 'above' ? '⬆ Helpful info' : '➡ Side tooltip'}
+        </div>
+      </div>
+    ))}
+  </div>
+]))
+
+/* ── DROPDOWN PREVIEWS ── */
+const dropdownPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:20, borderRadius:16, display:'flex', justifyContent:'center', alignItems:'flex-start', minHeight:220, paddingTop:24 }}>
+    <div style={{ width:200, position:'relative' }}>
+      <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'10px 14px', background:s.card, border:s.border, borderRadius:s.radius, color:s.text, fontWeight:600, fontSize:13, fontFamily:s.font, boxShadow:s.shadow, marginBottom:4, backdropFilter:s.blur?'blur(14px)':'none' }}>
+        <span>Select option...</span><span style={{ opacity:0.5, fontSize:11 }}>▾</span>
+      </div>
+      <div style={{ background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, overflow:'hidden', backdropFilter:s.blur?'blur(14px)':'none' }}>
+        {[['🎨 Design',true],['⚡ Motion',false],['🧩 Components',false]].map(([item, active]) => (
+          <div key={item} style={{ padding:'9px 14px', fontSize:13, fontFamily:s.font, background:active?(s.dark?'rgba(255,255,255,0.12)':'rgba(108,99,255,0.08)'):'transparent', color:active?s.accent:s.text, fontWeight:active?700:400, cursor:'pointer' }}>{item}</div>
+        ))}
+        <div style={{ height:1, background:s.dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)', margin:'3px 0' }} />
+        <div style={{ padding:'9px 14px', fontSize:13, fontFamily:s.font, color:s.sub, cursor:'pointer' }}>📦 Resources</div>
+      </div>
+    </div>
+  </div>
+]))
+
+/* ── TABS PREVIEWS ── */
+const tabsPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:18, borderRadius:16, minHeight:220 }}>
+    <div style={{ display:'flex', gap:4, marginBottom:14, background:id==='neumorphism'?'#dde1e7':'transparent', borderRadius:id==='neumorphism'?10:0, padding:id==='neumorphism'?4:0 }}>
+      {['Overview','Features','Pricing','Docs'].map((tab, i) => (
+        <button key={tab} style={{ padding:'8px 14px', background:i===0?s.pill:'transparent', border:i===0?s.border:'none', borderRadius:s.radius, color:i===0?s.accent:s.sub, fontSize:12, fontWeight:i===0?700:500, fontFamily:s.font, cursor:'pointer', boxShadow:i===0?s.shadow:'none', backdropFilter:s.blur&&i===0?'blur(10px)':'none' }}>{tab}</button>
+      ))}
+    </div>
+    <div style={{ padding:16, background:s.dark?'rgba(255,255,255,0.05)':id==='brutalism'?'#fff':'rgba(0,0,0,0.03)', border:s.dark?'1px solid rgba(255,255,255,0.06)':id==='brutalism'?'2px solid #000':'1px solid rgba(0,0,0,0.06)', borderRadius:s.radius }}>
+      <div style={{ height:11, width:'55%', background:s.text, borderRadius:3, marginBottom:8, opacity:0.85 }} />
+      <div style={{ height:8, width:'90%', background:s.sub, borderRadius:3, marginBottom:5, opacity:0.5 }} />
+      <div style={{ height:8, width:'75%', background:s.sub, borderRadius:3, opacity:0.5 }} />
+    </div>
+  </div>
+]))
+
+/* ── BREADCRUMB PREVIEWS ── */
+const breadcrumbPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:24, borderRadius:16, display:'flex', flexDirection:'column', gap:14, justifyContent:'center', minHeight:220 }}>
+    {[['Home','Components','Breadcrumb'],['🏠 Home','Library','Button']].map((crumbs, ci) => (
+      <div key={ci} style={{ display:'inline-flex', alignItems:'center', gap:4, padding:'8px 16px', background:id==='glassmorphism'||id==='gradient-ui'?'rgba(255,255,255,0.1)':id==='brutalism'?'#f5f500':s.dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.04)', border:s.border, borderRadius:s.radius, boxShadow:s.shadow, backdropFilter:s.blur?'blur(10px)':'none' }}>
+        {crumbs.map((crumb, i) => [
+          <span key={crumb} style={{ fontSize:12, fontWeight:i<crumbs.length-1?600:400, color:i<crumbs.length-1?s.accent:s.sub, fontFamily:s.font, textTransform:s.font==='monospace'?'uppercase':'none', textDecoration:i<crumbs.length-1?'underline':'none' }}>{crumb}</span>,
+          i < crumbs.length-1 && <span key={`sep-${i}`} style={{ color:s.sub, fontSize:13, fontFamily:s.font }}>›</span>
+        ])}
+      </div>
+    ))}
+  </div>
+]))
+
+/* ── ACCORDION PREVIEWS ── */
+const accordionPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:16, borderRadius:16, display:'flex', flexDirection:'column', gap:8, minHeight:220 }}>
+    {[['What is glassmorphism?',true],['When to use neumorphism?',false],['What is brutalism?',false]].map(([q,open]) => (
+      <div key={q} style={{ background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, overflow:'hidden', backdropFilter:s.blur?'blur(10px)':'none' }}>
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'11px 14px', color:s.text, fontSize:12, fontWeight:600, fontFamily:s.font, cursor:'pointer', textTransform:s.font==='monospace'?'uppercase':'none' }}>
+          <span>{q}</span><span style={{ color:s.accent, fontSize:10 }}>{open?'▲':'▼'}</span>
+        </div>
+        {open && <div style={{ padding:'0 14px 12px', paddingTop:10, color:s.sub, fontSize:11, lineHeight:1.6, fontFamily:s.font, borderTop:s.dark?'1px solid rgba(255,255,255,0.06)':'1px solid rgba(0,0,0,0.05)' }}>A frosted glass design style using backdrop blur and transparency.</div>}
+      </div>
+    ))}
+  </div>
+]))
+
+/* ── STEPPER PREVIEWS ── */
+const stepperPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:28, borderRadius:16, display:'flex', alignItems:'center', justifyContent:'center', minHeight:220 }}>
+    <div style={{ display:'flex', alignItems:'flex-start', width:'100%', maxWidth:320 }}>
+      {[['✓','Account','done'],['2','Profile','active'],['3','Review','up'],['4','Done','up']].map(([num, label, state], i) => [
+        <div key={label} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8, flexShrink:0 }}>
+          <div style={{
+            width:34, height:34,
+            borderRadius: s.font==='monospace'?0:'50%',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            fontSize:13, fontWeight:800, fontFamily:s.font,
+            background: state==='done'?(s.dark?'rgba(255,255,255,0.15)':'rgba(108,99,255,0.1)'):state==='active'?s.pill:(s.dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'),
+            color: state==='done'?s.accent:state==='active'?s.accent:s.sub,
+            boxShadow: state!=='up'?s.shadow:'none',
+            border: s.border==='none'?'none':state!=='up'?s.border:'none',
+            backdropFilter: s.blur&&state==='active'?'blur(8px)':'none',
+          }}>{num}</div>
+          <div style={{ textAlign:'center' }}>
+            <div style={{ fontSize:10, fontWeight:700, color:s.text, fontFamily:s.font }}>{label}</div>
+            <div style={{ fontSize:9, color:s.sub, marginTop:2, fontFamily:s.font }}>{state==='done'?'Done':state==='active'?'Active':'Pending'}</div>
+          </div>
+        </div>,
+        i < 3 && <div key={`line-${i}`} style={{ flex:1, height:2, background:s.dark?'rgba(255,255,255,0.1)':'rgba(0,0,0,0.09)', marginTop:17, minWidth:16 }} />
+      ])}
+    </div>
+  </div>
+]))
+
+/* ── TIMELINE PREVIEWS ── */
+const timelinePreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:18, borderRadius:16, minHeight:220 }}>
+    {[['Just now','Component Created','Added to library.'],['2h ago','Design Updated','Styles refreshed.'],['Yesterday','v2.0 Released','12 new components.']].map(([ time, title, desc], i, arr) => (
+      <div key={time} style={{ display:'flex', gap:12, position:'relative', paddingBottom: i<arr.length-1?14:0 }}>
+        {i<arr.length-1 && <div style={{ position:'absolute', left:6, top:17, bottom:0, width:2, background:s.dark?'rgba(255,255,255,0.1)':'rgba(0,0,0,0.08)' }} />}
+        <div style={{ width:14, height:14, borderRadius:s.font==='monospace'?0:'50%', background:s.pill, flexShrink:0, marginTop:4, boxShadow:id==='cyberpunk'?'0 0 6px rgba(0,255,255,0.5)':'none', backdropFilter:s.blur?'blur(6px)':'none' }} />
+        <div style={{ flex:1, padding:'10px 12px', background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, backdropFilter:s.blur?'blur(10px)':'none' }}>
+          <div style={{ fontSize:10, fontWeight:600, color:id==='cyberpunk'?'#00ffff':id==='retro'?'#ff6b35':s.sub, fontFamily:s.font, marginBottom:3 }}>{time}</div>
+          <div style={{ fontSize:12, fontWeight:700, color:s.text, fontFamily:s.font, marginBottom:3 }}>{title}</div>
+          <div style={{ fontSize:11, color:s.sub, fontFamily:s.font }}>{desc}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+]))
+
+/* ── SKELETON PREVIEWS ── */
+const skeletonPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => {
+  const base = s.dark ? 'rgba(255,255,255,0.09)' : id==='neumorphism'?'#d0d5dc':'rgba(0,0,0,0.07)'
+  const shine = s.dark ? 'rgba(255,255,255,0.16)' : 'rgba(255,255,255,0.9)'
+  const anim = `@keyframes sk-shimmer-${id}{0%{background-position:-400px 0}100%{background-position:400px 0}}`
+  return [id,
+    <div key={id} style={{ background:s.bg, padding:20, borderRadius:16, display:'flex', justifyContent:'center', minHeight:220 }}>
+      <style>{anim}</style>
+      <div style={{ width:230, background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, overflow:'hidden', backdropFilter:s.blur?'blur(10px)':'none' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:10, padding:14 }}>
+          <div style={{ width:36, height:36, borderRadius:s.font==='monospace'?0:'50%', background:`linear-gradient(90deg,${base} 25%,${shine} 50%,${base} 75%)`, backgroundSize:'800px 100%', animation:`sk-shimmer-${id} 1.6s infinite linear`, flexShrink:0 }} />
+          <div style={{ flex:1, display:'flex', flexDirection:'column', gap:7 }}>
+            <div style={{ height:11, width:'65%', background:`linear-gradient(90deg,${base} 25%,${shine} 50%,${base} 75%)`, backgroundSize:'800px 100%', animation:`sk-shimmer-${id} 1.6s infinite linear`, borderRadius:4 }} />
+            <div style={{ height:8, width:'40%', background:`linear-gradient(90deg,${base} 25%,${shine} 50%,${base} 75%)`, backgroundSize:'800px 100%', animation:`sk-shimmer-${id} 1.6s infinite linear`, borderRadius:4 }} />
+          </div>
+        </div>
+        <div style={{ height:100, background:`linear-gradient(90deg,${base} 25%,${shine} 50%,${base} 75%)`, backgroundSize:'800px 100%', animation:`sk-shimmer-${id} 1.6s infinite linear` }} />
+        <div style={{ padding:14, display:'flex', flexDirection:'column', gap:8 }}>
+          {[100,90,60].map(w => <div key={w} style={{ height:9, width:`${w}%`, background:`linear-gradient(90deg,${base} 25%,${shine} 50%,${base} 75%)`, backgroundSize:'800px 100%', animation:`sk-shimmer-${id} 1.6s infinite linear`, borderRadius:4 }} />)}
+        </div>
+      </div>
+    </div>
+  ]
+}))
+
+/* ── CHIP PREVIEWS ── */
+const chipPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:20, borderRadius:16, minHeight:220 }}>
+    <div style={{ fontSize:10, fontWeight:600, color:s.sub, fontFamily:s.font, textTransform:'uppercase', marginBottom:10, letterSpacing:0.8 }}>Filter by:</div>
+    <div style={{ display:'flex', flexWrap:'wrap', gap:8 }}>
+      {[['All',true],['Design',true],['Motion',false],['Typography',false],['Color',true],['Layout',false],['Icons',false]].map(([tag, active]) => (
+        <div key={tag} style={{
+          padding:'5px 13px', fontFamily:s.font, fontSize:12, fontWeight:active?700:500,
+          background: active?s.pill:(s.dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)'),
+          border: active?s.border:(s.dark?'1px solid rgba(255,255,255,0.1)':'1px solid rgba(0,0,0,0.1)'),
+          borderRadius: s.radius===0?0:100,
+          color: active?s.accent:s.sub,
+          boxShadow: active?s.shadow:'none',
+          cursor:'pointer',
+          textTransform: s.font==='monospace'?'uppercase':'none',
+          backdropFilter: s.blur&&active?'blur(8px)':'none',
+        }}>{tag}</div>
+      ))}
+    </div>
+  </div>
+]))
+
+/* ── TABLE PREVIEWS ── */
+const tablePreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:16, borderRadius:16, minHeight:220, overflow:'hidden' }}>
+    <table style={{ width:'100%', borderCollapse:'collapse', background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, overflow:'hidden', fontFamily:s.font, backdropFilter:s.blur?'blur(10px)':'none' }}>
+      <thead>
+        <tr>
+          {['Component','Style','Status','Views'].map(h => (
+            <th key={h} style={{ padding:'8px 10px', textAlign:'left', fontSize:10, fontWeight:700, textTransform:'uppercase', letterSpacing:0.5, color: id==='material-design'?'#fff':id==='brutalism'?'#000':id==='cyberpunk'?'#00ffff':id==='retro'?'#ff6b35':s.text, background: id==='material-design'?'#6200ee':id==='brutalism'?'#f5f500':id==='cyberpunk'?'rgba(0,255,255,0.08)':id==='retro'?'rgba(255,107,53,0.12)':(s.dark?'rgba(255,255,255,0.1)':'rgba(108,99,255,0.07)'), borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.07)':id==='brutalism'?'#000':'rgba(0,0,0,0.07)'}` }}>{h}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[['Button','Glass',true,'12k'],['Card','Neu',true,'9k'],['Modal','Brut',false,'4k']].map(([c,st,active,v], i) => (
+          <tr key={c} style={{ background: i%2!==0?(s.dark?'rgba(255,255,255,0.03)':'rgba(0,0,0,0.025)'):'transparent' }}>
+            <td style={{ padding:'7px 10px', fontSize:11, color:s.text, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{c}</td>
+            <td style={{ padding:'7px 10px', fontSize:11, color:s.sub, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{st}</td>
+            <td style={{ padding:'7px 10px', borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>
+              <span style={{ padding:'2px 8px', borderRadius:100, fontSize:10, fontWeight:700, background:active?'rgba(34,197,94,0.14)':'rgba(234,179,8,0.14)', color:active?'#22c55e':'#eab308' }}>{active?'Active':'Draft'}</span>
+            </td>
+            <td style={{ padding:'7px 10px', fontSize:11, color:s.sub, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{v}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+]))
+
+/* ── SIDEBAR PREVIEWS ── */
+const sidebarPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
+  <div key={id} style={{ background:s.bg, padding:16, borderRadius:16, display:'flex', justifyContent:'center', minHeight:220 }}>
+    <div style={{ width:170, background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, padding:'14px 10px', display:'flex', flexDirection:'column', gap:14, backdropFilter:s.blur?'blur(14px)':'none' }}>
+      {/* Logo */}
+      <div style={{ display:'flex', alignItems:'center', gap:8, paddingBottom:10, borderBottom:s.dark?'1px solid rgba(255,255,255,0.07)':'1px solid rgba(0,0,0,0.07)' }}>
+        <div style={{ width:26, height:26, background:s.pill, borderRadius:s.radius===0?0:6, display:'flex', alignItems:'center', justifyContent:'center', fontSize:9, fontWeight:900, color:s.accent, fontFamily:s.font, backdropFilter:s.blur?'blur(8px)':'none' }}>UI</div>
+        <span style={{ fontSize:13, fontWeight:800, color:s.text, fontFamily:s.font, textTransform:s.font==='monospace'?'uppercase':'none' }}>Explorer</span>
+      </div>
+      {/* Nav */}
+      <div style={{ display:'flex', flexDirection:'column', gap:3 }}>
+        <div style={{ fontSize:9, fontWeight:700, color:s.sub, textTransform:'uppercase', letterSpacing:1, fontFamily:s.font, padding:'0 6px', marginBottom:3 }}>Main</div>
+        {[['🏠','Dashboard',true],['🧩','Components',false],['🎨','Library',false],['⚡','Playground',false]].map(([icon, label, active]) => (
+          <div key={label} style={{ display:'flex', alignItems:'center', gap:8, padding:'7px 10px', borderRadius:s.radius===0?0:7, background:active?(s.dark?'rgba(108,99,255,0.18)':'rgba(108,99,255,0.09)'):'transparent', color:active?s.accent:s.sub, fontSize:12, fontWeight:active?700:500, fontFamily:s.font, cursor:'pointer', textTransform:s.font==='monospace'?'uppercase':'none' }}>
+            <span style={{ fontSize:13 }}>{icon}</span>{label}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+]))
+
 const allPreviews = {
   button: buttonPreviews,
   card: cardPreviews,
@@ -582,7 +833,20 @@ const allPreviews = {
   toggle: togglePreviews,
   avatar: avatarPreviews,
   progress: progressPreviews,
+  toast: toastPreviews,
+  tooltip: tooltipPreviews,
+  dropdown: dropdownPreviews,
+  tabs: tabsPreviews,
+  breadcrumb: breadcrumbPreviews,
+  accordion: accordionPreviews,
+  stepper: stepperPreviews,
+  timeline: timelinePreviews,
+  skeleton: skeletonPreviews,
+  chip: chipPreviews,
+  table: tablePreviews,
+  sidebar: sidebarPreviews,
 }
+
 
 export default function ComponentPreview({ componentId, styleId, height = 220 }) {
   const preview = allPreviews[componentId]?.[styleId]

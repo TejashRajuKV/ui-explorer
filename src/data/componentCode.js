@@ -1039,11 +1039,1770 @@ function generateProgressCode(styleId) {
   }
 }
 
+/* ══════════════════════════════════════════════════
+   NEW COMPONENT GENERATORS
+══════════════════════════════════════════════════ */
+
+/* ── TOAST ── */
+function generateToastCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? '#fff' : (styleId === 'minimalism' ? '#111' : styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)'
+  const toastBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.15)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#323232' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'bento-ui' ? '#1a1a2e' :
+    styleId === 'claymorphism' ? '#fff' :
+    styleId === 'skeuomorphism' ? 'linear-gradient(180deg,#3a3a3a,#2a2a2a)' :
+    styleId === 'cyberpunk' ? '#050510' :
+    styleId === 'retro' ? '#1a0a00' :
+    styleId === 'dark-ui' ? '#1a1a2e' :
+    styleId === 'light-ui' ? '#fff' :
+    'rgba(255,255,255,0.2)'
+  const toastBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' :
+    s.border
+  const toastShadow = styleId === 'neumorphism' ? '4px 4px 10px #b8bec7,-4px -4px 10px #ffffff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 16px rgba(0,255,255,0.3)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '6px 6px 12px #d0d8ea,-4px -4px 10px #fff,inset 2px 2px 6px rgba(255,255,255,0.6)' :
+    '0 8px 32px rgba(0,0,0,0.2)'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 4 :
+    styleId === 'neumorphism' ? 12 : 12
+  const iconColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'material-design' ? '#4caf50' : '#4caf50'
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+  const textUp = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'uppercase' : 'none'
+
+  return {
+    html: `<div class="toast-scene">
+  <!-- Success Toast -->
+  <div class="toast toast-success">
+    <span class="toast-icon">✓</span>
+    <div class="toast-body">
+      <p class="toast-title">Success!</p>
+      <p class="toast-sub">Your changes have been saved.</p>
+    </div>
+    <button class="toast-close">×</button>
+  </div>
+  <!-- Info Toast -->
+  <div class="toast toast-info">
+    <span class="toast-icon" style="color:#3b82f6">ℹ</span>
+    <div class="toast-body">
+      <p class="toast-title">Update available</p>
+      <p class="toast-sub">A new version is ready to install.</p>
+    </div>
+    <button class="toast-close">×</button>
+  </div>
+</div>`,
+    css: `.toast-scene {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.toast {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: ${toastBg};
+  border: ${toastBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${toastShadow};
+  font-family: ${fontFamily};
+  min-width: 280px;
+  ${styleId === 'glassmorphism' || styleId === 'fluent-design' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(16px);' : ''}
+}
+.toast-icon {
+  font-size: 18px;
+  font-weight: 900;
+  color: ${iconColor};
+  flex-shrink: 0;
+}
+.toast-body { flex: 1; }
+.toast-title {
+  color: ${textColor};
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 3px;
+  text-transform: ${textUp};
+}
+.toast-sub {
+  color: ${subColor};
+  font-size: 12px;
+  margin: 0;
+}
+.toast-close {
+  color: ${subColor};
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  flex-shrink: 0;
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Toast -->
+<div class="flex flex-col gap-3 p-7 rounded-2xl" style="background: ${s.bg}">
+  <div class="flex items-start gap-3 p-4 min-w-[280px]" style="background: ${toastBg}; border: ${toastBorder}; border-radius: ${radius}px; box-shadow: ${toastShadow}; font-family: ${fontFamily}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(16px);' : ''}">
+    <span class="text-lg font-black flex-shrink-0" style="color: ${iconColor}">✓</span>
+    <div class="flex-1">
+      <p class="text-sm font-bold m-0 mb-0.5" style="color: ${textColor}; text-transform: ${textUp}">Success!</p>
+      <p class="text-xs m-0" style="color: ${subColor}">Your changes have been saved.</p>
+    </div>
+    <button class="bg-transparent border-none text-lg cursor-pointer p-0 leading-none flex-shrink-0" style="color: ${subColor}">×</button>
+  </div>
+  <div class="flex items-start gap-3 p-4 min-w-[280px]" style="background: ${toastBg}; border: ${toastBorder}; border-radius: ${radius}px; box-shadow: ${toastShadow}; font-family: ${fontFamily};">
+    <span class="text-lg font-black flex-shrink-0" style="color: #3b82f6">ℹ</span>
+    <div class="flex-1">
+      <p class="text-sm font-bold m-0 mb-0.5" style="color: ${textColor}; text-transform: ${textUp}">Update available</p>
+      <p class="text-xs m-0" style="color: ${subColor}">A new version is ready to install.</p>
+    </div>
+    <button class="bg-transparent border-none text-lg cursor-pointer p-0 leading-none flex-shrink-0" style="color: ${subColor}">×</button>
+  </div>
+</div>`
+  }
+}
+
+/* ── TOOLTIP ── */
+function generateTooltipCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? '#fff' : (styleId === 'minimalism' || styleId === 'light-ui' ? '#111' : styleId === 'brutalism' ? '#000' : '#111')
+  const tipBg = styleId === 'glassmorphism' ? 'rgba(0,0,0,0.75)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#111' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'material-design' ? '#323232' :
+    styleId === 'fluent-design' ? 'rgba(0,0,0,0.8)' :
+    styleId === 'bento-ui' ? '#0f0f1a' :
+    styleId === 'claymorphism' ? '#a8d8ea' :
+    styleId === 'skeuomorphism' ? 'linear-gradient(180deg,#3a3a3a,#2a2a2a)' :
+    styleId === 'cyberpunk' ? '#050510' :
+    styleId === 'retro' ? '#1a0a00' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#1a1a2e' :
+    'rgba(0,0,0,0.8)'
+  const tipText = ['neumorphism','claymorphism'].includes(styleId) ? '#1a5276' :
+    ['minimalism'].includes(styleId) ? '#fff' : '#fff'
+  const tipBorder = styleId === 'brutalism' ? '2px solid #f5f500' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'neumorphism' ? 'none' : 'none'
+  const tipShadow = styleId === 'neumorphism' ? '4px 4px 8px #b8bec7,-4px -4px 8px #fff' :
+    styleId === 'cyberpunk' ? '0 0 12px rgba(0,255,255,0.5)' :
+    styleId === 'brutalism' ? '3px 3px 0 #f5f500' :
+    styleId === 'retro' ? '3px 3px 0 #ff9d4d' : '0 4px 12px rgba(0,0,0,0.3)'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 10 : 8
+  const btnBg = s.pillBg
+  const btnColor = s.color
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="tooltip-scene">
+  <!-- Tooltip Above -->
+  <div class="tooltip-wrap">
+    <button class="tooltip-trigger">Hover Me</button>
+    <div class="tooltip-box top">
+      Helpful info goes here
+      <span class="tooltip-arrow top-arrow"></span>
+    </div>
+  </div>
+  <!-- Tooltip Right -->
+  <div class="tooltip-wrap">
+    <button class="tooltip-trigger">More Info</button>
+    <div class="tooltip-box right">
+      Side tooltip example
+      <span class="tooltip-arrow right-arrow"></span>
+    </div>
+  </div>
+</div>`,
+    css: `.tooltip-scene {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 32px;
+  background: ${s.bg};
+  border-radius: 16px;
+  flex-wrap: wrap;
+}
+.tooltip-wrap {
+  position: relative;
+  display: inline-flex;
+}
+.tooltip-trigger {
+  padding: 10px 22px;
+  background: ${btnBg};
+  border: ${s.border};
+  border-radius: ${radius}px;
+  color: ${btnColor};
+  font-weight: 700;
+  font-family: ${fontFamily};
+  font-size: 13px;
+  cursor: pointer;
+  box-shadow: ${s.shadow};
+  ${['brutalism','cyberpunk','retro'].includes(styleId) ? 'text-transform: uppercase; letter-spacing: 1px;' : ''}
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.tooltip-box {
+  position: absolute;
+  background: ${tipBg};
+  border: ${tipBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${tipShadow};
+  color: ${tipText};
+  font-family: ${fontFamily};
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 8px 14px;
+  pointer-events: none;
+  z-index: 10;
+  ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.tooltip-box.top {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.tooltip-box.right {
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.top-arrow {
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid ${tipBg.includes('gradient') ? '#2a2a2a' : tipBg};
+}
+.right-arrow {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid ${tipBg.includes('gradient') ? '#2a2a2a' : tipBg};
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Tooltip -->
+<div class="flex gap-12 items-center justify-center flex-wrap py-12 px-8 rounded-2xl" style="background: ${s.bg}">
+  <div class="relative inline-flex">
+    <button class="px-6 py-2.5 font-bold text-sm cursor-pointer" style="background: ${btnBg}; border: ${s.border}; border-radius: ${radius}px; color: ${btnColor}; box-shadow: ${s.shadow}; font-family: ${fontFamily};">
+      Hover Me
+    </button>
+    <div class="absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 px-3.5 py-2 text-xs font-semibold whitespace-nowrap z-10" style="background: ${tipBg}; border: ${tipBorder}; border-radius: ${radius}px; box-shadow: ${tipShadow}; color: ${tipText}; font-family: ${fontFamily};">
+      Helpful info goes here
+    </div>
+  </div>
+  <div class="relative inline-flex">
+    <button class="px-6 py-2.5 font-bold text-sm cursor-pointer" style="background: ${btnBg}; border: ${s.border}; border-radius: ${radius}px; color: ${btnColor}; box-shadow: ${s.shadow}; font-family: ${fontFamily};">
+      More Info
+    </button>
+    <div class="absolute left-[calc(100%+10px)] top-1/2 -translate-y-1/2 px-3.5 py-2 text-xs font-semibold whitespace-nowrap z-10" style="background: ${tipBg}; border: ${tipBorder}; border-radius: ${radius}px; box-shadow: ${tipShadow}; color: ${tipText}; font-family: ${fontFamily};">
+      Side tooltip example
+    </div>
+  </div>
+</div>`
+  }
+}
+
+/* ── DROPDOWN ── */
+function generateDropdownCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
+  const menuBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.12)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'bento-ui' ? '#1a1a2e' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'linear-gradient(180deg,#d4a017,#b8860b)' :
+    styleId === 'cyberpunk' ? '#050510' :
+    styleId === 'retro' ? '#1a0a00' :
+    styleId === 'dark-ui' ? '#1a1a2e' :
+    styleId === 'light-ui' ? '#fff' :
+    'rgba(255,255,255,0.2)'
+  const menuBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' : s.border
+  const menuShadow = styleId === 'neumorphism' ? '6px 6px 12px #b8bec7,-6px -6px 12px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 20px rgba(0,255,255,0.25)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '6px 6px 14px #d0d8ea,-4px -4px 10px #fff' : '0 12px 32px rgba(0,0,0,0.2)'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 12 : 10
+  const activeItemBg = styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'rgba(255,255,255,0.15)' :
+    styleId === 'brutalism' ? '#f5f500' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.1)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.15)' :
+    styleId === 'neumorphism' ? 'rgba(108,99,255,0.08)' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? 'rgba(108,99,255,0.15)' : 'rgba(63,81,181,0.08)'
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="dd-scene">
+  <div class="dd-wrapper">
+    <!-- Trigger -->
+    <button class="dd-trigger">
+      <span>Select option...</span>
+      <span class="dd-caret">▾</span>
+    </button>
+    <!-- Menu (shown open) -->
+    <div class="dd-menu">
+      <div class="dd-item active">🎨 Design Systems</div>
+      <div class="dd-item">⚡ Interactions</div>
+      <div class="dd-item">🧩 Components</div>
+      <div class="dd-divider"></div>
+      <div class="dd-item">📦 Resources</div>
+    </div>
+  </div>
+</div>`,
+    css: `.dd-scene {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px;
+  min-height: 220px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.dd-wrapper { position: relative; width: 220px; }
+.dd-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 11px 16px;
+  background: ${menuBg};
+  border: ${menuBorder};
+  border-radius: ${radius}px;
+  color: ${textColor};
+  font-weight: 600;
+  font-family: ${fontFamily};
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: ${menuShadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' || styleId === 'fluent-design' ? 'backdrop-filter: blur(16px);' : ''}
+}
+.dd-caret { font-size: 12px; opacity: 0.6; }
+.dd-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: ${menuBg};
+  border: ${menuBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${menuShadow};
+  overflow: hidden;
+  z-index: 10;
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' || styleId === 'fluent-design' ? 'backdrop-filter: blur(16px);' : ''}
+}
+.dd-item {
+  padding: 10px 16px;
+  color: ${textColor};
+  font-size: 14px;
+  font-family: ${fontFamily};
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.dd-item.active { background: ${activeItemBg}; font-weight: 700; }
+.dd-item:hover { background: ${activeItemBg}; }
+.dd-divider {
+  height: 1px;
+  background: ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'};
+  margin: 4px 0;
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Dropdown -->
+<div class="flex justify-center items-start p-7 min-h-[220px] rounded-2xl" style="background: ${s.bg}">
+  <div class="relative w-56">
+    <button class="flex items-center justify-between w-full px-4 py-3 text-sm font-semibold cursor-pointer" style="background: ${menuBg}; border: ${menuBorder}; border-radius: ${radius}px; color: ${textColor}; box-shadow: ${menuShadow}; font-family: ${fontFamily}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(16px);' : ''}">
+      <span>Select option...</span>
+      <span class="text-xs opacity-60">▾</span>
+    </button>
+    <div class="absolute top-[calc(100%+6px)] left-0 w-full overflow-hidden z-10" style="background: ${menuBg}; border: ${menuBorder}; border-radius: ${radius}px; box-shadow: ${menuShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(16px);' : ''}">
+      <div class="px-4 py-2.5 text-sm cursor-pointer font-bold" style="background: ${activeItemBg}; color: ${textColor}; font-family: ${fontFamily};">🎨 Design Systems</div>
+      <div class="px-4 py-2.5 text-sm cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">⚡ Interactions</div>
+      <div class="px-4 py-2.5 text-sm cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">🧩 Components</div>
+      <div class="h-px my-1" style="background: ${isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'}"></div>
+      <div class="px-4 py-2.5 text-sm cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">📦 Resources</div>
+    </div>
+  </div>
+</div>`
+  }
+}
+
+/* ── TABS ── */
+function generateTabsCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
+  const contentBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fafafa' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.05)' :
+    styleId === 'bento-ui' ? '#0f0f1a' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'rgba(0,0,0,0.2)' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.03)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.05)' :
+    styleId === 'dark-ui' ? '#0f0f1a' :
+    styleId === 'light-ui' ? '#f8f9ff' :
+    'rgba(255,255,255,0.1)'
+  const activeTabBg = s.pillBg
+  const activeTabColor = s.color
+  const inactiveTabColor = subColor
+  const tabBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff9d4d' : 'none'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : 8
+  const activeShadow = styleId === 'neumorphism' ? '3px 3px 6px #b8bec7,-3px -3px 6px #fff' :
+    styleId === 'brutalism' ? '3px 3px 0 #000' : s.shadow
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="tabs-scene">
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab active">Overview</button>
+    <button class="tab">Features</button>
+    <button class="tab">Pricing</button>
+    <button class="tab">Docs</button>
+  </div>
+  <!-- Content Panel -->
+  <div class="tab-content">
+    <h3 class="tab-heading">Overview</h3>
+    <p class="tab-text">This is the overview tab content. Switch between tabs to see different sections.</p>
+  </div>
+</div>`,
+    css: `.tabs-scene {
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.tab-bar {
+  display: flex;
+  gap: ${styleId === 'brutalism' ? '0' : '4px'};
+  margin-bottom: 16px;
+  ${styleId === 'neumorphism' ? `background: #e0e5ec; border-radius: 10px; padding: 4px;` : ''}
+}
+.tab {
+  padding: 9px 20px;
+  background: transparent;
+  border: ${tabBorder === 'none' ? 'none' : tabBorder};
+  border-radius: ${radius}px;
+  color: ${inactiveTabColor};
+  font-size: 13px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  cursor: pointer;
+  transition: all 0.2s;
+  ${['brutalism','cyberpunk','retro'].includes(styleId) ? 'text-transform: uppercase; letter-spacing: 1px;' : ''}
+}
+.tab.active {
+  background: ${activeTabBg};
+  color: ${activeTabColor};
+  box-shadow: ${activeShadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.tab:hover:not(.active) { color: ${textColor}; }
+.tab-content {
+  padding: 20px;
+  background: ${contentBg};
+  border-radius: ${radius}px;
+  border: ${isDark ? '1px solid rgba(255,255,255,0.07)' : styleId === 'brutalism' ? '2px solid #000' : '1px solid rgba(0,0,0,0.06)'};
+}
+.tab-heading {
+  color: ${textColor};
+  font-size: 16px;
+  font-weight: 700;
+  font-family: ${fontFamily};
+  margin: 0 0 8px;
+}
+.tab-text {
+  color: ${subColor};
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  font-family: ${fontFamily};
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Tabs -->
+<div class="p-6 rounded-2xl" style="background: ${s.bg}">
+  <div class="flex gap-1 mb-4 ${styleId === 'neumorphism' ? 'p-1 rounded-xl' : ''}" style="${styleId === 'neumorphism' ? `background: #e0e5ec;` : ''}">
+    <button class="px-5 py-2 text-sm font-semibold cursor-pointer rounded-lg" style="background: ${activeTabBg}; color: ${activeTabColor}; box-shadow: ${activeShadow}; font-family: ${fontFamily}; border: none;">Overview</button>
+    <button class="px-5 py-2 text-sm font-semibold cursor-pointer rounded-lg border-none bg-transparent" style="color: ${inactiveTabColor}; font-family: ${fontFamily};">Features</button>
+    <button class="px-5 py-2 text-sm font-semibold cursor-pointer rounded-lg border-none bg-transparent" style="color: ${inactiveTabColor}; font-family: ${fontFamily};">Pricing</button>
+    <button class="px-5 py-2 text-sm font-semibold cursor-pointer rounded-lg border-none bg-transparent" style="color: ${inactiveTabColor}; font-family: ${fontFamily};">Docs</button>
+  </div>
+  <div class="p-5 rounded-lg" style="background: ${contentBg}; border: ${isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.06)'}">
+    <h3 class="text-base font-bold m-0 mb-2" style="color: ${textColor}; font-family: ${fontFamily};">Overview</h3>
+    <p class="text-sm leading-relaxed m-0" style="color: ${subColor}; font-family: ${fontFamily};">This is the overview tab content. Switch between tabs to see different sections.</p>
+  </div>
+</div>`
+  }
+}
+
+/* ── BREADCRUMB ── */
+function generateBreadcrumbCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)'
+  const activeColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'neumorphism' ? '#6c63ff' :
+    styleId === 'material-design' || styleId === 'fluent-design' ? (isDark ? '#80baff' : '#1976d2') :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? '#a78bfa' :
+    styleId === 'light-ui' ? '#3f51b5' : isDark ? 'rgba(255,255,255,0.85)' : '#6c63ff'
+  const separatorColor = subColor
+  const crumbBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'brutalism' ? '#f5f500' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.05)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.08)' :
+    styleId === 'dark-ui' ? '#0d0d1a' : 'transparent'
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+  const textUp = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'uppercase' : 'none'
+  const containerBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.2)' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)'
+  const containerShadow = styleId === 'neumorphism' ? '5px 5px 10px #b8bec7,-5px -5px 10px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 12px rgba(0,255,255,0.1)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' : 'none'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : 8
+
+  return {
+    html: `<div class="bc-scene">
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a class="bc-link" href="#">Home</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-link" href="#">Components</a>
+    <span class="bc-sep">›</span>
+    <a class="bc-link" href="#">Navigation</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Breadcrumb</span>
+  </nav>
+  <!-- Second variant with icon separators -->
+  <nav class="breadcrumb" aria-label="breadcrumb" style="margin-top: 12px;">
+    <a class="bc-link" href="#">🏠 Home</a>
+    <span class="bc-sep">/</span>
+    <a class="bc-link" href="#">Library</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">Button</span>
+  </nav>
+</div>`,
+    css: `.bc-scene {
+  padding: 28px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 10px 18px;
+  background: ${crumbBg};
+  border: ${containerBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${containerShadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.bc-link {
+  color: ${activeColor};
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+  transition: opacity 0.2s;
+}
+.bc-link:hover { opacity: 0.75; text-decoration: underline; }
+.bc-sep {
+  color: ${separatorColor};
+  font-size: 14px;
+  margin: 0 2px;
+  font-family: ${fontFamily};
+}
+.bc-current {
+  color: ${subColor};
+  font-size: 13px;
+  font-weight: 500;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Breadcrumb -->
+<div class="p-7 rounded-2xl" style="background: ${s.bg}">
+  <nav class="inline-flex items-center flex-wrap gap-1 px-4 py-2.5 rounded-lg" style="background: ${crumbBg}; border: ${containerBorder}; box-shadow: ${containerShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}" aria-label="breadcrumb">
+    <a class="text-xs font-semibold no-underline hover:underline hover:opacity-75 transition-opacity" href="#" style="color: ${activeColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Home</a>
+    <span class="text-sm mx-0.5" style="color: ${separatorColor}; font-family: ${fontFamily};">›</span>
+    <a class="text-xs font-semibold no-underline hover:underline hover:opacity-75 transition-opacity" href="#" style="color: ${activeColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Components</a>
+    <span class="text-sm mx-0.5" style="color: ${separatorColor}; font-family: ${fontFamily};">›</span>
+    <a class="text-xs font-semibold no-underline hover:underline hover:opacity-75 transition-opacity" href="#" style="color: ${activeColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Navigation</a>
+    <span class="text-sm mx-0.5" style="color: ${separatorColor}; font-family: ${fontFamily};">›</span>
+    <span class="text-xs font-medium" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Breadcrumb</span>
+  </nav>
+</div>`
+  }
+}
+
+/* ── ACCORDION ── */
+function generateAccordionCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
+  const itemBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'bento-ui' ? '#1a1a2e' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'rgba(0,0,0,0.15)' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.03)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.05)' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#fff' : 'rgba(255,255,255,0.12)'
+  const itemBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.3)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.07)'
+  const itemShadow = styleId === 'neumorphism' ? '4px 4px 10px #b8bec7,-4px -4px 10px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 8px rgba(0,255,255,0.1)' :
+    styleId === 'retro' ? '3px 3px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '4px 4px 10px #d0d8ea,-3px -3px 8px #fff' : 'none'
+  const accentColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'neumorphism' ? '#6c63ff' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? '#a78bfa' : s.color
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 12 : 10
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="acc-scene">
+  <!-- Open item -->
+  <div class="acc-item open">
+    <button class="acc-header">
+      <span>What is glassmorphism?</span>
+      <span class="acc-icon">▲</span>
+    </button>
+    <div class="acc-body">
+      A design style using frosted glass effects with backdrop blur, semi-transparent backgrounds, and subtle borders to create depth.
+    </div>
+  </div>
+  <!-- Closed items -->
+  <div class="acc-item">
+    <button class="acc-header">
+      <span>When to use neumorphism?</span>
+      <span class="acc-icon">▼</span>
+    </button>
+  </div>
+  <div class="acc-item">
+    <button class="acc-header">
+      <span>What makes brutalism unique?</span>
+      <span class="acc-icon">▼</span>
+    </button>
+  </div>
+</div>`,
+    css: `.acc-scene {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.acc-item {
+  background: ${itemBg};
+  border: ${itemBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${itemShadow};
+  overflow: hidden;
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.acc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 18px;
+  background: transparent;
+  border: none;
+  color: ${textColor};
+  font-size: 14px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  text-align: left;
+  cursor: pointer;
+  ${['brutalism','cyberpunk','retro'].includes(styleId) ? 'text-transform: uppercase; letter-spacing: 0.5px;' : ''}
+}
+.acc-icon {
+  color: ${accentColor};
+  font-size: 12px;
+  flex-shrink: 0;
+}
+.acc-body {
+  padding: 0 18px 16px;
+  color: ${subColor};
+  font-size: 13px;
+  line-height: 1.7;
+  font-family: ${fontFamily};
+  border-top: ${isDark ? '1px solid rgba(255,255,255,0.06)' : styleId === 'brutalism' ? '2px solid #000' : '1px solid rgba(0,0,0,0.05)'};
+  padding-top: 14px;
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Accordion -->
+<div class="flex flex-col gap-2 p-6 rounded-2xl" style="background: ${s.bg}">
+  <!-- Open item -->
+  <div class="overflow-hidden" style="background: ${itemBg}; border: ${itemBorder}; border-radius: ${radius}px; box-shadow: ${itemShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}">
+    <button class="flex items-center justify-between w-full px-4 py-3.5 bg-transparent border-none text-sm font-semibold text-left cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">
+      <span>What is glassmorphism?</span>
+      <span class="text-xs flex-shrink-0" style="color: ${accentColor};">▲</span>
+    </button>
+    <div class="px-4 pb-4 text-xs leading-relaxed border-t" style="color: ${subColor}; font-family: ${fontFamily}; border-color: ${isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)'}; padding-top: 14px;">
+      A design style using frosted glass effects with backdrop blur, semi-transparent backgrounds, and subtle borders.
+    </div>
+  </div>
+  <!-- Closed items -->
+  <div class="overflow-hidden" style="background: ${itemBg}; border: ${itemBorder}; border-radius: ${radius}px; box-shadow: ${itemShadow};">
+    <button class="flex items-center justify-between w-full px-4 py-3.5 bg-transparent border-none text-sm font-semibold text-left cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">
+      <span>When to use neumorphism?</span>
+      <span class="text-xs flex-shrink-0" style="color: ${accentColor};">▼</span>
+    </button>
+  </div>
+  <div class="overflow-hidden" style="background: ${itemBg}; border: ${itemBorder}; border-radius: ${radius}px; box-shadow: ${itemShadow};">
+    <button class="flex items-center justify-between w-full px-4 py-3.5 bg-transparent border-none text-sm font-semibold text-left cursor-pointer" style="color: ${textColor}; font-family: ${fontFamily};">
+      <span>What makes brutalism unique?</span>
+      <span class="text-xs flex-shrink-0" style="color: ${accentColor};">▼</span>
+    </button>
+  </div>
+</div>`
+  }
+}
+
+/* ── STEPPER ── */
+function generateStepperCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
+  const activeBg = s.pillBg
+  const activeColor = s.color
+  const doneBg = styleId === 'cyberpunk' ? 'rgba(0,255,255,0.15)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.15)' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? 'rgba(108,99,255,0.2)' :
+    styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'rgba(255,255,255,0.2)' :
+    styleId === 'neumorphism' ? '#e0e5ec' : 'rgba(108,99,255,0.1)'
+  const doneColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    styleId === 'neumorphism' ? '#6c63ff' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? '#a78bfa' : '#6c63ff'
+  const upcomingBg = isDark ? 'rgba(255,255,255,0.08)' :
+    styleId === 'neumorphism' ? '#e0e5ec' : 'rgba(0,0,0,0.06)'
+  const lineColor = styleId === 'cyberpunk' ? 'rgba(0,255,255,0.3)' :
+    styleId === 'retro' ? '#ff9d4d' :
+    isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.1)'
+  const stepBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'neumorphism' ? 'none' : 'none'
+  const stepShadow = styleId === 'neumorphism' ? '3px 3px 6px #b8bec7,-3px -3px 6px #fff' :
+    styleId === 'brutalism' ? '3px 3px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 8px rgba(0,255,255,0.4)' : s.shadow
+  const radius = styleId === 'brutalism' || styleId === 'retro' ? 0 : 50
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="stepper-scene">
+  <div class="stepper">
+    <!-- Done -->
+    <div class="step-item">
+      <div class="step-circle done">✓</div>
+      <div class="step-label">
+        <p class="step-title">Account</p>
+        <p class="step-sub">Completed</p>
+      </div>
+    </div>
+    <div class="step-line"></div>
+    <!-- Active -->
+    <div class="step-item">
+      <div class="step-circle active">2</div>
+      <div class="step-label">
+        <p class="step-title">Profile</p>
+        <p class="step-sub">In progress</p>
+      </div>
+    </div>
+    <div class="step-line"></div>
+    <!-- Upcoming -->
+    <div class="step-item">
+      <div class="step-circle upcoming">3</div>
+      <div class="step-label">
+        <p class="step-title">Review</p>
+        <p class="step-sub">Pending</p>
+      </div>
+    </div>
+    <div class="step-line"></div>
+    <!-- Upcoming -->
+    <div class="step-item">
+      <div class="step-circle upcoming">4</div>
+      <div class="step-label">
+        <p class="step-title">Done</p>
+        <p class="step-sub">Pending</p>
+      </div>
+    </div>
+  </div>
+</div>`,
+    css: `.stepper-scene {
+  padding: 28px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: ${lineColor};
+  margin-top: 18px;
+  min-width: 24px;
+}
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: ${radius}%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  font-family: ${fontFamily};
+  border: ${stepBorder};
+  flex-shrink: 0;
+}
+.step-circle.done {
+  background: ${doneBg};
+  color: ${doneColor};
+  box-shadow: ${stepShadow};
+}
+.step-circle.active {
+  background: ${activeBg};
+  color: ${activeColor};
+  box-shadow: ${stepShadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(8px);' : ''}
+}
+.step-circle.upcoming {
+  background: ${upcomingBg};
+  color: ${subColor};
+}
+.step-label { text-align: center; }
+.step-title {
+  color: ${textColor};
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+  font-family: ${fontFamily};
+}
+.step-sub {
+  color: ${subColor};
+  font-size: 11px;
+  margin: 2px 0 0;
+  font-family: ${fontFamily};
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Stepper -->
+<div class="p-7 rounded-2xl" style="background: ${s.bg}">
+  <div class="flex items-start gap-0">
+    <div class="flex flex-col items-center gap-2 flex-shrink-0">
+      <div class="w-9 h-9 flex items-center justify-center text-sm font-extrabold" style="background: ${doneBg}; color: ${doneColor}; border-radius: ${radius}%; border: ${stepBorder}; box-shadow: ${stepShadow}; font-family: ${fontFamily};">✓</div>
+      <div class="text-center"><p class="text-xs font-bold m-0" style="color: ${textColor}; font-family: ${fontFamily};">Account</p><p class="text-[11px] m-0 mt-0.5" style="color: ${subColor}; font-family: ${fontFamily};">Completed</p></div>
+    </div>
+    <div class="flex-1 h-0.5 mt-[18px] min-w-6" style="background: ${lineColor}"></div>
+    <div class="flex flex-col items-center gap-2 flex-shrink-0">
+      <div class="w-9 h-9 flex items-center justify-center text-sm font-extrabold" style="background: ${activeBg}; color: ${activeColor}; border-radius: ${radius}%; border: ${stepBorder}; box-shadow: ${stepShadow}; font-family: ${fontFamily};">2</div>
+      <div class="text-center"><p class="text-xs font-bold m-0" style="color: ${textColor}; font-family: ${fontFamily};">Profile</p><p class="text-[11px] m-0 mt-0.5" style="color: ${subColor}; font-family: ${fontFamily};">In progress</p></div>
+    </div>
+    <div class="flex-1 h-0.5 mt-[18px] min-w-6" style="background: ${lineColor}"></div>
+    <div class="flex flex-col items-center gap-2 flex-shrink-0">
+      <div class="w-9 h-9 flex items-center justify-center text-sm font-extrabold" style="background: ${upcomingBg}; color: ${subColor}; border-radius: ${radius}%; font-family: ${fontFamily};">3</div>
+      <div class="text-center"><p class="text-xs font-bold m-0" style="color: ${textColor}; font-family: ${fontFamily};">Review</p><p class="text-[11px] m-0 mt-0.5" style="color: ${subColor}; font-family: ${fontFamily};">Pending</p></div>
+    </div>
+    <div class="flex-1 h-0.5 mt-[18px] min-w-6" style="background: ${lineColor}"></div>
+    <div class="flex flex-col items-center gap-2 flex-shrink-0">
+      <div class="w-9 h-9 flex items-center justify-center text-sm font-extrabold" style="background: ${upcomingBg}; color: ${subColor}; border-radius: ${radius}%; font-family: ${fontFamily};">4</div>
+      <div class="text-center"><p class="text-xs font-bold m-0" style="color: ${textColor}; font-family: ${fontFamily};">Done</p><p class="text-[11px] m-0 mt-0.5" style="color: ${subColor}; font-family: ${fontFamily};">Pending</p></div>
+    </div>
+  </div>
+</div>`
+  }
+}
+
+/* ── TIMELINE ── */
+function generateTimelineCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
+  const cardBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'bento-ui' ? '#1a1a2e' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'rgba(0,0,0,0.2)' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.03)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.05)' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#fff' : 'rgba(255,255,255,0.1)'
+  const cardBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.25)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.06)'
+  const cardShadow = styleId === 'neumorphism' ? '4px 4px 8px #b8bec7,-4px -4px 8px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 10px rgba(0,255,255,0.1)' :
+    styleId === 'retro' ? '3px 3px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '4px 4px 10px #d0d8ea,-3px -3px 8px #fff' : 'none'
+  const dotColor = s.pillBg
+  const lineColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'
+  const timeColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' : subColor
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 10 : 8
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+
+  return {
+    html: `<div class="tl-scene">
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-time">Just now</span>
+        <h4 class="tl-title">Component Created</h4>
+        <p class="tl-desc">New timeline component added to the library.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-time">2 hours ago</span>
+        <h4 class="tl-title">Design Updated</h4>
+        <p class="tl-desc">Glassmorphism styles refreshed for better contrast.</p>
+      </div>
+    </div>
+    <div class="tl-item last">
+      <div class="tl-dot"></div>
+      <div class="tl-content">
+        <span class="tl-time">Yesterday</span>
+        <h4 class="tl-title">Version Released</h4>
+        <p class="tl-desc">v2.0 shipped with 12 new components.</p>
+      </div>
+    </div>
+  </div>
+</div>`,
+    css: `.tl-scene {
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.timeline { position: relative; }
+.tl-item {
+  display: flex;
+  gap: 16px;
+  position: relative;
+  padding-bottom: 20px;
+}
+.tl-item:not(.last)::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 20px;
+  bottom: 0;
+  width: 2px;
+  background: ${lineColor};
+}
+.tl-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: ${radius === 0 ? 0 : 50}%;
+  background: ${dotColor};
+  flex-shrink: 0;
+  margin-top: 4px;
+  box-shadow: ${s.shadow};
+  ${styleId === 'cyberpunk' ? 'box-shadow: 0 0 8px rgba(0,255,255,0.6);' : ''}
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(8px);' : ''}
+}
+.tl-content {
+  flex: 1;
+  padding: 14px 16px;
+  background: ${cardBg};
+  border: ${cardBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${cardShadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.tl-time {
+  color: ${timeColor};
+  font-size: 11px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  ${['brutalism','cyberpunk','retro'].includes(styleId) ? 'text-transform: uppercase;' : ''}
+}
+.tl-title {
+  color: ${textColor};
+  font-size: 14px;
+  font-weight: 700;
+  margin: 4px 0 6px;
+  font-family: ${fontFamily};
+}
+.tl-desc {
+  color: ${subColor};
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+  font-family: ${fontFamily};
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Timeline -->
+<div class="p-6 rounded-2xl" style="background: ${s.bg}">
+  <div class="relative">
+    <div class="flex gap-4 relative pb-5">
+      <div class="absolute left-2 top-5 bottom-0 w-0.5" style="background: ${lineColor}"></div>
+      <div class="w-4 h-4 flex-shrink-0 mt-1" style="background: ${dotColor}; border-radius: ${radius === 0 ? 0 : 50}%; box-shadow: ${s.shadow};"></div>
+      <div class="flex-1 p-3.5" style="background: ${cardBg}; border: ${cardBorder}; border-radius: ${radius}px; box-shadow: ${cardShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}">
+        <span class="text-[11px] font-semibold" style="color: ${timeColor}; font-family: ${fontFamily};">Just now</span>
+        <h4 class="text-sm font-bold mt-1 mb-1.5" style="color: ${textColor}; font-family: ${fontFamily};">Component Created</h4>
+        <p class="text-xs leading-relaxed m-0" style="color: ${subColor}; font-family: ${fontFamily};">New timeline component added to the library.</p>
+      </div>
+    </div>
+    <div class="flex gap-4 relative pb-5">
+      <div class="absolute left-2 top-5 bottom-0 w-0.5" style="background: ${lineColor}"></div>
+      <div class="w-4 h-4 flex-shrink-0 mt-1" style="background: ${dotColor}; border-radius: ${radius === 0 ? 0 : 50}%;"></div>
+      <div class="flex-1 p-3.5" style="background: ${cardBg}; border: ${cardBorder}; border-radius: ${radius}px; box-shadow: ${cardShadow};">
+        <span class="text-[11px] font-semibold" style="color: ${timeColor}; font-family: ${fontFamily};">2 hours ago</span>
+        <h4 class="text-sm font-bold mt-1 mb-1.5" style="color: ${textColor}; font-family: ${fontFamily};">Design Updated</h4>
+        <p class="text-xs leading-relaxed m-0" style="color: ${subColor}; font-family: ${fontFamily};">Glassmorphism styles refreshed for better contrast.</p>
+      </div>
+    </div>
+    <div class="flex gap-4 relative">
+      <div class="w-4 h-4 flex-shrink-0 mt-1" style="background: ${dotColor}; border-radius: ${radius === 0 ? 0 : 50}%;"></div>
+      <div class="flex-1 p-3.5" style="background: ${cardBg}; border: ${cardBorder}; border-radius: ${radius}px; box-shadow: ${cardShadow};">
+        <span class="text-[11px] font-semibold" style="color: ${timeColor}; font-family: ${fontFamily};">Yesterday</span>
+        <h4 class="text-sm font-bold mt-1 mb-1.5" style="color: ${textColor}; font-family: ${fontFamily};">Version Released</h4>
+        <p class="text-xs leading-relaxed m-0" style="color: ${subColor}; font-family: ${fontFamily};">v2.0 shipped with 12 new components.</p>
+      </div>
+    </div>
+  </div>
+</div>`
+  }
+}
+
+/* ── SKELETON LOADER ── */
+function generateSkeletonCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const containerBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'bento-ui' ? '#1a1a2e' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'rgba(0,0,0,0.2)' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.03)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.05)' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#fff' : 'rgba(255,255,255,0.12)'
+  const baseSkel = isDark ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#d0d5dc' : 'rgba(0,0,0,0.08)'
+  const shimmerColor = isDark ? 'rgba(255,255,255,0.18)' :
+    styleId === 'neumorphism' ? '#f0f4fa' : 'rgba(255,255,255,0.9)'
+  const containerBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.2)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.06)'
+  const containerShadow = styleId === 'neumorphism' ? '5px 5px 12px #b8bec7,-5px -5px 12px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 12px rgba(0,255,255,0.12)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '6px 6px 14px #d0d8ea,-4px -4px 10px #fff' : '0 4px 16px rgba(0,0,0,0.12)'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 12 : 10
+  const avatarRadius = styleId === 'brutalism' || styleId === 'retro' ? 0 : 50
+
+  return {
+    html: `<div class="sk-scene">
+  <!-- Card Skeleton -->
+  <div class="sk-card">
+    <div class="sk-header">
+      <div class="sk-avatar shimmer"></div>
+      <div class="sk-info">
+        <div class="sk-line w70 shimmer"></div>
+        <div class="sk-line w40 shimmer"></div>
+      </div>
+    </div>
+    <div class="sk-img shimmer"></div>
+    <div class="sk-body">
+      <div class="sk-line shimmer"></div>
+      <div class="sk-line w90 shimmer"></div>
+      <div class="sk-line w60 shimmer"></div>
+    </div>
+  </div>
+</div>`,
+    css: `@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.sk-scene {
+  padding: 28px;
+  background: ${s.bg};
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+}
+.sk-card {
+  width: 280px;
+  background: ${containerBg};
+  border: ${containerBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${containerShadow};
+  overflow: hidden;
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.shimmer {
+  background: linear-gradient(90deg, ${baseSkel} 25%, ${shimmerColor} 50%, ${baseSkel} 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: ${radius}px;
+}
+.sk-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+.sk-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: ${avatarRadius}%;
+  flex-shrink: 0;
+}
+.sk-info { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.sk-img { height: 150px; border-radius: 0; }
+.sk-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sk-line {
+  height: 12px;
+  width: 100%;
+}
+.sk-line.w90 { width: 90%; }
+.sk-line.w70 { width: 70%; height: 14px; }
+.sk-line.w60 { width: 60%; }
+.sk-line.w40 { width: 40%; height: 10px; }`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Skeleton Loader -->
+<style>
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.shimmer-anim {
+  background: linear-gradient(90deg, ${baseSkel} 25%, ${shimmerColor} 50%, ${baseSkel} 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.6s infinite linear;
+}
+</style>
+<div class="flex justify-center p-7 rounded-2xl" style="background: ${s.bg}">
+  <div class="w-72 overflow-hidden" style="background: ${containerBg}; border: ${containerBorder}; border-radius: ${radius}px; box-shadow: ${containerShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}">
+    <div class="flex items-center gap-3 p-4">
+      <div class="shimmer-anim flex-shrink-0" style="width:40px;height:40px;border-radius:${avatarRadius}%"></div>
+      <div class="flex-1 flex flex-col gap-2">
+        <div class="shimmer-anim h-3.5 w-[70%] rounded"></div>
+        <div class="shimmer-anim h-2.5 w-[40%] rounded"></div>
+      </div>
+    </div>
+    <div class="shimmer-anim h-36 w-full"></div>
+    <div class="p-4 flex flex-col gap-2.5">
+      <div class="shimmer-anim h-3 w-full rounded"></div>
+      <div class="shimmer-anim h-3 w-[90%] rounded"></div>
+      <div class="shimmer-anim h-3 w-[60%] rounded"></div>
+    </div>
+  </div>
+</div>`
+  }
+}
+
+/* ── CHIP / TAG GROUP ── */
+function generateChipCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.85)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
+  const activeBg = s.pillBg
+  const activeColor = s.color
+  const inactiveBg = styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#f5f5f5' :
+    styleId === 'brutalism' ? 'transparent' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.06)' :
+    styleId === 'bento-ui' ? '#0f0f1a' :
+    styleId === 'claymorphism' ? '#e0e8f8' :
+    styleId === 'cyberpunk' ? 'transparent' :
+    styleId === 'retro' ? 'transparent' :
+    styleId === 'dark-ui' ? '#0f0f1a' :
+    styleId === 'light-ui' ? '#f0f0ff' : 'rgba(255,255,255,0.08)'
+  const inactiveBorder = styleId === 'brutalism' ? '2px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.4)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #ccc' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)'
+  const activeBorder = styleId === 'brutalism' ? '2px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid #00ffff' :
+    styleId === 'retro' ? '2px solid #ff6b35' :
+    styleId === 'neumorphism' ? 'none' : s.border
+  const inactiveShadow = styleId === 'neumorphism' ? '2px 2px 5px #b8bec7,-2px -2px 5px #fff' : 'none'
+  const activeShadow = styleId === 'neumorphism' ? 'inset 2px 2px 4px #b8bec7,inset -2px -2px 4px #fff' :
+    styleId === 'cyberpunk' ? '0 0 8px rgba(0,255,255,0.4)' :
+    styleId === 'brutalism' ? '2px 2px 0 #000' :
+    styleId === 'retro' ? '2px 2px 0 #ff9d4d' : s.shadow
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 8 : 100
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+  const textUp = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'uppercase' : 'none'
+
+  return {
+    html: `<div class="chip-scene">
+  <p class="chip-label">Filter by:</p>
+  <div class="chip-group">
+    <div class="chip active">All</div>
+    <div class="chip active">Design</div>
+    <div class="chip">Development</div>
+    <div class="chip">Motion</div>
+    <div class="chip">Typography</div>
+    <div class="chip active">Color</div>
+    <div class="chip">Layout</div>
+    <div class="chip">Icons</div>
+  </div>
+</div>`,
+    css: `.chip-scene {
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+}
+.chip-label {
+  color: ${subColor};
+  font-size: 12px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+  margin: 0 0 12px;
+}
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  padding: 6px 14px;
+  background: ${inactiveBg};
+  border: ${inactiveBorder};
+  border-radius: ${radius}px;
+  color: ${textColor};
+  font-size: 13px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+  cursor: pointer;
+  box-shadow: ${inactiveShadow};
+  transition: all 0.2s;
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(8px);' : ''}
+}
+.chip.active {
+  background: ${activeBg};
+  border: ${activeBorder};
+  color: ${activeColor};
+  box-shadow: ${activeShadow};
+}
+.chip:hover:not(.active) { opacity: 0.75; }`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Chip -->
+<div class="p-6 rounded-2xl" style="background: ${s.bg}">
+  <p class="text-xs font-semibold m-0 mb-3" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Filter by:</p>
+  <div class="flex flex-wrap gap-2">
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${activeBg}; border: ${activeBorder}; border-radius: ${radius}px; color: ${activeColor}; box-shadow: ${activeShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">All</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${activeBg}; border: ${activeBorder}; border-radius: ${radius}px; color: ${activeColor}; box-shadow: ${activeShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Design</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${inactiveBg}; border: ${inactiveBorder}; border-radius: ${radius}px; color: ${textColor}; box-shadow: ${inactiveShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Development</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${inactiveBg}; border: ${inactiveBorder}; border-radius: ${radius}px; color: ${textColor}; box-shadow: ${inactiveShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Motion</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${inactiveBg}; border: ${inactiveBorder}; border-radius: ${radius}px; color: ${textColor}; box-shadow: ${inactiveShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Typography</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${activeBg}; border: ${activeBorder}; border-radius: ${radius}px; color: ${activeColor}; box-shadow: ${activeShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Color</div>
+    <div class="px-3.5 py-1.5 text-sm font-semibold cursor-pointer transition-all" style="background: ${inactiveBg}; border: ${inactiveBorder}; border-radius: ${radius}px; color: ${textColor}; box-shadow: ${inactiveShadow}; font-family: ${fontFamily}; text-transform: ${textUp};">Layout</div>
+  </div>
+</div>`
+  }
+}
+
+/* ── DATA TABLE ── */
+function generateTableCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
+  const tableBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.08)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.05)' :
+    styleId === 'bento-ui' ? '#0f0f1a' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'rgba(0,0,0,0.15)' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.02)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.04)' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#fff' : 'rgba(255,255,255,0.1)'
+  const headerBg = styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'rgba(255,255,255,0.12)' :
+    styleId === 'neumorphism' ? 'rgba(0,0,0,0.04)' :
+    styleId === 'brutalism' ? '#f5f500' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.08)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.15)' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? 'rgba(108,99,255,0.12)' :
+    styleId === 'claymorphism' ? '#d0e4f4' :
+    styleId === 'material-design' ? '#6200ee' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.1)' : 'rgba(108,99,255,0.08)'
+  const headerText = styleId === 'material-design' ? '#fff' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    textColor
+  const rowAltBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.025)'
+  const borderColor = styleId === 'brutalism' ? '#000' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.15)' :
+    styleId === 'retro' ? '#ff9d4d' :
+    isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'
+  const tableBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.2)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.07)' : '1px solid rgba(0,0,0,0.08)'
+  const tableShadow = styleId === 'neumorphism' ? '6px 6px 14px #b8bec7,-6px -6px 14px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 16px rgba(0,255,255,0.12)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '6px 6px 14px #d0d8ea,-4px -4px 10px #fff' : '0 4px 16px rgba(0,0,0,0.12)'
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 12 : 10
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+  const textUp = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'uppercase' : 'none'
+
+  return {
+    html: `<div class="tbl-scene">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Style</th>
+        <th>Status</th>
+        <th>Views</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Button</td>
+        <td>Glassmorphism</td>
+        <td><span class="status-badge active">Active</span></td>
+        <td>12,847</td>
+      </tr>
+      <tr class="alt">
+        <td>Card</td>
+        <td>Neumorphism</td>
+        <td><span class="status-badge active">Active</span></td>
+        <td>9,312</td>
+      </tr>
+      <tr>
+        <td>Modal</td>
+        <td>Brutalism</td>
+        <td><span class="status-badge pending">Draft</span></td>
+        <td>4,201</td>
+      </tr>
+      <tr class="alt">
+        <td>Navbar</td>
+        <td>Dark UI</td>
+        <td><span class="status-badge active">Active</span></td>
+        <td>7,590</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`,
+    css: `.tbl-scene {
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+  overflow-x: auto;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: ${tableBg};
+  border: ${tableBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${tableShadow};
+  overflow: hidden;
+  font-family: ${fontFamily};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(12px);' : ''}
+}
+.data-table th {
+  padding: 12px 16px;
+  background: ${headerBg};
+  color: ${headerText};
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: ${textUp === 'none' ? 'uppercase' : textUp};
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid ${borderColor};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(8px);' : ''}
+}
+.data-table td {
+  padding: 12px 16px;
+  color: ${textColor};
+  font-size: 13px;
+  border-bottom: 1px solid ${borderColor};
+}
+.data-table tr.alt td { background: ${rowAltBg}; }
+.data-table tr:last-child td { border-bottom: none; }
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: ${radius === 0 ? 0 : 100}px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.status-badge.active {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+}
+.status-badge.pending {
+  background: rgba(234,179,8,0.15);
+  color: #eab308;
+}`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Data Table -->
+<div class="p-6 rounded-2xl overflow-x-auto" style="background: ${s.bg}">
+  <table class="w-full border-collapse overflow-hidden" style="background: ${tableBg}; border: ${tableBorder}; border-radius: ${radius}px; box-shadow: ${tableShadow}; font-family: ${fontFamily}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(12px);' : ''}">
+    <thead>
+      <tr>
+        <th class="px-4 py-3 text-left text-xs font-bold tracking-wide uppercase" style="background: ${headerBg}; color: ${headerText}; border-bottom: 1px solid ${borderColor};">Component</th>
+        <th class="px-4 py-3 text-left text-xs font-bold tracking-wide uppercase" style="background: ${headerBg}; color: ${headerText}; border-bottom: 1px solid ${borderColor};">Style</th>
+        <th class="px-4 py-3 text-left text-xs font-bold tracking-wide uppercase" style="background: ${headerBg}; color: ${headerText}; border-bottom: 1px solid ${borderColor};">Status</th>
+        <th class="px-4 py-3 text-left text-xs font-bold tracking-wide uppercase" style="background: ${headerBg}; color: ${headerText}; border-bottom: 1px solid ${borderColor};">Views</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Button</td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Glassmorphism</td>
+        <td class="px-4 py-3" style="border-bottom: 1px solid ${borderColor};"><span class="inline-block px-2.5 py-0.5 text-xs font-bold rounded-full" style="background: rgba(34,197,94,0.15); color: #22c55e;">Active</span></td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">12,847</td>
+      </tr>
+      <tr style="background: ${rowAltBg}">
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Card</td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Neumorphism</td>
+        <td class="px-4 py-3" style="border-bottom: 1px solid ${borderColor};"><span class="inline-block px-2.5 py-0.5 text-xs font-bold rounded-full" style="background: rgba(34,197,94,0.15); color: #22c55e;">Active</span></td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">9,312</td>
+      </tr>
+      <tr>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Modal</td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">Brutalism</td>
+        <td class="px-4 py-3" style="border-bottom: 1px solid ${borderColor};"><span class="inline-block px-2.5 py-0.5 text-xs font-bold rounded-full" style="background: rgba(234,179,8,0.15); color: #eab308;">Draft</span></td>
+        <td class="px-4 py-3 text-sm" style="color: ${textColor}; border-bottom: 1px solid ${borderColor};">4,201</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`
+  }
+}
+
+/* ── SIDEBAR ── */
+function generateSidebarCode(styleId) {
+  const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
+  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
+  const subColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.38)'
+  const sidebarBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
+    styleId === 'neumorphism' ? '#e0e5ec' :
+    styleId === 'minimalism' ? '#fff' :
+    styleId === 'brutalism' ? '#fff' :
+    styleId === 'material-design' ? '#fff' :
+    styleId === 'fluent-design' ? 'rgba(255,255,255,0.06)' :
+    styleId === 'bento-ui' ? '#0f0f1a' :
+    styleId === 'claymorphism' ? '#f0f4ff' :
+    styleId === 'skeuomorphism' ? 'linear-gradient(180deg,#3a3028,#2a2018)' :
+    styleId === 'cyberpunk' ? '#050510' :
+    styleId === 'retro' ? '#1a0a00' :
+    styleId === 'dark-ui' ? '#0d0d1a' :
+    styleId === 'light-ui' ? '#fff' : 'rgba(255,255,255,0.12)'
+  const sidebarBorder = styleId === 'brutalism' ? '3px solid #000' :
+    styleId === 'cyberpunk' ? '1px solid rgba(0,255,255,0.25)' :
+    styleId === 'retro' ? '2px solid #ff9d4d' :
+    styleId === 'minimalism' ? '1px solid #111' :
+    styleId === 'neumorphism' ? 'none' :
+    isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.07)'
+  const sidebarShadow = styleId === 'neumorphism' ? '6px 6px 14px #b8bec7,-6px -6px 14px #fff' :
+    styleId === 'brutalism' ? '4px 4px 0 #000' :
+    styleId === 'cyberpunk' ? '0 0 20px rgba(0,255,255,0.12)' :
+    styleId === 'retro' ? '4px 4px 0 #ff9d4d' :
+    styleId === 'claymorphism' ? '6px 6px 14px #d0d8ea,-4px -4px 10px #fff,inset 2px 2px 4px rgba(255,255,255,0.5)' : '4px 0 24px rgba(0,0,0,0.15)'
+  const activeItemBg = styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'rgba(255,255,255,0.15)' :
+    styleId === 'brutalism' ? '#f5f500' :
+    styleId === 'cyberpunk' ? 'rgba(0,255,255,0.1)' :
+    styleId === 'retro' ? 'rgba(255,107,53,0.2)' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? 'rgba(108,99,255,0.2)' :
+    styleId === 'neumorphism' ? 'rgba(108,99,255,0.08)' :
+    styleId === 'light-ui' ? 'rgba(63,81,181,0.1)' : 'rgba(108,99,255,0.1)'
+  const activeItemColor = styleId === 'cyberpunk' ? '#00ffff' :
+    styleId === 'retro' ? '#ff6b35' :
+    styleId === 'brutalism' ? '#000' :
+    styleId === 'neumorphism' ? '#6c63ff' :
+    styleId === 'dark-ui' || styleId === 'bento-ui' ? '#a78bfa' :
+    styleId === 'light-ui' ? '#3f51b5' : s.color
+  const logoBg = s.pillBg
+  const logoColor = s.color
+  const radius = styleId === 'brutalism' || styleId === 'cyberpunk' || styleId === 'retro' ? 0 :
+    styleId === 'minimalism' ? 2 : styleId === 'neumorphism' ? 10 : 8
+  const fontFamily = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'monospace' : 'inherit'
+  const textUp = ['brutalism','cyberpunk','retro'].includes(styleId) ? 'uppercase' : 'none'
+
+  return {
+    html: `<div class="sb-scene">
+  <aside class="sidebar">
+    <!-- Logo -->
+    <div class="sb-logo">
+      <div class="sb-logo-icon">UI</div>
+      <span class="sb-logo-text">Explorer</span>
+    </div>
+    <!-- Nav section -->
+    <div class="sb-section">
+      <p class="sb-section-label">Main</p>
+      <nav class="sb-nav">
+        <a class="sb-item active" href="#">
+          <span class="sb-icon">🏠</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="sb-item" href="#">
+          <span class="sb-icon">🧩</span>
+          <span>Components</span>
+        </a>
+        <a class="sb-item" href="#">
+          <span class="sb-icon">🎨</span>
+          <span>Library</span>
+        </a>
+        <a class="sb-item" href="#">
+          <span class="sb-icon">⚡</span>
+          <span>Playground</span>
+        </a>
+      </nav>
+    </div>
+    <div class="sb-section">
+      <p class="sb-section-label">More</p>
+      <nav class="sb-nav">
+        <a class="sb-item" href="#">
+          <span class="sb-icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+        <a class="sb-item" href="#">
+          <span class="sb-icon">👤</span>
+          <span>Profile</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+</div>`,
+    css: `.sb-scene {
+  padding: 24px;
+  background: ${s.bg};
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+}
+.sidebar {
+  width: 220px;
+  background: ${sidebarBg};
+  border: ${sidebarBorder};
+  border-radius: ${radius}px;
+  box-shadow: ${sidebarShadow};
+  padding: 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' || styleId === 'fluent-design' ? 'backdrop-filter: blur(16px);' : ''}
+}
+.sb-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 16px;
+  border-bottom: ${isDark ? '1px solid rgba(255,255,255,0.08)' : styleId === 'brutalism' ? '2px solid #000' : '1px solid rgba(0,0,0,0.07)'};
+}
+.sb-logo-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${logoBg};
+  color: ${logoColor};
+  font-weight: 900;
+  font-size: 11px;
+  font-family: ${fontFamily};
+  border-radius: ${radius === 0 ? 0 : 8}px;
+  box-shadow: ${s.shadow};
+  ${styleId === 'glassmorphism' || styleId === 'gradient-ui' ? 'backdrop-filter: blur(8px);' : ''}
+}
+.sb-logo-text {
+  color: ${textColor};
+  font-weight: 800;
+  font-size: 15px;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+}
+.sb-section { display: flex; flex-direction: column; gap: 4px; }
+.sb-section-label {
+  color: ${subColor};
+  font-size: 10px;
+  font-weight: 700;
+  font-family: ${fontFamily};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0 8px;
+  margin: 0 0 4px;
+}
+.sb-nav { display: flex; flex-direction: column; gap: 2px; }
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: ${radius}px;
+  color: ${subColor};
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: ${fontFamily};
+  text-transform: ${textUp};
+  transition: all 0.18s;
+}
+.sb-item.active {
+  background: ${activeItemBg};
+  color: ${activeItemColor};
+}
+.sb-item:hover:not(.active) {
+  background: ${isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.04)'};
+  color: ${textColor};
+}
+.sb-icon { font-size: 16px; }`,
+    tailwind: `<!-- Dynamic Tailwind structure for ${styleId} Sidebar -->
+<div class="p-6 rounded-2xl flex justify-center" style="background: ${s.bg}">
+  <aside class="w-56 flex flex-col gap-5 px-3 py-5 rounded-lg" style="background: ${sidebarBg}; border: ${sidebarBorder}; box-shadow: ${sidebarShadow}; ${styleId === 'glassmorphism' ? 'backdrop-filter: blur(16px);' : ''}">
+    <!-- Logo -->
+    <div class="flex items-center gap-2.5 px-2 pb-4" style="border-bottom: ${isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.07)'}">
+      <div class="w-8 h-8 flex items-center justify-center text-[11px] font-black rounded-lg" style="background: ${logoBg}; color: ${logoColor}; font-family: ${fontFamily}; box-shadow: ${s.shadow};">UI</div>
+      <span class="text-sm font-extrabold" style="color: ${textColor}; font-family: ${fontFamily}; text-transform: ${textUp};">Explorer</span>
+    </div>
+    <!-- Nav -->
+    <div class="flex flex-col gap-1">
+      <p class="text-[10px] font-bold uppercase tracking-widest px-2 m-0 mb-1" style="color: ${subColor}; font-family: ${fontFamily};">Main</p>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="background: ${activeItemBg}; color: ${activeItemColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>🏠</span>Dashboard</a>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>🧩</span>Components</a>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>🎨</span>Library</a>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>⚡</span>Playground</a>
+    </div>
+    <div class="flex flex-col gap-1">
+      <p class="text-[10px] font-bold uppercase tracking-widest px-2 m-0 mb-1" style="color: ${subColor}; font-family: ${fontFamily};">More</p>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>⚙️</span>Settings</a>
+      <a class="flex items-center gap-2.5 px-3 py-2 text-sm font-semibold no-underline rounded-md transition-all" href="#" style="color: ${subColor}; font-family: ${fontFamily}; text-transform: ${textUp};"><span>👤</span>Profile</a>
+    </div>
+  </aside>
+</div>`
+  }
+}
+
 export function getComponentCode(componentId, styleId) {
   if (componentId === 'badge') return generateBadgeCode(styleId)
   if (componentId === 'toggle') return generateToggleCode(styleId)
   if (componentId === 'avatar') return generateAvatarCode(styleId)
   if (componentId === 'progress') return generateProgressCode(styleId)
+  if (componentId === 'toast') return generateToastCode(styleId)
+  if (componentId === 'tooltip') return generateTooltipCode(styleId)
+  if (componentId === 'dropdown') return generateDropdownCode(styleId)
+  if (componentId === 'tabs') return generateTabsCode(styleId)
+  if (componentId === 'breadcrumb') return generateBreadcrumbCode(styleId)
+  if (componentId === 'accordion') return generateAccordionCode(styleId)
+  if (componentId === 'stepper') return generateStepperCode(styleId)
+  if (componentId === 'timeline') return generateTimelineCode(styleId)
+  if (componentId === 'skeleton') return generateSkeletonCode(styleId)
+  if (componentId === 'chip') return generateChipCode(styleId)
+  if (componentId === 'table') return generateTableCode(styleId)
+  if (componentId === 'sidebar') return generateSidebarCode(styleId)
   
   return codes[componentId]?.[styleId] || codes[componentId]?.glassmorphism || fallback
 }
