@@ -9,6 +9,7 @@ const navLinks = [
   { label: 'Animations',  path: '/animations' },
   { label: 'Playground',  path: '/playground' },
   { label: 'Code',        path: '/code' },
+  { label: 'Connect',     path: '/connect' },
 ]
 
 export default function Navbar() {

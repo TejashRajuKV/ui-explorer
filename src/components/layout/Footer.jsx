@@ -11,6 +11,7 @@ const footerLinks = {
     { label: 'Playground',   path: '/playground' },
     { label: 'Code Library', path: '/code' },
     { label: 'Compare',      path: '/compare' },
+    { label: 'Connect AI',   path: '/connect' },
   ],
 }
 

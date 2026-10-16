@@ -297,6 +297,21 @@ img {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* Copy-to-clipboard pill (components/ui/CopyButton.jsx) */
+.copy-btn {
+  padding: 7px 14px;
+  border-radius: 100px;
+  cursor: pointer;
+  font: 600 12px Inter, sans-serif;
+  white-space: nowrap;
+  color: var(--orange);
+  background: rgba(254, 137, 50, 0.12);
+  border: 1px solid rgba(254, 137, 50, 0.35);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.copy-btn:hover { background: var(--orange); color: var(--plum); }
+.copy-btn.is-copied { color: var(--cream); background: rgba(254, 231, 181, 0.14); border-color: rgba(254, 231, 181, 0.4); }
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ─────────────────────────────────────────────

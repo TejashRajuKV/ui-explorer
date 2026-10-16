@@ -21,6 +21,7 @@ const Resources = React.lazy(() => import('./pages/Resources/index'))
 const Themes = React.lazy(() => import('./pages/Themes/index'))
 const Profile = React.lazy(() => import('./pages/Profile/index'))
 const Animations = React.lazy(() => import('./pages/Animations/index'))
+const Connect = React.lazy(() => import('./pages/Connect/index'))
 
 function PageLoader() {
   return (
@@ -77,6 +78,9 @@ function AnimatedRoutes() {
             {/* Chunk 11 — Themes */}
             <Route path="/themes" element={<Themes />} />
             
+            {/* Connect your AI tool (MCP) */}
+            <Route path="/connect" element={<Connect />} />
+
             {/* Animations */}
             <Route path="/animations" element={<Animations />} />
 

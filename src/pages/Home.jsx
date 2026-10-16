@@ -2,6 +2,7 @@ import SunsetHero from '../components/home/SunsetHero'
 import StatsMarquee from '../components/home/StatsMarquee'
 import FeatureBento from '../components/home/FeatureBento'
 import StyleShowcase from '../components/home/StyleShowcase'
+import ConnectTeaser from '../components/home/ConnectTeaser'
 import CtaSunset from '../components/home/CtaSunset'
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <StatsMarquee />
       <FeatureBento />
       <StyleShowcase />
+      <ConnectTeaser />
       <CtaSunset />
     </div>
   )
