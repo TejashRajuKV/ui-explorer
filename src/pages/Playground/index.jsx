@@ -20,7 +20,7 @@ export default function Playground() {
     scale: 1,
   })
 
-  // Pre-configured presets for all 14 styles
+  // Pre-configured presets, one per style in data/styles.js
   const presets = {
     glassmorphism: { borderRadius: 16, padding: 32, opacity: 0.15, blur: 24, borderWidth: 1, shadowOpacity: 0.2, primaryColor: 'transparent', bgLightness: 50, rotation: 0, scale: 1 },
     neumorphism: { borderRadius: 20, padding: 32, opacity: 1, blur: 0, borderWidth: 0, shadowOpacity: 0.5, primaryColor: '#e0e0f0', bgLightness: 90, rotation: 0, scale: 1 },
@@ -36,6 +36,10 @@ export default function Playground() {
     'dark-ui': { borderRadius: 12, padding: 32, opacity: 1, blur: 0, borderWidth: 1, shadowOpacity: 0.4, primaryColor: '#1a1a2e', bgLightness: 15, rotation: 0, scale: 1 },
     'light-ui': { borderRadius: 12, padding: 32, opacity: 1, blur: 0, borderWidth: 1, shadowOpacity: 0.04, primaryColor: '#ffffff', bgLightness: 100, rotation: 0, scale: 1 },
     'gradient-ui': { borderRadius: 20, padding: 32, opacity: 1, blur: 0, borderWidth: 0, shadowOpacity: 0.2, primaryColor: '#0a0a0f', bgLightness: 50, rotation: 0, scale: 1 },
+    'neo-brutalism': { borderRadius: 12, padding: 28, opacity: 1, blur: 0, borderWidth: 3, shadowOpacity: 0.6, primaryColor: '#ffffff', bgLightness: 95, rotation: 0, scale: 1 },
+    'aurora-ui': { borderRadius: 18, padding: 28, opacity: 0.55, blur: 18, borderWidth: 1, shadowOpacity: 0.3, primaryColor: '#0b1020', bgLightness: 10, rotation: 0, scale: 1 },
+    'swiss-design': { borderRadius: 0, padding: 32, opacity: 1, blur: 0, borderWidth: 4, shadowOpacity: 0, primaryColor: '#ffffff', bgLightness: 95, rotation: 0, scale: 1 },
+    y2k: { borderRadius: 24, padding: 28, opacity: 1, blur: 0, borderWidth: 1, shadowOpacity: 0.3, primaryColor: '#e4e9f5', bgLightness: 90, rotation: 0, scale: 1 },
   }
 
   const handleStyleChange = (styleId) => {
@@ -88,7 +92,15 @@ export default function Playground() {
       case 'light-ui':
         return { ...baseStyle, background: primaryColor, border: `${borderWidth}px solid rgba(0, 0, 0, 0.07)`, boxShadow: `0 8px 24px rgba(0, 0, 0, ${shadowOpacity})`, color: '#111' }
       case 'gradient-ui':
-        return { ...baseStyle, background: primaryColor, border: 'none', boxShadow: `0 16px 40px rgba(108, 99, 255, ${shadowOpacity})`, color: '#fff' }
+        return { ...baseStyle, background: primaryColor, border: 'none', boxShadow: `0 16px 40px rgba(200, 80, 192, ${shadowOpacity})`, color: '#fff' }
+      case 'neo-brutalism':
+        return { ...baseStyle, background: primaryColor, border: `${borderWidth}px solid #111`, boxShadow: `${shadowOpacity * 8}px ${shadowOpacity * 8}px 0 #111`, color: '#111' }
+      case 'aurora-ui':
+        return { ...baseStyle, background: `rgba(11, 16, 32, ${opacity})`, backdropFilter: `blur(${blur}px)`, WebkitBackdropFilter: `blur(${blur}px)`, border: `${borderWidth}px solid rgba(255, 255, 255, 0.14)`, boxShadow: `0 12px 40px rgba(56, 189, 248, ${shadowOpacity})`, color: '#f1f5ff' }
+      case 'swiss-design':
+        return { ...baseStyle, background: primaryColor, border: 'none', borderTop: `${borderWidth}px solid #e3000f`, boxShadow: 'none', color: '#111', fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif' }
+      case 'y2k':
+        return { ...baseStyle, background: `linear-gradient(180deg, #ffffff, ${primaryColor})`, border: `${borderWidth}px solid #9aa7c7`, boxShadow: `inset 0 2px 0 #fff, 0 12px 28px rgba(58, 141, 255, ${shadowOpacity})`, color: '#2b2d6e', fontFamily: '"Trebuchet MS", Verdana, sans-serif' }
       case 'minimalism':
       default:
         return { ...baseStyle, background: primaryColor, border: `${borderWidth}px solid #111`, boxShadow: `none`, color: '#111' }
@@ -108,8 +120,12 @@ export default function Playground() {
       case 'retro': return { background: '#1a0a00' }
       case 'dark-ui': return { background: '#0a0a0f' }
       case 'light-ui': return { background: '#f8f9ff' }
-      case 'gradient-ui': return { background: 'linear-gradient(135deg, #6c63ff, #ff6584)' }
+      case 'gradient-ui': return { background: 'linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)' }
       case 'material-design': return { background: '#f5f5f5' }
+      case 'neo-brutalism': return { background: '#fdf6e3' }
+      case 'aurora-ui': return { background: 'radial-gradient(at 15% 20%, rgba(56,189,248,0.6), transparent 50%), radial-gradient(at 85% 25%, rgba(168,85,247,0.6), transparent 50%), radial-gradient(at 50% 100%, rgba(52,211,153,0.5), transparent 55%), #0b1020' }
+      case 'swiss-design': return { background: '#f2f2f2' }
+      case 'y2k': return { background: 'linear-gradient(135deg, #c9d6ff 0%, #f8c8ff 50%, #bdf6ff 100%)' }
       case 'minimalism':
       default: return { background: `hsl(0, 0%, ${controls.bgLightness}%)` }
     }
@@ -125,10 +141,17 @@ export default function Playground() {
       case 'cyberpunk': return { ...baseBtn, background: 'transparent', color: '#00ffff', border: '1px solid #00ffff', fontFamily: 'monospace' }
       case 'glassmorphism':
       case 'fluent-design': return { ...baseBtn, background: 'rgba(255,255,255,0.2)', color: '#fff', border: '1px solid rgba(255,255,255,0.4)' }
-      case 'neumorphism': return { ...baseBtn, background: '#e0e5ec', color: '#6c63ff', border: 'none', boxShadow: '4px 4px 10px #b8bec7, -4px -4px 10px #ffffff' }
+      case 'neumorphism': return { ...baseBtn, background: '#e0e5ec', color: '#4a42c4', border: 'none', boxShadow: '4px 4px 10px #b8bec7, -4px -4px 10px #ffffff' }
       case 'minimalism': return { ...baseBtn, background: '#111', color: '#fff', border: 'none' }
       case 'claymorphism': return { ...baseBtn, background: '#2d6a4f', color: '#c3f0ca', border: 'none' }
       case 'skeuomorphism': return { ...baseBtn, background: 'linear-gradient(180deg, #4a8c3f, #2d6b22)', color: '#c8f0c2', border: '1px solid #1a4d12' }
+      case 'material-design': return { ...baseBtn, background: '#6200ee', color: '#fff', border: 'none', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', textTransform: 'uppercase', letterSpacing: '0.06em' }
+      case 'light-ui': return { ...baseBtn, background: '#3b5bdb', color: '#fff', border: 'none', boxShadow: '0 2px 8px rgba(59,91,219,0.25)' }
+      case 'gradient-ui': return { ...baseBtn, background: 'linear-gradient(135deg, #4158D0, #C850C0 50%, #FFCC70)', color: '#fff', border: 'none', boxShadow: '0 8px 20px rgba(200,80,192,0.4)' }
+      case 'neo-brutalism': return { ...baseBtn, background: '#ff90e8', color: '#111', border: '3px solid #111', boxShadow: '4px 4px 0 #111', fontWeight: 800 }
+      case 'aurora-ui': return { ...baseBtn, background: 'linear-gradient(135deg, #38bdf8, #a855f7)', color: '#fff', border: 'none', boxShadow: '0 8px 24px rgba(168,85,247,0.4)' }
+      case 'swiss-design': return { ...baseBtn, background: '#e3000f', color: '#fff', border: 'none', borderRadius: 0 }
+      case 'y2k': return { ...baseBtn, background: 'linear-gradient(180deg, #6fb6ff, #1f5fe0)', color: '#fff', border: '1px solid #1a4fb8', borderRadius: 100, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.7), 0 4px 10px rgba(31,95,224,0.35)' }
       case 'bento-ui':
       case 'dark-ui': return { ...baseBtn, background: 'linear-gradient(135deg, #6c63ff, #ff6584)', color: '#fff', border: 'none' }
       default: return { ...baseBtn, background: 'var(--accent)', color: '#fff', border: 'none' }
@@ -200,8 +223,8 @@ export default function Playground() {
                   <input type="range" min="10" max="60" value={controls.padding} onChange={(e) => handleControlChange('padding', e.target.value)} style={{ width: '100%' }} />
                 </div>
 
-                {/* Blur (Glass & Fluent only) */}
-                {['glassmorphism', 'fluent-design'].includes(activeStyle) && (
+                {/* Blur (Glass, Fluent & Aurora) */}
+                {['glassmorphism', 'fluent-design', 'aurora-ui'].includes(activeStyle) && (
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 8, color: 'var(--text-secondary)' }}>
                       <span>Backdrop Blur</span>
@@ -211,8 +234,8 @@ export default function Playground() {
                   </div>
                 )}
 
-                {/* Opacity (Glass & Fluent & Cyberpunk only) */}
-                {['glassmorphism', 'fluent-design', 'cyberpunk'].includes(activeStyle) && (
+                {/* Opacity (Glass, Fluent, Cyberpunk & Aurora) */}
+                {['glassmorphism', 'fluent-design', 'cyberpunk', 'aurora-ui'].includes(activeStyle) && (
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 8, color: 'var(--text-secondary)' }}>
                       <span>Background Opacity</span>

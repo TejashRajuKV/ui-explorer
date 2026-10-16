@@ -62,7 +62,7 @@ export default function LibraryIndex() {
               Explore UI Design <span style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-2))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Styles</span>
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: 17, maxWidth: 560, lineHeight: 1.7, marginBottom: 36 }}>
-              Deep-dive into 14 modern UI design styles. Learn their history, principles, accessibility guidelines, and best practices — then build with confidence.
+              Deep-dive into {styles.length} modern UI design styles. Learn their history, principles, accessibility guidelines, and best practices — then build with confidence.
             </p>
 
             {/* Search */}
