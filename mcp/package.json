@@ -3,15 +3,32 @@
   "version": "1.0.0",
   "description": "MCP server that gives AI tools the UI Explorer library: 18 design styles, 36 components with copy-ready HTML/CSS/Tailwind, and 24 animations.",
   "type": "module",
-  "bin": { "ui-explorer-mcp": "dist/index.js" },
-  "files": ["dist", "README.md"],
+  "bin": {
+    "ui-explorer-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rolldown -c rolldown.config.mjs",
     "test": "node test/smoke.mjs",
     "prepublishOnly": "npm run build && npm test"
   },
-  "engines": { "node": ">=18" },
-  "keywords": ["mcp", "model-context-protocol", "ui", "design-system", "css", "tailwind", "components", "ai"],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ui",
+    "design-system",
+    "css",
+    "tailwind",
+    "components",
+    "ai"
+  ],
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
@@ -19,5 +36,15 @@
   },
   "devDependencies": {
     "rolldown": "*"
+  },
+  "author": "Tejash Raju K V",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TejashRajuKV/ui-explorer.git",
+    "directory": "mcp"
+  },
+  "homepage": "https://github.com/TejashRajuKV/ui-explorer/tree/main/mcp#readme",
+  "bugs": {
+    "url": "https://github.com/TejashRajuKV/ui-explorer/issues"
   }
 }
