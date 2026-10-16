@@ -1,8 +1,15 @@
 /* ─────────────────────────────────────────────────────────
    ComponentPreview.jsx
-   Live CSS-rendered previews for 8 component types × 14 styles
+   Live CSS-rendered previews for every component type × style
    No images — pure inline React/CSS
 ───────────────────────────────────────────────────────── */
+import { newStyleMap as baseStyleMap, getStyleTokens, withAllStyles } from '../../data/styleTokens'
+import { extraPreviews } from './extraPreviews'
+import { tokenComponentPreviews, tokenFallbackPreview } from './tokenPreviews'
+
+// Base tokens plus derived values (onPill etc.) for the generated previews
+const newStyleMap = Object.fromEntries(Object.keys(baseStyleMap).map(id => [id, getStyleTokens(id)]))
+
 
 /* ══════════════════════════════════════════
    BUTTON PREVIEWS
@@ -17,7 +24,7 @@ const buttonPreviews = {
   neumorphism: (
     <div style={{ display:'flex', gap:16, flexWrap:'wrap', justifyContent:'center', alignItems:'center', padding:32, background:'#e0e5ec', borderRadius:16, minHeight:100 }}>
       <button style={{ padding:'12px 28px', background:'#e0e5ec', border:'none', borderRadius:12, color:'#6c63ff', fontWeight:700, fontSize:14, cursor:'pointer', boxShadow:'5px 5px 12px #b8bec7,-5px -5px 12px #ffffff' }}>Click Me</button>
-      <button style={{ padding:'12px 28px', background:'#e0e5ec', border:'none', borderRadius:12, color:'#888', fontWeight:600, fontSize:14, cursor:'pointer', boxShadow:'inset 3px 3px 8px #b8bec7,inset -3px -3px 8px #ffffff' }}>Pressed</button>
+      <button style={{ padding:'12px 28px', background:'#e0e5ec', border:'none', borderRadius:12, color:'#566170', fontWeight:600, fontSize:14, cursor:'pointer', boxShadow:'inset 3px 3px 8px #b8bec7,inset -3px -3px 8px #ffffff' }}>Pressed</button>
     </div>
   ),
   minimalism: (
@@ -302,13 +309,13 @@ const makeInput = (bg, fieldStyle, labelColor, focusColor, btnStyle, containerSt
 
 const inputPreviews = {
   glassmorphism: makeInput('linear-gradient(135deg,#6c63ff,#ff6584)',{background:'rgba(255,255,255,0.1)',backdropFilter:'blur(10px)',WebkitBackdropFilter:'blur(10px)',border:'1px solid rgba(255,255,255,0.25)',borderRadius:10,color:'#fff'},'rgba(255,255,255,0.7)','#fff',{background:'rgba(255,255,255,0.2)',border:'1px solid rgba(255,255,255,0.35)',borderRadius:10,color:'#fff'}),
-  neumorphism: makeInput('#e0e5ec',{background:'#e0e5ec',border:'none',borderRadius:10,color:'#555',boxShadow:'inset 3px 3px 7px #b8bec7,inset -3px -3px 7px #ffffff'},'#8899aa','#6c63ff',{background:'#e0e5ec',borderRadius:10,color:'#6c63ff',boxShadow:'4px 4px 10px #b8bec7,-4px -4px 10px #ffffff',border:'none'}),
+  neumorphism: makeInput('#e0e5ec',{background:'#e0e5ec',border:'none',borderRadius:10,color:'#555',boxShadow:'inset 3px 3px 7px #b8bec7,inset -3px -3px 7px #ffffff'},'#566170','#6c63ff',{background:'#e0e5ec',borderRadius:10,color:'#6c63ff',boxShadow:'4px 4px 10px #b8bec7,-4px -4px 10px #ffffff',border:'none'}),
   minimalism: makeInput('#fff',{background:'transparent',border:'none',borderBottom:'2px solid #ddd',borderRadius:0,color:'#111',padding:'8px 2px'},'#888','#111',{background:'#111',borderRadius:2,color:'#fff',border:'none'}),
   brutalism: makeInput('#f5f500',{background:'#fff',border:'3px solid #000',borderRadius:0,color:'#000',fontFamily:'monospace',fontWeight:700},'#000','#000',{background:'#000',color:'#f5f500',fontFamily:'monospace',letterSpacing:2,border:'3px solid #000',borderRadius:0}),
   'material-design': makeInput('#f5f5f5',{background:'#fff',border:'none',borderBottom:'2px solid #9e9e9e',borderRadius:'4px 4px 0 0',color:'#111',padding:'10px 12px'},'#757575','#6200ee',{background:'#6200ee',borderRadius:4,color:'#fff',border:'none',boxShadow:'0 2px 8px rgba(98,0,238,0.3)'}),
   'fluent-design': makeInput('linear-gradient(135deg,#0078d4,#005a9e)',{background:'rgba(255,255,255,0.1)',backdropFilter:'blur(8px)',border:'none',borderBottom:'2px solid rgba(255,255,255,0.4)',borderRadius:'6px 6px 0 0',color:'#fff'},'rgba(255,255,255,0.7)','#fff',{background:'#0078d4',border:'1px solid rgba(255,255,255,0.3)',borderRadius:6,color:'#fff'}),
   'bento-ui': makeInput('#0f0f1a',{background:'#1a1a2e',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,color:'rgba(255,255,255,0.85)'},'rgba(255,255,255,0.5)','#6c63ff',{background:'linear-gradient(135deg,#6c63ff,#ff6584)',borderRadius:10,color:'#fff',border:'none'}),
-  claymorphism: makeInput('#f0f4ff',{background:'#fff',border:'none',borderRadius:14,color:'#1a5276',boxShadow:'inset 2px 2px 6px rgba(0,120,180,0.15),inset -2px -2px 6px rgba(255,255,255,0.8)'},'#5499c7','#a8d8ea',{background:'#a8d8ea',borderRadius:16,color:'#1a5276',border:'none',boxShadow:'0 6px 16px rgba(0,120,180,0.25),inset 0 2px 4px rgba(255,255,255,0.6)'}),
+  claymorphism: makeInput('#f0f4ff',{background:'#fff',border:'none',borderRadius:14,color:'#1a5276',boxShadow:'inset 2px 2px 6px rgba(0,120,180,0.15),inset -2px -2px 6px rgba(255,255,255,0.8)'},'#2a6f96','#a8d8ea',{background:'#a8d8ea',borderRadius:16,color:'#1a5276',border:'none',boxShadow:'0 6px 16px rgba(0,120,180,0.25),inset 0 2px 4px rgba(255,255,255,0.6)'}),
   skeuomorphism: makeInput('linear-gradient(180deg,#c9a96e,#8B6914)',{background:'linear-gradient(180deg,#f5e6c3,#eddcaf)',border:'2px solid #c4a054',borderRadius:4,color:'#5a3e0a',boxShadow:'inset 2px 2px 4px rgba(0,0,0,0.2)'},'#fff9e6','#d4a017',{background:'linear-gradient(180deg,#4a8c3f,#2d6b22)',borderRadius:4,color:'#c8f0c2',border:'1px solid #1a4d12',boxShadow:'0 2px 4px rgba(0,0,0,0.3)'}),
   cyberpunk: makeInput('#050510',{background:'rgba(0,255,255,0.05)',border:'1px solid rgba(0,255,255,0.4)',borderRadius:0,color:'#00ffff',fontFamily:'monospace',boxShadow:'0 0 8px rgba(0,255,255,0.1)'},'rgba(0,255,255,0.6)','#00ffff',{background:'transparent',border:'1px solid #00ffff',color:'#00ffff',fontFamily:'monospace',letterSpacing:3,boxShadow:'0 0 12px rgba(0,255,255,0.3)'}),
   retro: makeInput('#1a0a00',{background:'#fff',border:'3px solid #ff6b35',borderRadius:0,color:'#1a0a00',fontFamily:'monospace',fontWeight:700},'#ff6b35','#ff6b35',{background:'#ff6b35',color:'#1a0a00',fontFamily:'monospace',fontWeight:900,letterSpacing:2,border:'3px solid #ff9d4d',borderRadius:0}),
@@ -340,7 +347,7 @@ const makePricing = (wrapBg, cardStyle, accentColor, textColor, subColor, btnSty
 
 const pricingPreviews = {
   glassmorphism: makePricing('linear-gradient(135deg,#6c63ff,#ff6584)',{background:'rgba(255,255,255,0.12)',backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.25)',borderRadius:16},'#fff','#fff','rgba(255,255,255,0.7)',{background:'rgba(255,255,255,0.2)',border:'1px solid rgba(255,255,255,0.35)',borderRadius:10,color:'#fff'},'rgba(255,255,255,0.15)'),
-  neumorphism: makePricing('#e0e5ec',{background:'#e0e5ec',borderRadius:20,boxShadow:'8px 8px 18px #b8bec7,-8px -8px 18px #ffffff'},'#6c63ff','#333','#888',{background:'#e0e5ec',borderRadius:10,color:'#6c63ff',boxShadow:'4px 4px 10px #b8bec7,-4px -4px 10px #ffffff',border:'none'},'#b0b8c5'),
+  neumorphism: makePricing('#e0e5ec',{background:'#e0e5ec',borderRadius:20,boxShadow:'8px 8px 18px #b8bec7,-8px -8px 18px #ffffff'},'#6c63ff','#333','#566170',{background:'#e0e5ec',borderRadius:10,color:'#6c63ff',boxShadow:'4px 4px 10px #b8bec7,-4px -4px 10px #ffffff',border:'none'},'#b0b8c5'),
   minimalism: makePricing('#fff',{background:'#fff',border:'2px solid #111',borderRadius:0},'#111','#111','#666',{background:'#111',borderRadius:0,color:'#fff',border:'none'},'#eee',true),
   brutalism: makePricing('#f5f500',{background:'#fff',border:'3px solid #000',borderRadius:0,boxShadow:'6px 6px 0 #000'},'#000','#000','#555',{background:'#000',color:'#f5f500',fontFamily:'monospace',letterSpacing:2,border:'3px solid #000',borderRadius:0},'#000'),
   'material-design': makePricing('#f5f5f5',{background:'#fff',borderRadius:8,boxShadow:'0 4px 12px rgba(0,0,0,0.1),0 12px 40px rgba(0,0,0,0.08)'},'#6200ee','#1a1a1a','#757575',{background:'#6200ee',borderRadius:4,color:'#fff',border:'none',boxShadow:'0 2px 8px rgba(98,0,238,0.3)'},'#e0e0e0',true),
@@ -384,7 +391,7 @@ const modalPreviews = {
   'material-design': makeModal('rgba(0,0,0,0.5)',{background:'#fff',borderRadius:8,boxShadow:'0 8px 32px rgba(0,0,0,0.3),0 24px 64px rgba(0,0,0,0.2)'},'#1a1a1a','#333',{cancel:{color:'#6200ee',background:'transparent',border:'none',fontWeight:600,letterSpacing:'0.06em'},confirm:{background:'#6200ee',borderRadius:4,color:'#fff',boxShadow:'0 2px 6px rgba(98,0,238,0.3)'}},'#bbb'),
   'fluent-design': makeModal('rgba(0,0,0,0.5)',{background:'rgba(255,255,255,0.85)',backdropFilter:'blur(24px)',WebkitBackdropFilter:'blur(24px)',border:'1px solid rgba(255,255,255,0.6)',borderRadius:12,boxShadow:'0 16px 48px rgba(0,0,0,0.25)'},'#1a1a1a','#333',{cancel:{border:'1.5px solid #ddd',borderRadius:6,color:'#555',background:'transparent'},confirm:{background:'#0078d4',borderRadius:6,color:'#fff'}},'#bbb'),
   'bento-ui': makeModal('rgba(0,0,0,0.7)',{background:'#1a1a2e',border:'1px solid rgba(108,99,255,0.3)',borderRadius:20,boxShadow:'0 0 40px rgba(108,99,255,0.15)'},'rgba(255,255,255,0.9)','rgba(255,255,255,0.6)',{cancel:{background:'rgba(255,255,255,0.05)',border:'1px solid rgba(255,255,255,0.1)',borderRadius:10,color:'rgba(255,255,255,0.6)'},confirm:{background:'linear-gradient(135deg,#6c63ff,#ff6584)',borderRadius:10,color:'#fff'}},'rgba(255,255,255,0.3)'),
-  claymorphism: makeModal('rgba(200,240,220,0.8)',{background:'#c3f0ca',borderRadius:28,boxShadow:'0 20px 50px rgba(100,200,120,0.35),inset 0 3px 8px rgba(255,255,255,0.7)'},'#2d6a4f','#2d6a4f',{cancel:{background:'rgba(45,106,79,0.1)',border:'none',borderRadius:14,color:'rgba(45,106,79,0.7)'},confirm:{background:'#2d6a4f',borderRadius:14,color:'#c3f0ca',boxShadow:'0 6px 16px rgba(45,106,79,0.4)'}},'rgba(45,106,79,0.4)'),
+  claymorphism: makeModal('rgba(200,240,220,0.8)',{background:'#c3f0ca',borderRadius:28,boxShadow:'0 20px 50px rgba(100,200,120,0.35),inset 0 3px 8px rgba(255,255,255,0.7)'},'#2d6a4f','#2d6a4f',{cancel:{background:'rgba(45,106,79,0.1)',border:'none',borderRadius:14,color:'#2d6a4f'},confirm:{background:'#2d6a4f',borderRadius:14,color:'#c3f0ca',boxShadow:'0 6px 16px rgba(45,106,79,0.4)'}},'rgba(45,106,79,0.4)'),
   skeuomorphism: makeModal('rgba(0,0,0,0.6)',{background:'linear-gradient(180deg,#f5e6c3,#e8d4a0)',border:'3px solid #c4a054',borderRadius:8,boxShadow:'0 8px 24px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.5)'},'#5a3e0a','#5a3e0a',{cancel:{background:'linear-gradient(180deg,#c0392b,#922b21)',border:'1px solid #7b241c',borderRadius:4,color:'#fde8e8'},confirm:{background:'linear-gradient(180deg,#4a8c3f,#2d6b22)',border:'1px solid #1a4d12',borderRadius:4,color:'#c8f0c2'}},'#c4a054'),
   cyberpunk: makeModal('rgba(0,0,20,0.92)',{background:'rgba(0,255,255,0.03)',border:'1px solid rgba(0,255,255,0.45)',borderRadius:0,boxShadow:'0 0 40px rgba(0,255,255,0.1)'},'#00ffff','rgba(0,255,255,0.6)',{cancel:{border:'1px solid rgba(255,0,255,0.4)',color:'rgba(255,0,255,0.8)',background:'transparent',fontFamily:'monospace'},confirm:{border:'1px solid #00ffff',color:'#00ffff',background:'rgba(0,255,255,0.08)',fontFamily:'monospace',boxShadow:'0 0 10px rgba(0,255,255,0.2)'}},'rgba(0,255,255,0.4)'),
   retro: makeModal('rgba(26,10,0,0.9)',{background:'#fff',border:'4px solid #ff6b35',borderRadius:0,boxShadow:'6px 6px 0 #ff9d4d'},'#1a0a00','#333',{cancel:{border:'3px solid #ccc',color:'#666',background:'transparent',fontFamily:'monospace'},confirm:{background:'#ff6b35',border:'3px solid #ff9d4d',color:'#1a0a00',fontFamily:'monospace',fontWeight:900}},'#ccc'),
@@ -398,7 +405,7 @@ const modalPreviews = {
 ══════════════════════════════════════════ */
 const heroStyleMap = {
   glassmorphism: { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', card:{background:'rgba(255,255,255,0.12)',backdropFilter:'blur(16px)',WebkitBackdropFilter:'blur(16px)',border:'1px solid rgba(255,255,255,0.25)',borderRadius:16}, titleColor:'#fff', subColor:'rgba(255,255,255,0.7)', btnBg:'rgba(255,255,255,0.25)', btnBorder:'1px solid rgba(255,255,255,0.4)', btnColor:'#fff' },
-  neumorphism: { bg:'#dde1e7', card:{background:'#dde1e7',borderRadius:20,boxShadow:'10px 10px 20px #b8bec7,-10px -10px 20px #ffffff'}, titleColor:'#333', subColor:'#888', btnBg:'#dde1e7', btnBorder:'none', btnColor:'#6c63ff', btnShadow:'5px 5px 12px #b8bec7,-5px -5px 12px #ffffff' },
+  neumorphism: { bg:'#dde1e7', card:{background:'#dde1e7',borderRadius:20,boxShadow:'10px 10px 20px #b8bec7,-10px -10px 20px #ffffff'}, titleColor:'#333', subColor:'#566170', btnBg:'#dde1e7', btnBorder:'none', btnColor:'#6c63ff', btnShadow:'5px 5px 12px #b8bec7,-5px -5px 12px #ffffff' },
   minimalism: { bg:'#fff', card:{background:'#fff',border:'1px solid #eee'}, titleColor:'#111', subColor:'#888', btnBg:'#111', btnBorder:'none', btnColor:'#fff' },
   brutalism: { bg:'#f5f500', card:{background:'#fff',border:'4px solid #000'}, titleColor:'#000', subColor:'#333', btnBg:'#000', btnBorder:'3px solid #000', btnColor:'#f5f500' },
   'material-design': { bg:'#f5f5f5', card:{background:'#fff',borderRadius:8,boxShadow:'0 4px 20px rgba(0,0,0,0.1)'}, titleColor:'#1a1a1a', subColor:'#757575', btnBg:'#6200ee', btnBorder:'none', btnColor:'#fff', btnShadow:'0 2px 8px rgba(98,0,238,0.3)' },
@@ -436,13 +443,13 @@ const heroPreviews = Object.fromEntries(
 ══════════════════════════════════════════ */
 const navbarStyleMap = {
   glassmorphism: { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', navBg:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', logoColor:'#fff', linkColor:'rgba(255,255,255,0.7)', activeColor:'#fff', btnBg:'rgba(255,255,255,0.2)', btnColor:'#fff' },
-  neumorphism: { bg:'#dde1e7', navBg:'#dde1e7', border:'none', shadow:'0 2px 8px #b8bec7,-2px -2px 8px #ffffff', logoColor:'#333', linkColor:'#888', activeColor:'#6c63ff', btnBg:'#dde1e7', btnColor:'#6c63ff', btnShadow:'3px 3px 6px #b8bec7,-3px -3px 6px #ffffff' },
+  neumorphism: { bg:'#dde1e7', navBg:'#dde1e7', border:'none', shadow:'0 2px 8px #b8bec7,-2px -2px 8px #ffffff', logoColor:'#333', linkColor:'#566170', activeColor:'#6c63ff', btnBg:'#dde1e7', btnColor:'#6c63ff', btnShadow:'3px 3px 6px #b8bec7,-3px -3px 6px #ffffff' },
   minimalism: { bg:'#fff', navBg:'#fff', border:'none', borderBottom:'1px solid #eee', logoColor:'#111', linkColor:'#666', activeColor:'#111', btnBg:'#111', btnColor:'#fff' },
   brutalism: { bg:'#f5f500', navBg:'#000', border:'3px solid #000', logoColor:'#f5f500', linkColor:'rgba(245,245,0,0.7)', activeColor:'#f5f500', btnBg:'#f5f500', btnColor:'#000' },
   'material-design': { bg:'#f5f5f5', navBg:'#6200ee', border:'none', shadow:'0 2px 8px rgba(0,0,0,0.2)', logoColor:'#fff', linkColor:'rgba(255,255,255,0.7)', activeColor:'#fff', btnBg:'rgba(255,255,255,0.15)', btnColor:'#fff' },
   'fluent-design': { bg:'linear-gradient(135deg,#0078d4,#004b96)', navBg:'rgba(255,255,255,0.08)', border:'none', borderBottom:'1px solid rgba(255,255,255,0.15)', logoColor:'#fff', linkColor:'rgba(255,255,255,0.65)', activeColor:'#fff', btnBg:'#0078d4', btnColor:'#fff' },
   'bento-ui': { bg:'#0a0a0f', navBg:'#12121a', border:'1px solid rgba(255,255,255,0.06)', logoColor:'rgba(255,255,255,0.9)', linkColor:'rgba(255,255,255,0.4)', activeColor:'#6c63ff', btnBg:'linear-gradient(135deg,#6c63ff,#ff6584)', btnColor:'#fff' },
-  claymorphism: { bg:'#f0f4ff', navBg:'#a8d8ea', border:'none', shadow:'0 4px 12px rgba(0,120,180,0.2),0 -2px 0 rgba(255,255,255,0.5)', logoColor:'#1a5276', linkColor:'rgba(26,82,118,0.6)', activeColor:'#1a5276', btnBg:'#1a5276', btnColor:'#a8d8ea' },
+  claymorphism: { bg:'#f0f4ff', navBg:'#a8d8ea', border:'none', shadow:'0 4px 12px rgba(0,120,180,0.2),0 -2px 0 rgba(255,255,255,0.5)', logoColor:'#1a5276', linkColor:'rgba(26,82,118,0.85)', activeColor:'#1a5276', btnBg:'#1a5276', btnColor:'#a8d8ea' },
   skeuomorphism: { bg:'#8B6914', navBg:'linear-gradient(180deg,#d4a017,#b8860b)', border:'2px solid #c4a054', logoColor:'#fff9e6', linkColor:'rgba(255,249,230,0.7)', activeColor:'#fff9e6', btnBg:'linear-gradient(180deg,#4a8c3f,#2d6b22)', btnColor:'#c8f0c2' },
   cyberpunk: { bg:'#050510', navBg:'rgba(0,0,20,0.9)', border:'none', borderBottom:'1px solid rgba(0,255,255,0.3)', logoColor:'#00ffff', linkColor:'rgba(0,255,255,0.5)', activeColor:'#00ffff', btnBg:'transparent', btnColor:'#00ffff', btnBorder:'1px solid rgba(0,255,255,0.5)' },
   retro: { bg:'#1a0a00', navBg:'#ff6b35', border:'3px solid #ff9d4d', logoColor:'#1a0a00', linkColor:'rgba(26,10,0,0.6)', activeColor:'#1a0a00', btnBg:'#1a0a00', btnColor:'#ff6b35' },
@@ -476,7 +483,11 @@ const navbarPreviews = Object.fromEntries(
 /* ══════════════════════════════════════════
    DISPATCHER
 ══════════════════════════════════════════ */
-const badgeStyleMap = {
+// Text colour directly on a badge-map background. Token-derived entries carry their own.
+const LIGHT_BADGE_BGS = ['#fff', '#f5f5f5', '#e0e5ec', '#f5f500', '#f0f4ff', '#f8f9ff']
+const badgeLabel = s => s.label ?? (LIGHT_BADGE_BGS.includes(s.bg) ? '#111' : '#fff')
+
+const badgeStyleMap = withAllStyles({
   glassmorphism: { bg: 'linear-gradient(135deg,#6c63ff,#ff6584)', pillBg: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', radius: 100 },
   neumorphism: { bg: '#e0e5ec', pillBg: '#e0e5ec', border: 'none', shadow: '3px 3px 6px #b8bec7,-3px -3px 6px #ffffff', color: '#6c63ff', radius: 12 },
   minimalism: { bg: '#fff', pillBg: '#111', border: '1px solid #111', color: '#fff', radius: 0 },
@@ -484,14 +495,14 @@ const badgeStyleMap = {
   'material-design': { bg: '#f5f5f5', pillBg: '#6200ee', border: 'none', shadow: '0 2px 4px rgba(0,0,0,0.2)', color: '#fff', radius: 16 },
   'fluent-design': { bg: 'linear-gradient(135deg,#0078d4,#005a9e)', pillBg: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)', shadow: '0 4px 12px rgba(0,0,0,0.1)', color: '#fff', radius: 4 },
   'bento-ui': { bg: '#0f0f1a', pillBg: 'linear-gradient(135deg,#6c63ff,#ff6584)', border: 'none', color: '#fff', radius: 8 },
-  claymorphism: { bg: '#f0f4ff', pillBg: '#a8d8ea', border: 'none', shadow: '4px 4px 8px #d0d8ea,-4px -4px 8px #ffffff,inset 2px 2px 4px rgba(255,255,255,0.6)', color: '#1a5276', radius: 16 },
+  claymorphism: { bg: '#f0f4ff', pillBg: '#a8d8ea', border: 'none', shadow: '0 6px 14px rgba(47,127,166,0.25),inset -3px -3px 6px rgba(26,92,122,0.18),inset 3px 3px 6px rgba(255,255,255,0.8)', color: '#1a5276', radius: 16 },
   skeuomorphism: { bg: '#8B6914', pillBg: 'linear-gradient(180deg,#d4a017,#b8860b)', border: '1px solid #8b4513', shadow: 'inset 0 1px 0 rgba(255,255,255,0.4),0 2px 4px rgba(0,0,0,0.4)', color: '#fff9e6', radius: 4 },
   cyberpunk: { bg: '#050510', pillBg: 'transparent', border: '1px solid #00ffff', shadow: '0 0 8px rgba(0,255,255,0.4),inset 0 0 8px rgba(0,255,255,0.2)', color: '#00ffff', radius: 0, font: 'monospace', textTransform: 'uppercase' },
   retro: { bg: '#1a0a00', pillBg: '#ff6b35', border: '2px solid #ff9d4d', shadow: '2px 2px 0 #ff9d4d', color: '#1a0a00', radius: 0, font: 'monospace', textTransform: 'uppercase' },
   'dark-ui': { bg: '#0a0a0f', pillBg: '#1a1a2e', border: '1px solid rgba(255,255,255,0.1)', shadow: '0 4px 12px rgba(0,0,0,0.3)', color: '#fff', radius: 100 },
   'light-ui': { bg: '#f8f9ff', pillBg: '#3f51b5', border: 'none', shadow: '0 2px 8px rgba(63,81,181,0.25)', color: '#fff', radius: 100 },
-  'gradient-ui': { bg: 'linear-gradient(135deg,#6c63ff,#ff6584)', pillBg: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', shadow: '0 4px 12px rgba(0,0,0,0.1)', color: '#fff', radius: 100 },
-}
+  'gradient-ui': { bg: '#140b2e', pillBg: 'linear-gradient(135deg,#4158D0,#C850C0,#FFCC70)', border: 'none', shadow: '0 4px 14px rgba(200,80,192,0.4)', color: '#fff', radius: 100 },
+})
 
 const badgePreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([id, s]) => [
   id,
@@ -513,7 +524,7 @@ const togglePreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([id
         <div style={{ width:44, height:24, borderRadius:s.radius===0?0:24, background:s.pillBg, border:s.border, boxShadow:s.shadow, position:'relative', display:'flex', alignItems:'center', padding:2, boxSizing:'border-box' }}>
            <div style={{ width:18, height:18, borderRadius:s.radius===0?0:18, background:id==='minimalism'?'#fff':(id==='brutalism'?'#000':s.color), transform:'translateX(20px)', boxShadow:s.bg==='#f0f4ff'?'2px 2px 4px rgba(0,0,0,0.2)':'none', transition:'transform 0.2s ease' }} />
         </div>
-        <span style={{ fontSize:14, fontWeight:600, color:s.bg==='#fff'||s.bg==='#f5f5f5'||s.bg==='#e0e5ec'||s.bg==='#f5f500'||s.bg==='#f0f4ff'||s.bg==='#f8f9ff' ? '#111' : '#fff', fontFamily:s.font||'inherit' }}>On</span>
+        <span style={{ fontSize:14, fontWeight:600, color:badgeLabel(s), fontFamily:s.font||'inherit' }}>On</span>
       </div>
 
       {/* Inactive Toggle */}
@@ -521,7 +532,7 @@ const togglePreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([id
         <div style={{ width:44, height:24, borderRadius:s.radius===0?0:24, background:id==='minimalism'?'#fff':(id==='brutalism'?'#fff':'rgba(128,128,128,0.3)'), border:id==='minimalism'?'1px solid #111':(id==='brutalism'?'2px solid #000':s.border), position:'relative', display:'flex', alignItems:'center', padding:2, boxSizing:'border-box', boxShadow:id==='brutalism'?'2px 2px 0 #000':(id==='retro'?'2px 2px 0 #ff9d4d':'none') }}>
            <div style={{ width:18, height:18, borderRadius:s.radius===0?0:18, background:id==='minimalism'?'#111':(id==='brutalism'?'#000':'#fff'), transform:'translateX(0px)', opacity:0.8, transition:'transform 0.2s ease' }} />
         </div>
-        <span style={{ fontSize:14, fontWeight:600, color:s.bg==='#fff'||s.bg==='#f5f5f5'||s.bg==='#e0e5ec'||s.bg==='#f5f500'||s.bg==='#f0f4ff'||s.bg==='#f8f9ff' ? '#111' : '#fff', fontFamily:s.font||'inherit', opacity:0.6 }}>Off</span>
+        <span style={{ fontSize:14, fontWeight:600, color:badgeLabel(s), fontFamily:s.font||'inherit', opacity:0.6 }}>Off</span>
       </div>
 
     </div>
@@ -557,7 +568,7 @@ const progressPreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([
     <div style={{ background:s.bg, height:'100%', minHeight:160, display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:24, padding:32, boxSizing:'border-box' }}>
       {/* Standard Progress */}
       <div style={{ width:'100%', maxWidth:300 }}>
-        <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8, color:s.bg==='#fff'||s.bg==='#f5f5f5'||s.bg==='#e0e5ec'||s.bg==='#f5f500'||s.bg==='#f0f4ff'||s.bg==='#f8f9ff' ? '#111' : '#fff', fontSize:14, fontWeight:600, fontFamily:s.font }}>
+        <div style={{ display:'flex', justifyContent:'space-between', marginBottom:8, color:badgeLabel(s), fontSize:14, fontWeight:600, fontFamily:s.font }}>
           <span>Loading...</span>
           <span>65%</span>
         </div>
@@ -570,22 +581,6 @@ const progressPreviews = Object.fromEntries(Object.entries(badgeStyleMap).map(([
 ]))
 
 /* shared style tokens reused across new previews */
-const newStyleMap = {
-  glassmorphism: { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', card:'rgba(255,255,255,0.13)', border:'1px solid rgba(255,255,255,0.28)', radius:12, text:'#fff', sub:'rgba(255,255,255,0.6)', pill:'rgba(255,255,255,0.18)', accent:'#fff', shadow:'none', blur:true, font:'inherit', dark:true },
-  neumorphism:   { bg:'#e0e5ec', card:'#e0e5ec', border:'none', radius:12, text:'#333', sub:'#888', pill:'#e0e5ec', accent:'#6c63ff', shadow:'4px 4px 10px #b8bec7,-4px -4px 10px #fff', blur:false, font:'inherit', dark:false },
-  minimalism:    { bg:'#fff', card:'#fff', border:'1px solid #e0e0e0', radius:4, text:'#111', sub:'#777', pill:'#111', accent:'#111', shadow:'none', blur:false, font:'inherit', dark:false },
-  brutalism:     { bg:'#f5f500', card:'#fff', border:'3px solid #000', radius:0, text:'#000', sub:'#333', pill:'#000', accent:'#000', shadow:'4px 4px 0 #000', blur:false, font:'monospace', dark:false },
-  'material-design': { bg:'#f5f5f5', card:'#fff', border:'none', radius:6, text:'#1a1a1a', sub:'#757575', pill:'#6200ee', accent:'#6200ee', shadow:'0 2px 8px rgba(0,0,0,0.12)', blur:false, font:'inherit', dark:false },
-  'fluent-design':{ bg:'linear-gradient(135deg,#0078d4,#005a9e)', card:'rgba(255,255,255,0.1)', border:'1px solid rgba(255,255,255,0.2)', radius:6, text:'#fff', sub:'rgba(255,255,255,0.55)', pill:'#0078d4', accent:'#fff', shadow:'0 2px 8px rgba(0,0,0,0.15)', blur:true, font:'inherit', dark:true },
-  'bento-ui':    { bg:'#0f0f1a', card:'#1a1a2e', border:'1px solid rgba(255,255,255,0.08)', radius:10, text:'rgba(255,255,255,0.9)', sub:'rgba(255,255,255,0.38)', pill:'linear-gradient(135deg,#6c63ff,#ff6584)', accent:'#a78bfa', shadow:'none', blur:false, font:'inherit', dark:true },
-  claymorphism:  { bg:'#f0f4ff', card:'#f0f4ff', border:'none', radius:16, text:'#1a5276', sub:'rgba(26,82,118,0.55)', pill:'#a8d8ea', accent:'#1a5276', shadow:'4px 4px 10px #d0d8ea,-3px -3px 8px #fff,inset 2px 2px 5px rgba(255,255,255,0.6)', blur:false, font:'inherit', dark:false },
-  skeuomorphism: { bg:'linear-gradient(180deg,#c9a96e,#8B6914)', card:'linear-gradient(180deg,#f5e6c3,#e8d4a0)', border:'1px solid #c4a054', radius:4, text:'#5a3e0a', sub:'rgba(90,62,10,0.55)', pill:'linear-gradient(180deg,#4a8c3f,#2d6b22)', accent:'#5a3e0a', shadow:'2px 2px 4px rgba(0,0,0,0.3)', blur:false, font:'inherit', dark:false },
-  cyberpunk:     { bg:'#050510', card:'#050510', border:'1px solid #00ffff', radius:0, text:'#00ffff', sub:'rgba(0,255,255,0.5)', pill:'transparent', accent:'#00ffff', shadow:'0 0 8px rgba(0,255,255,0.4)', blur:false, font:'monospace', dark:true },
-  retro:         { bg:'#1a0a00', card:'#1a0a00', border:'2px solid #ff9d4d', radius:0, text:'#ff6b35', sub:'rgba(255,107,53,0.55)', pill:'#ff6b35', accent:'#ff6b35', shadow:'3px 3px 0 #ff9d4d', blur:false, font:'monospace', dark:true },
-  'dark-ui':     { bg:'#0a0a0f', card:'#1a1a2e', border:'1px solid rgba(255,255,255,0.08)', radius:10, text:'rgba(255,255,255,0.9)', sub:'rgba(255,255,255,0.38)', pill:'linear-gradient(135deg,#6c63ff,#9b5de5)', accent:'#a78bfa', shadow:'0 0 14px rgba(108,99,255,0.2)', blur:false, font:'inherit', dark:true },
-  'light-ui':    { bg:'#f8f9ff', card:'#fff', border:'1px solid rgba(0,0,0,0.07)', radius:10, text:'#1a1a2e', sub:'#777', pill:'#3f51b5', accent:'#3f51b5', shadow:'0 2px 10px rgba(63,81,181,0.15)', blur:false, font:'inherit', dark:false },
-  'gradient-ui': { bg:'linear-gradient(135deg,#6c63ff,#ff6584)', card:'rgba(255,255,255,0.13)', border:'1px solid rgba(255,255,255,0.28)', radius:12, text:'#fff', sub:'rgba(255,255,255,0.6)', pill:'rgba(255,255,255,0.2)', accent:'#fff', shadow:'none', blur:true, font:'inherit', dark:true },
-}
 
 /* ── TOAST PREVIEWS ── */
 const toastPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]) => [id,
@@ -608,7 +603,7 @@ const tooltipPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id,
   <div key={id} style={{ background:s.bg, padding:28, borderRadius:16, display:'flex', gap:40, alignItems:'flex-end', justifyContent:'center', minHeight:220, flexWrap:'wrap' }}>
     {[['Hover Me','above'],['More Info','right']].map(([label, pos]) => (
       <div key={label} style={{ position:'relative', display:'inline-flex', flexDirection:'column', alignItems:'center', gap:8 }}>
-        <div style={{ padding:'7px 16px', background:s.pill, border:s.border, borderRadius:s.radius, color:s.accent, fontWeight:700, fontSize:12, fontFamily:s.font, boxShadow:s.shadow, cursor:'pointer', backdropFilter:s.blur?'blur(10px)':'none', textTransform:['brutalism','cyberpunk','retro'].includes(id)?'uppercase':'none' }}>{label}</div>
+        <div style={{ padding:'7px 16px', background:s.pill, border:s.border, borderRadius:s.radius, color:s.onPill, fontWeight:700, fontSize:12, fontFamily:s.font, boxShadow:s.shadow, cursor:'pointer', backdropFilter:s.blur?'blur(10px)':'none', textTransform:['brutalism','cyberpunk','retro'].includes(id)?'uppercase':'none' }}>{label}</div>
         <div style={{ padding:'6px 12px', background:s.dark?'rgba(0,0,0,0.82)':'#1a1a2e', border:id==='cyberpunk'?'1px solid #00ffff':id==='brutalism'?'2px solid #f5f500':'none', borderRadius:s.radius===0?0:6, color:'#fff', fontSize:11, fontWeight:600, fontFamily:s.font, whiteSpace:'nowrap', boxShadow:'0 4px 12px rgba(0,0,0,0.25)' }}>
           {pos === 'above' ? '⬆ Helpful info' : '➡ Side tooltip'}
         </div>
@@ -640,7 +635,7 @@ const tabsPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]
   <div key={id} style={{ background:s.bg, padding:18, borderRadius:16, minHeight:220 }}>
     <div style={{ display:'flex', gap:4, marginBottom:14, background:id==='neumorphism'?'#dde1e7':'transparent', borderRadius:id==='neumorphism'?10:0, padding:id==='neumorphism'?4:0 }}>
       {['Overview','Features','Pricing','Docs'].map((tab, i) => (
-        <button key={tab} style={{ padding:'8px 14px', background:i===0?s.pill:'transparent', border:i===0?s.border:'none', borderRadius:s.radius, color:i===0?s.accent:s.sub, fontSize:12, fontWeight:i===0?700:500, fontFamily:s.font, cursor:'pointer', boxShadow:i===0?s.shadow:'none', backdropFilter:s.blur&&i===0?'blur(10px)':'none' }}>{tab}</button>
+        <button key={tab} style={{ padding:'8px 14px', background:i===0?s.pill:'transparent', border:i===0?s.border:'none', borderRadius:s.radius, color:i===0?s.onPill:s.sub, fontSize:12, fontWeight:i===0?700:500, fontFamily:s.font, cursor:'pointer', boxShadow:i===0?s.shadow:'none', backdropFilter:s.blur&&i===0?'blur(10px)':'none' }}>{tab}</button>
       ))}
     </div>
     <div style={{ padding:16, background:s.dark?'rgba(255,255,255,0.05)':id==='brutalism'?'#fff':'rgba(0,0,0,0.03)', border:s.dark?'1px solid rgba(255,255,255,0.06)':id==='brutalism'?'2px solid #000':'1px solid rgba(0,0,0,0.06)', borderRadius:s.radius }}>
@@ -691,7 +686,7 @@ const stepperPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id,
             display:'flex', alignItems:'center', justifyContent:'center',
             fontSize:13, fontWeight:800, fontFamily:s.font,
             background: state==='done'?(s.dark?'rgba(255,255,255,0.15)':'rgba(108,99,255,0.1)'):state==='active'?s.pill:(s.dark?'rgba(255,255,255,0.07)':'rgba(0,0,0,0.06)'),
-            color: state==='done'?s.accent:state==='active'?s.accent:s.sub,
+            color: state==='done'?s.accent:state==='active'?s.onPill:s.sub,
             boxShadow: state!=='up'?s.shadow:'none',
             border: s.border==='none'?'none':state!=='up'?s.border:'none',
             backdropFilter: s.blur&&state==='active'?'blur(8px)':'none',
@@ -760,7 +755,7 @@ const chipPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s]
           background: active?s.pill:(s.dark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)'),
           border: active?s.border:(s.dark?'1px solid rgba(255,255,255,0.1)':'1px solid rgba(0,0,0,0.1)'),
           borderRadius: s.radius===0?0:100,
-          color: active?s.accent:s.sub,
+          color: active?s.onPill:s.sub,
           boxShadow: active?s.shadow:'none',
           cursor:'pointer',
           textTransform: s.font==='monospace'?'uppercase':'none',
@@ -788,7 +783,7 @@ const tablePreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id, s
             <td style={{ padding:'7px 10px', fontSize:11, color:s.text, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{c}</td>
             <td style={{ padding:'7px 10px', fontSize:11, color:s.sub, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{st}</td>
             <td style={{ padding:'7px 10px', borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>
-              <span style={{ padding:'2px 8px', borderRadius:100, fontSize:10, fontWeight:700, background:active?'rgba(34,197,94,0.14)':'rgba(234,179,8,0.14)', color:active?'#22c55e':'#eab308' }}>{active?'Active':'Draft'}</span>
+              <span style={{ padding:'2px 8px', borderRadius:100, fontSize:10, fontWeight:700, background:active?'rgba(34,197,94,0.14)':'rgba(234,179,8,0.14)', color:active?(s.dark?'#4ade80':'#166534'):(s.dark?'#facc15':'#854d0e') }}>{active?'Active':'Draft'}</span>
             </td>
             <td style={{ padding:'7px 10px', fontSize:11, color:s.sub, borderBottom:`1px solid ${s.dark?'rgba(255,255,255,0.05)':'rgba(0,0,0,0.05)'}` }}>{v}</td>
           </tr>
@@ -804,7 +799,7 @@ const sidebarPreviews = Object.fromEntries(Object.entries(newStyleMap).map(([id,
     <div style={{ width:170, background:s.card, border:s.border, borderRadius:s.radius, boxShadow:s.shadow, padding:'14px 10px', display:'flex', flexDirection:'column', gap:14, backdropFilter:s.blur?'blur(14px)':'none' }}>
       {/* Logo */}
       <div style={{ display:'flex', alignItems:'center', gap:8, paddingBottom:10, borderBottom:s.dark?'1px solid rgba(255,255,255,0.07)':'1px solid rgba(0,0,0,0.07)' }}>
-        <div style={{ width:26, height:26, background:s.pill, borderRadius:s.radius===0?0:6, display:'flex', alignItems:'center', justifyContent:'center', fontSize:9, fontWeight:900, color:s.accent, fontFamily:s.font, backdropFilter:s.blur?'blur(8px)':'none' }}>UI</div>
+        <div style={{ width:26, height:26, background:s.pill, borderRadius:s.radius===0?0:6, display:'flex', alignItems:'center', justifyContent:'center', fontSize:9, fontWeight:900, color:s.onPill, fontFamily:s.font, backdropFilter:s.blur?'blur(8px)':'none' }}>UI</div>
         <span style={{ fontSize:13, fontWeight:800, color:s.text, fontFamily:s.font, textTransform:s.font==='monospace'?'uppercase':'none' }}>Explorer</span>
       </div>
       {/* Nav */}
@@ -845,11 +840,14 @@ const allPreviews = {
   chip: chipPreviews,
   table: tablePreviews,
   sidebar: sidebarPreviews,
+  ...extraPreviews,
+  ...tokenComponentPreviews,
 }
 
 
 export default function ComponentPreview({ componentId, styleId, height = 220 }) {
-  const preview = allPreviews[componentId]?.[styleId]
+  // Hand-written previews win; otherwise fall back to one built from the style's tokens
+  const preview = allPreviews[componentId]?.[styleId] ?? tokenFallbackPreview(componentId, styleId)
   if (!preview) {
     return (
       <div style={{ height, background:'var(--bg-secondary)', borderRadius:12, display:'flex', alignItems:'center', justifyContent:'center', color:'var(--text-muted)', fontSize:13 }}>

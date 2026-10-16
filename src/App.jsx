@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'framer-motion'
 import './styles/dynamic-themes.css'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
 import Layout from './components/layout/Layout'
 
@@ -19,14 +20,32 @@ const Inspiration = React.lazy(() => import('./pages/Inspiration/index'))
 const Resources = React.lazy(() => import('./pages/Resources/index'))
 const Themes = React.lazy(() => import('./pages/Themes/index'))
 const Profile = React.lazy(() => import('./pages/Profile/index'))
+const Animations = React.lazy(() => import('./pages/Animations/index'))
 
-function App() {
+function PageLoader() {
   return (
-    <ThemeProvider>
-      <BrowserRouter>
-        <Layout>
-          <Suspense fallback={<div style={{ padding: 120, textAlign: 'center', color: 'var(--text-secondary)' }}>Loading...</div>}>
-            <Routes>
+    <div style={{ minHeight: '60vh', display: 'grid', placeItems: 'center' }} aria-label="Loading">
+      <span style={{ width: 40, height: 40, borderRadius: '50%', background: 'conic-gradient(from 0deg, transparent, #FE8932 70%, #CD1A30)', WebkitMask: 'radial-gradient(farthest-side, transparent calc(100% - 5px), #000 0)', mask: 'radial-gradient(farthest-side, transparent calc(100% - 5px), #000 0)', animation: 'spin 0.9s linear infinite' }} />
+    </div>
+  )
+}
+
+/* Fades pages in and out, and scrolls to top on navigation */
+function AnimatedRoutes() {
+  const location = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [location.pathname])
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Suspense fallback={<PageLoader />}>
+          <Routes location={location}>
             <Route path="/" element={<Home />} />
 
             {/* Chunk 2 — UI Library */}
@@ -58,6 +77,9 @@ function App() {
             {/* Chunk 11 — Themes */}
             <Route path="/themes" element={<Themes />} />
             
+            {/* Animations */}
+            <Route path="/animations" element={<Animations />} />
+
             {/* Chunk 12 — Profile */}
             <Route path="/profile" element={<Profile />} />
 
@@ -66,7 +88,18 @@ function App() {
             {/* 404 */}
             <Route path="*" element={<NotFound />} />
             </Routes>
-          </Suspense>
+        </Suspense>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <BrowserRouter>
+        <Layout>
+          <AnimatedRoutes />
         </Layout>
       </BrowserRouter>
     </ThemeProvider>

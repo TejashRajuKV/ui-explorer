@@ -69,7 +69,7 @@ export default function ComponentsIndex() {
               <span style={{ background: 'linear-gradient(135deg,var(--accent),var(--accent-2))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Design Style</span>
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: 17, maxWidth: 560, lineHeight: 1.7 }}>
-              8 component types × 14 design styles. Every component comes with a live preview and copy-ready HTML, CSS, and Tailwind code.
+              {componentTypes.length} component types × {styles.length} design styles. Every component comes with a live preview and copy-ready HTML, CSS, and Tailwind code.
             </p>
 
             {/* Stats row */}

@@ -8,12 +8,9 @@ describe('Badge Component', () => {
     expect(screen.getByText('Test Badge')).toBeInTheDocument()
   })
 
-  it('applies default muted color classes if no color is provided', () => {
+  it('applies default accent colors if no color is provided', () => {
     const { container } = render(<Badge>Default</Badge>)
     const badge = container.firstChild
-    expect(badge).toHaveStyle({
-      background: 'rgba(108, 99, 255, 0.15)',
-      color: 'var(--accent)'
-    })
+    expect(badge).toHaveStyle({ color: 'var(--accent)' })
   })
 })

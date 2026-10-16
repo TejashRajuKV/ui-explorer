@@ -12,7 +12,7 @@ export const styles = [
     definition:
       'Glassmorphism is a UI design trend that simulates a frosted glass effect by combining background blur, semi-transparency, subtle borders, and soft shadows. It creates the illusion of depth and layering, as if UI elements are made of translucent frosted glass floating above a colorful background.',
     history:
-      'The term was coined by Michal Malewicz in 2020, though Apple popularized the aesthetic in macOS Big Sur and iOS 7 (with its translucent elements). It gained massive traction in 2021–2022 as designers embraced it for its modern, premium feel. Today it remains one of the most-used styles for SaaS dashboards, landing pages, and mobile UIs.',
+      'The term was coined by Michal Malewicz in 2020, though Apple popularized the aesthetic in macOS Big Sur and iOS 7 (with its translucent elements). It gained massive traction in 2021–2022 as designers embraced it for its modern, premium feel, and Apple\'s Liquid Glass (2025) put translucent glass back at the centre of its platforms. Today it remains one of the most-used styles for SaaS dashboards, landing pages, and mobile UIs.',
     characteristics: [
       'Frosted glass effect using backdrop-filter: blur()',
       'Semi-transparent backgrounds (rgba or hsla)',
@@ -60,8 +60,8 @@ export const styles = [
     realWorldExamples: [
       { name: 'Apple macOS Big Sur', desc: 'System-wide translucent sidebars and menus.' },
       { name: 'Microsoft Windows 11', desc: 'Acrylic material in Start menu, taskbar, and settings.' },
-      { name: 'Linear.app', desc: 'Subtle glassmorphic cards on gradient backgrounds.' },
-      { name: 'Stripe Dashboard', desc: 'Layered transparent panels over gradient backdrops.' },
+      { name: 'Apple Liquid Glass (2025)', desc: 'Translucent, refractive glass material across iOS 26, macOS and visionOS.' },
+      { name: 'iOS Control Center', desc: 'Frosted, blurred panels floating over the wallpaper.' },
     ],
   },
 
@@ -78,7 +78,7 @@ export const styles = [
     definition:
       'Neumorphism (or Soft UI) is a design style that creates the illusion of elements being physically extruded from or pressed into the background surface. It achieves this through dual-toned box shadows — one light and one dark — applied to elements sharing the same color as the background.',
     history:
-      'Coined by Jason Kelley in a 2019 Dribbble post, neumorphism was a reaction against flat design. It draws inspiration from skeuomorphism but strips away all realistic textures, keeping only the lighting simulation. It exploded on Dribbble in early 2020 but faced significant accessibility criticism, leading designers to use it more selectively today.',
+      'Neumorphism took off in late 2019 from Alexander Plyuto\'s "Skeuomorph Mobile Banking" Dribbble shot; the name itself was suggested by Jason Kelley. It was a reaction against flat design. It draws inspiration from skeuomorphism but strips away all realistic textures, keeping only the lighting simulation. It exploded on Dribbble in early 2020 but faced significant accessibility criticism, leading designers to use it more selectively today.',
     characteristics: [
       'Elements share the same color as the background surface',
       'Two box shadows: one lighter (top-left) and one darker (bottom-right)',
@@ -124,7 +124,7 @@ export const styles = [
       'Fitness tracking apps',
     ],
     realWorldExamples: [
-      { name: 'Apple Calculator (iOS)', desc: 'Subtle extruded button surfaces with inset pressed states.' },
+      { name: 'Alexander Plyuto — Skeuomorph Mobile Banking (2019)', desc: 'The Dribbble concept that launched the soft-UI trend.' },
       { name: 'Many Dribbble Concepts', desc: 'The trend exploded on Dribbble in 2020 with thousands of concept designs.' },
       { name: 'Fitness Dashboards', desc: 'Several health/fitness apps use soft-UI cards for metrics.' },
     ],
@@ -143,7 +143,7 @@ export const styles = [
     definition:
       'Minimalism is a design philosophy that removes all non-essential elements, leaving only what is necessary for function and communication. It relies on whitespace, typography, and intentional use of color to create clarity and focus. Every element earns its place.',
     history:
-      'Rooted in 20th-century art movements (Bauhaus, Swiss Style), digital minimalism gained mainstream traction with Apple\'s design language in the 2000s. Flat design — popularized by iOS 7 (2013) and Google Material Design — brought minimalism to mobile. Today it dominates SaaS products, portfolios, and editorial design.',
+      'Rooted in 20th-century art movements (Bauhaus, Swiss Style), digital minimalism gained mainstream traction with Apple\'s design language in the 2000s. Flat design — popularized by Microsoft Metro (2010) and iOS 7 (2013) — brought minimalism to mobile. Today it dominates SaaS products, portfolios, and editorial design.',
     characteristics: [
       'Abundant whitespace (negative space is a design element)',
       'Limited color palette — often monochrome or one accent',
@@ -447,7 +447,7 @@ export const styles = [
     ],
     realWorldExamples: [
       { name: 'Apple MacBook Pro page', desc: 'The defining example — varied-size feature cards in a clean grid.' },
-      { name: 'Vercel Dashboard', desc: 'Grid-based project and deployment cards of varying widths.' },
+      { name: 'bento.me', desc: 'Link-in-bio profiles built entirely from mixed-size bento tiles.' },
       { name: 'Linear.app Marketing', desc: 'Modular feature grid showcasing product capabilities.' },
     ],
   },
@@ -468,15 +468,15 @@ export const styles = [
       'Claymorphism emerged around 2021–2022 as a reaction to flat and glassmorphic design. It was popularized by the 3D illustration communities on Dribbble and Behance, and was embraced by Rive, Spline, and other 3D tool ecosystems. The style took direct inspiration from 3D modeling and animation aesthetics entering the flat UI world.',
     characteristics: [
       'Pastel or soft color palette',
-      'Multiple layered box-shadows (outer spread shadow + inner white highlight)',
+      'Layered box-shadows: a soft outer drop shadow plus light and dark inner (inset) shadows',
       'High border-radius (often 50px or more)',
       'White or near-white inner glow/highlight on the top edge',
-      'Slightly inflated or "pillowy" appearance',
+      'Coloured surfaces that float above a lighter background (unlike neumorphism, which matches it)',
       'Often paired with 3D illustrations or icons',
     ],
     principles: [
       { title: 'Inflation', desc: 'Elements look physically puffed up — achieved with large radius and generous shadows.' },
-      { title: 'Layered Shadows', desc: 'Multiple box-shadows create depth: an outer spread shadow and an inner highlight.' },
+      { title: 'Layered Shadows', desc: 'An outer drop shadow lifts the element; inset light (top-left) and dark (bottom-right) shadows give it volume.' },
       { title: 'Softness', desc: 'Pastel colors and rounded forms communicate approachability and playfulness.' },
       { title: 'Inner Highlight', desc: 'A white or near-white box-shadow inset on the top creates the clay surface sheen.' },
       { title: 'Physical Feel', desc: 'The combination makes elements feel like they could be picked up and squeezed.' },
@@ -704,7 +704,7 @@ export const styles = [
     realWorldExamples: [
       { name: 'Spotify Wrapped (various years)', desc: 'Uses bold retro-inspired typography and color palettes.' },
       { name: 'Poolsuite FM', desc: 'A perfect 90s Mac OS-style vaporwave internet radio player.' },
-      { name: 'Wordle (original)', desc: 'Simple grid game with an old-school, no-frills digital game aesthetic.' },
+      { name: '98.css', desc: 'A CSS library that recreates the Windows 98 interface for modern web apps.' },
     ],
   },
 
@@ -781,7 +781,7 @@ export const styles = [
     category: 'Minimal',
     difficulty: 'Beginner',
     popularity: 5,
-    colors: ['#ffffff', '#f5f5f5', '#e8eaf6', '#3f51b5'],
+    colors: ['#ffffff', '#f8f9fa', '#e9ecef', '#3b5bdb'],
     tags: ['light-theme', 'bright', 'clean', 'professional', 'default'],
     definition:
       'Light UI uses predominantly white and light gray backgrounds to create clean, open, and trustworthy interfaces. It is the default design mode for most professional, institutional, and consumer-facing applications. Light UIs communicate transparency, cleanliness, and approachability, and are optimized for daytime use.',
@@ -846,12 +846,12 @@ export const styles = [
     category: 'Modern',
     difficulty: 'Beginner',
     popularity: 4,
-    colors: ['#6c63ff', '#ff6584', '#43e97b', '#fa709a'],
+    colors: ['#4158D0', '#C850C0', '#FFCC70', '#140b2e'],
     tags: ['gradient', 'colorful', 'vibrant', 'modern', 'brand'],
     definition:
       'Gradient UI uses color gradients as the primary visual language — as backgrounds, on text, on buttons, on icons, and across entire pages. Rather than using flat color, gradients create depth, energy, and visual richness. When used skillfully, they communicate creativity, modernity, and premium quality.',
     history:
-      'Gradients fell out of fashion during the flat design wave (2013–2016) but made a dramatic comeback around 2017–2018. Stripe\'s animated gradient branding (2017) is credited with re-igniting the trend. Instagram\'s gradient logo redesign (2016) also played a major role. Today, gradient UI is a staple of modern SaaS, fintech, and creative platform design.',
+      'Gradients fell out of fashion during the flat design wave (2013–2016) but made a dramatic comeback around 2017–2018. Stripe\'s bold gradient branding (2017) and its animated WebGL mesh gradient (2020) are credited with re-igniting the trend. Instagram\'s gradient logo redesign (2016) also played a major role. Today, gradient UI is a staple of modern SaaS, fintech, and creative platform design.',
     characteristics: [
       'Multi-color linear or radial gradients as backgrounds',
       'Gradient-filled text (background-clip: text)',
@@ -902,6 +902,260 @@ export const styles = [
       { name: 'Figma', desc: 'Gradient backgrounds and colorful feature illustrations on their marketing site.' },
     ],
   },
+
+  {
+    id: 'neo-brutalism',
+    name: 'Neo-Brutalism',
+    emoji: '🟨',
+    tagline: 'Brutalist structure softened with bold, friendly color',
+    category: 'Themed',
+    difficulty: 'Beginner',
+    popularity: 4,
+    colors: ['#fdf6e3', '#ff90e8', '#ffc900', '#111111'],
+    tags: ['bold', 'outline', 'hard-shadow', 'playful', 'flat-color'],
+    definition:
+      'Neo-Brutalism (also "neubrutalism") keeps brutalism\'s visible structure — thick black outlines and hard, unblurred offset shadows — but pairs it with saturated, cheerful fills, rounded corners and clean sans-serif type. The result feels raw and honest, yet approachable and fun rather than confrontational.',
+    history:
+      'The style grew out of the web-brutalism revival and went mainstream around 2021–2023. Gumroad\'s 2021 redesign — flat pink, yellow and black with chunky outlines — became a defining reference, and the look spread quickly through indie SaaS landing pages, Figma community kits and open-source component libraries.',
+    characteristics: [
+      'Thick solid outlines (2–4px, usually black) on every surface',
+      'Hard offset shadows with zero blur (e.g. 4px 4px 0 #111)',
+      'Flat, saturated fills — pink, yellow, mint, lavender',
+      'Moderately rounded corners, unlike classic brutalism',
+      'Chunky, confident sans-serif typography',
+      'Buttons that visibly "press" by removing the offset shadow',
+    ],
+    principles: [
+      { title: 'Visible Structure', desc: 'Outlines and shadows are drawn, not implied — every element has a clear edge.' },
+      { title: 'Hard Depth', desc: 'Depth comes from solid offset shadows, never from blur or gradients.' },
+      { title: 'Friendly Color', desc: 'Use two or three bright, flat fills to keep the rawness playful rather than harsh.' },
+      { title: 'Tactile Feedback', desc: 'On press, translate the element into its shadow so it feels physically pushed.' },
+      { title: 'Consistency', desc: 'Same stroke width and shadow offset everywhere — the system relies on repetition.' },
+    ],
+    accessibility: [
+      'Black outlines and dark text on light fills give strong contrast by default.',
+      'Check text on saturated fills (e.g. white on bright pink often fails) — prefer black text.',
+      'Keep a visible focus ring that differs from the default outline, such as a thicker or colored ring.',
+      'Do not rely on the shadow alone to signal interactivity; keep labels and cursor cues.',
+      'Respect prefers-reduced-motion for press and hover translations.',
+    ],
+    bestPractices: [
+      'Pick one stroke width (2px or 3px) and one shadow offset (4px) and reuse them.',
+      'Limit the palette to a neutral background plus 2–3 bright accents.',
+      'Use black text on colored fills for reliable contrast.',
+      'Animate presses with a short transform, e.g. translate(4px, 4px) with the shadow removed.',
+      'Balance loud components with generous whitespace.',
+    ],
+    commonMistakes: [
+      'Adding blur to the shadows — that turns it into ordinary material-style elevation.',
+      'Mixing stroke widths and shadow offsets across components.',
+      'Using too many bright colors at once so nothing stands out.',
+      'Low-contrast white text on pastel or neon fills.',
+      'Outlining every tiny element until the layout feels noisy.',
+    ],
+    useCases: [
+      'Indie SaaS and startup landing pages',
+      'Creator tools and marketplaces',
+      'Portfolios and personal sites',
+      'Event and community websites',
+      'Education and onboarding flows',
+    ],
+    realWorldExamples: [
+      { name: 'Gumroad (2021 redesign)', desc: 'Flat pink and yellow surfaces, chunky black outlines and hard shadows.' },
+      { name: 'Neobrutalism component kits', desc: 'Open-source React/Tailwind libraries that package the look as reusable components.' },
+      { name: 'Indie SaaS landing pages', desc: 'A go-to look for 2022–2024 product launches that want to feel bold and human.' },
+    ],
+  },
+
+  {
+    id: 'aurora-ui',
+    name: 'Aurora UI',
+    emoji: '🌌',
+    tagline: 'Soft, blurred color fields that glow like the northern lights',
+    category: 'Modern',
+    difficulty: 'Intermediate',
+    popularity: 4,
+    colors: ['#0b1020', '#38bdf8', '#a855f7', '#34d399'],
+    tags: ['mesh-gradient', 'glow', 'blur', 'dark', 'ambient'],
+    definition:
+      'Aurora UI uses large, heavily blurred blobs of color layered behind content to create a soft, glowing, atmospheric backdrop — like the aurora borealis. Content usually sits on dark or translucent surfaces above these light fields, so the color feels ambient rather than decorative.',
+    history:
+      'Aurora-style backgrounds spread in 2020–2021 as designers moved beyond flat gradients toward mesh gradients and blurred color blobs. Stripe\'s animated mesh-gradient homepage (2020) was a major influence, and the "Aurora UI" label was popularised in design articles in 2021. The look now appears on many tech and AI product sites.',
+    characteristics: [
+      'Multiple radial gradients or blurred shapes layered as a background',
+      'Colors blend smoothly with no hard edges',
+      'Usually a dark base so the glows appear luminous',
+      'Content on dark or translucent (often glassy) surfaces',
+      'Often slowly animated — blobs drift or morph',
+      'Analogous or cool palettes: cyan, violet, teal, magenta',
+    ],
+    principles: [
+      { title: 'Light as Material', desc: 'Color behaves like light — it glows, spreads and blends rather than filling shapes.' },
+      { title: 'Depth by Layering', desc: 'Stack several soft color fields at different positions to build depth.' },
+      { title: 'Calm Motion', desc: 'If it moves, it moves slowly — drifting over tens of seconds, never pulsing.' },
+      { title: 'Content First', desc: 'The glow is atmosphere; text and controls sit on calmer, readable surfaces.' },
+    ],
+    accessibility: [
+      'Never place body text directly on the brightest part of a glow — use a surface behind it.',
+      'Check contrast across the whole background, since brightness varies from spot to spot.',
+      'Animated glows must respect prefers-reduced-motion.',
+      'Large blur filters are expensive — provide a static gradient fallback on low-power devices.',
+      'Keep interactive elements clearly outlined; soft backgrounds can blur affordances.',
+    ],
+    bestPractices: [
+      'Build the glow with 2–4 radial gradients rather than many blurred DOM nodes.',
+      'Keep a dark base color and let the glows add luminance.',
+      'Use a single analogous palette so the blend stays harmonious.',
+      'Animate background-position or transform, never repaint-heavy properties.',
+      'Pair with subtle glass or dark cards to hold the content.',
+    ],
+    commonMistakes: [
+      'Using complementary colors that blend into muddy browns or greys.',
+      'Letting glows sit directly behind paragraphs, killing readability.',
+      'Animating too fast so the background becomes distracting.',
+      'Stacking dozens of filter: blur() elements and tanking performance.',
+      'Using it everywhere — it works best for hero and marketing moments.',
+    ],
+    useCases: [
+      'AI and developer-tool landing pages',
+      'Product launch and hero sections',
+      'Music and media apps',
+      'Login and onboarding screens',
+      'Ambient dashboard headers',
+    ],
+    realWorldExamples: [
+      { name: 'Stripe homepage (2020)', desc: 'Animated WebGL mesh gradient that popularised flowing color backdrops.' },
+      { name: 'Linear marketing site', desc: 'Dark pages with soft colored glows behind product shots.' },
+      { name: 'AI product landing pages', desc: 'Dark heroes with cyan–violet aurora glows are now a common visual shorthand.' },
+    ],
+  },
+
+  {
+    id: 'swiss-design',
+    name: 'Swiss Design',
+    emoji: '🔴',
+    tagline: 'Grid-driven clarity from the International Typographic Style',
+    category: 'Classic',
+    difficulty: 'Advanced',
+    popularity: 4,
+    colors: ['#ffffff', '#f2f2f2', '#e3000f', '#111111'],
+    tags: ['grid', 'typography', 'helvetica', 'asymmetric', 'objective'],
+    definition:
+      'Swiss Design — the International Typographic Style — is built on strict modular grids, objective sans-serif typography, flush-left ragged-right text, asymmetric layouts and a restrained palette, often black, white and a single strong red. Its goal is clarity: the content is communicated as directly as possible, without ornament.',
+    history:
+      'The style emerged in Switzerland in the 1950s through designers such as Josef Müller-Brockmann, Armin Hofmann and Emil Ruder. Helvetica (1957, Max Miedinger) and Univers (1957, Adrian Frutiger) became its signature typefaces, and Müller-Brockmann\'s "Grid Systems in Graphic Design" (1981) codified its method. It deeply shaped corporate identity, wayfinding and, later, modern web layout.',
+    characteristics: [
+      'Strict modular grid underlying every placement',
+      'Neo-grotesque sans-serif type (Helvetica, Univers, Akzidenz-Grotesk)',
+      'Flush-left, ragged-right text alignment',
+      'Asymmetric compositions with lots of white space',
+      'Restrained palette — black, white and one accent (often red)',
+      'Scale and weight contrast used for hierarchy instead of decoration',
+    ],
+    principles: [
+      { title: 'The Grid', desc: 'Every element aligns to a column and baseline grid — the grid is the design.' },
+      { title: 'Objectivity', desc: 'Present information neutrally; typography and layout carry the message, not ornament.' },
+      { title: 'Asymmetry', desc: 'Dynamic, off-centre layouts create tension and guide the eye.' },
+      { title: 'Typographic Hierarchy', desc: 'Size, weight and position — not color or effects — establish order.' },
+      { title: 'Reduction', desc: 'Remove everything that does not serve communication.' },
+    ],
+    accessibility: [
+      'High-contrast black-on-white type is naturally readable.',
+      'Flush-left text is easier to read than justified text for people with dyslexia.',
+      'Very large size contrast needs care so small captions still meet minimum sizes.',
+      'Red accents must not be the only indicator of state (color-blind users).',
+      'Asymmetric layouts must keep a logical DOM and reading order.',
+    ],
+    bestPractices: [
+      'Start from a 12-column grid with consistent gutters and a baseline rhythm.',
+      'Use one sans-serif family in two or three weights.',
+      'Set body text flush-left, ragged-right.',
+      'Use a single accent color sparingly, for emphasis only.',
+      'Let white space and alignment do the work of boxes and dividers.',
+    ],
+    commonMistakes: [
+      'Centring everything — Swiss layouts are typically asymmetric and flush-left.',
+      'Adding shadows, gradients or rounded cards that break the flat, objective look.',
+      'Breaking the grid "just a little" — inconsistencies show immediately.',
+      'Using too many type sizes instead of a clear scale.',
+      'Treating the red accent as decoration instead of emphasis.',
+    ],
+    useCases: [
+      'Editorial and publishing sites',
+      'Museums, galleries and cultural institutions',
+      'Corporate identity and annual reports',
+      'Wayfinding and information design',
+      'Portfolios for designers and architects',
+    ],
+    realWorldExamples: [
+      { name: 'Josef Müller-Brockmann posters', desc: 'His Zürich Tonhalle concert posters are textbook grid-based Swiss design.' },
+      { name: 'NYC Subway signage (1970)', desc: 'Unimark International\'s Helvetica-based system applied Swiss principles to wayfinding.' },
+      { name: 'Grid Systems in Graphic Design', desc: 'Müller-Brockmann\'s 1981 book that codified the modular grid method.' },
+    ],
+  },
+
+  {
+    id: 'y2k',
+    name: 'Y2K',
+    emoji: '💿',
+    tagline: 'Glossy, bubbly, chrome-kissed optimism from the turn of the millennium',
+    category: 'Themed',
+    difficulty: 'Intermediate',
+    popularity: 3,
+    colors: ['#c9d6ff', '#f8c8ff', '#1f5fe0', '#2b2d6e'],
+    tags: ['glossy', 'chrome', 'bubbly', 'nostalgia', 'aqua'],
+    definition:
+      'Y2K design recreates the techno-optimistic look of roughly 1998–2004: glossy "gel" buttons with bright highlights, pill and bubble shapes, translucent candy colors, chrome and metallic accents, iridescent pastel gradients and rounded, friendly type. It feels futuristic in the way the year 2000 imagined the future.',
+    history:
+      'The aesthetic comes from the late-1990s and early-2000s tech boom — the translucent iMac G3 (1998), Mac OS X\'s glossy Aqua interface (2000) and Windows XP\'s Luna theme (2001). It faded with flat design in the 2010s, then returned around 2020 as a nostalgia-driven revival in fashion, music branding and web design.',
+    characteristics: [
+      'Glossy "gel" buttons with a bright top highlight',
+      'Pill, bubble and blob shapes with generous rounding',
+      'Iridescent pastel gradients — baby blue, lilac, pink',
+      'Chrome, metallic and translucent candy-colored accents',
+      'Soft bevels and inner highlights instead of flat fills',
+      'Rounded, friendly typefaces (Trebuchet MS, Verdana, bubbly display fonts)',
+    ],
+    principles: [
+      { title: 'Gloss', desc: 'Surfaces catch light — a highlight on the top half makes elements look like gel or plastic.' },
+      { title: 'Techno-Optimism', desc: 'Bright, cheerful colors and shiny materials express excitement about the future.' },
+      { title: 'Roundness', desc: 'Pills and bubbles over sharp boxes — everything feels soft and touchable.' },
+      { title: 'Era Fidelity', desc: 'Borrow from real references (Aqua, Luna, iMac G3) so the nostalgia reads as intentional.' },
+    ],
+    accessibility: [
+      'Pastel backgrounds with light text often fail contrast — keep text dark or on a saturated fill.',
+      'Glossy highlights can wash out labels; make sure text sits below the highlight band.',
+      'Avoid animated sparkles or glitter without prefers-reduced-motion support.',
+      'Keep focus indicators clearly visible against busy gradients.',
+      'Don\'t rely on subtle bevels alone to show which elements are interactive.',
+    ],
+    bestPractices: [
+      'Build gloss with a linear gradient plus an inset white highlight on the top edge.',
+      'Pick one hero color (e.g. Aqua blue) and a pastel supporting palette.',
+      'Use dark navy text for readability on pastel surfaces.',
+      'Combine with modern layout and spacing so it feels retro, not dated.',
+      'Use chrome and iridescence as accents, not on every surface.',
+    ],
+    commonMistakes: [
+      'Low-contrast pastel-on-pastel text.',
+      'Applying gloss, chrome and glitter everywhere at once.',
+      'Using genuinely outdated interaction patterns instead of only the visuals.',
+      'Mixing Y2K with unrelated eras (e.g. 80s neon) and losing coherence.',
+      'Heavy image-based effects instead of lightweight CSS gradients.',
+    ],
+    useCases: [
+      'Music artist and label websites',
+      'Fashion and beauty brands',
+      'Nostalgia-driven campaigns and events',
+      'Playful consumer apps for younger audiences',
+      'Personal sites and creative portfolios',
+    ],
+    realWorldExamples: [
+      { name: 'Mac OS X Aqua (2000)', desc: 'Glossy gel buttons and translucent scroll bars defined the era\'s UI.' },
+      { name: 'Windows XP Luna (2001)', desc: 'Rounded, bright-blue glossy taskbar and window chrome.' },
+      { name: 'iMac G3 (1998)', desc: 'Translucent candy-colored hardware that set the look of the period.' },
+    ],
+  }
 ]
 
 export const getStyleById = (id) => styles.find((s) => s.id === id)

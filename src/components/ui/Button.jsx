@@ -2,9 +2,10 @@ import { motion } from 'framer-motion'
 
 const variants = {
   primary: {
-    background: 'linear-gradient(135deg, var(--accent), var(--accent-2))',
-    color: '#fff',
+    background: 'var(--grad-sunset)',
+    color: 'var(--cream)',
     border: 'none',
+    boxShadow: '0 8px 24px rgba(205, 26, 48, 0.3)',
   },
   secondary: {
     background: 'var(--bg-glass)',

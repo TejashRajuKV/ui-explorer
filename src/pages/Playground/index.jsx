@@ -165,7 +165,7 @@ export default function Playground() {
                     style={{
                       padding: '10px 14px',
                       textAlign: 'left',
-                      background: activeStyle === s.id ? 'rgba(108,99,255,0.1)' : 'transparent',
+                      background: activeStyle === s.id ? 'rgba(254,137,50,0.12)' : 'transparent',
                       border: `1px solid ${activeStyle === s.id ? 'var(--accent)' : 'var(--border)'}`,
                       borderRadius: 8,
                       color: activeStyle === s.id ? 'var(--accent)' : 'var(--text-primary)',

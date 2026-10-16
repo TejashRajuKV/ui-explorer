@@ -3,6 +3,9 @@
    Copy-ready HTML + CSS + Tailwind for each
    component type × design style combination
 ───────────────────────────────────────────── */
+import { getExtraComponentCode, getTokenComponentCode } from './extraComponentCode'
+import { DARK_STYLES, withAllStyles } from './styleTokens'
+
 
 const codes = {
   /* ══════ BUTTON ══════ */
@@ -733,7 +736,7 @@ const fallback = {
 </div>`,
 }
 
-const badgeStyleMap = {
+const badgeStyleMap = withAllStyles({
   glassmorphism: { bg: 'linear-gradient(135deg,#6c63ff,#ff6584)', pillBg: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)', color: '#fff', radius: 100, shadow: 'none', font: 'inherit' },
   neumorphism: { bg: '#e0e5ec', pillBg: '#e0e5ec', border: 'none', shadow: '3px 3px 6px #b8bec7,-3px -3px 6px #ffffff', color: '#6c63ff', radius: 12, font: 'inherit' },
   minimalism: { bg: '#fff', pillBg: '#111', border: '1px solid #111', color: '#fff', radius: 0, shadow: 'none', font: 'inherit' },
@@ -741,14 +744,14 @@ const badgeStyleMap = {
   'material-design': { bg: '#f5f5f5', pillBg: '#6200ee', border: 'none', shadow: '0 2px 4px rgba(0,0,0,0.2)', color: '#fff', radius: 16, font: 'inherit' },
   'fluent-design': { bg: 'linear-gradient(135deg,#0078d4,#005a9e)', pillBg: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.2)', shadow: '0 4px 12px rgba(0,0,0,0.1)', color: '#fff', radius: 4, font: 'inherit' },
   'bento-ui': { bg: '#0f0f1a', pillBg: 'linear-gradient(135deg,#6c63ff,#ff6584)', border: 'none', color: '#fff', radius: 8, shadow: 'none', font: 'inherit' },
-  claymorphism: { bg: '#f0f4ff', pillBg: '#a8d8ea', border: 'none', shadow: '4px 4px 8px #d0d8ea,-4px -4px 8px #ffffff,inset 2px 2px 4px rgba(255,255,255,0.6)', color: '#1a5276', radius: 16, font: 'inherit' },
+  claymorphism: { bg: '#f0f4ff', pillBg: '#a8d8ea', border: 'none', shadow: '0 6px 14px rgba(47,127,166,0.25),inset -3px -3px 6px rgba(26,92,122,0.18),inset 3px 3px 6px rgba(255,255,255,0.8)', color: '#1a5276', radius: 16, font: 'inherit' },
   skeuomorphism: { bg: '#8B6914', pillBg: 'linear-gradient(180deg,#d4a017,#b8860b)', border: '1px solid #8b4513', shadow: 'inset 0 1px 0 rgba(255,255,255,0.4),0 2px 4px rgba(0,0,0,0.4)', color: '#fff9e6', radius: 4, font: 'inherit' },
   cyberpunk: { bg: '#050510', pillBg: 'transparent', border: '1px solid #00ffff', shadow: '0 0 8px rgba(0,255,255,0.4),inset 0 0 8px rgba(0,255,255,0.2)', color: '#00ffff', radius: 0, font: 'monospace', textTransform: 'uppercase' },
   retro: { bg: '#1a0a00', pillBg: '#ff6b35', border: '2px solid #ff9d4d', shadow: '2px 2px 0 #ff9d4d', color: '#1a0a00', radius: 0, font: 'monospace', textTransform: 'uppercase' },
   'dark-ui': { bg: '#0a0a0f', pillBg: '#1a1a2e', border: '1px solid rgba(255,255,255,0.1)', shadow: '0 4px 12px rgba(0,0,0,0.3)', color: '#fff', radius: 100, font: 'inherit' },
   'light-ui': { bg: '#f8f9ff', pillBg: '#3f51b5', border: 'none', shadow: '0 2px 8px rgba(63,81,181,0.25)', color: '#fff', radius: 100, font: 'inherit' },
-  'gradient-ui': { bg: 'linear-gradient(135deg,#6c63ff,#ff6584)', pillBg: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', shadow: '0 4px 12px rgba(0,0,0,0.1)', color: '#fff', radius: 100, font: 'inherit' },
-}
+  'gradient-ui': { bg: '#140b2e', pillBg: 'linear-gradient(135deg,#4158D0,#C850C0,#FFCC70)', border: 'none', shadow: '0 4px 14px rgba(200,80,192,0.4)', color: '#fff', radius: 100, font: 'inherit' },
+})
 
 function generateBadgeCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
@@ -1046,7 +1049,7 @@ function generateProgressCode(styleId) {
 /* ── TOAST ── */
 function generateToastCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? '#fff' : (styleId === 'minimalism' ? '#111' : styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)'
   const toastBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.15)' :
@@ -1181,7 +1184,7 @@ function generateToastCode(styleId) {
 /* ── TOOLTIP ── */
 function generateTooltipCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? '#fff' : (styleId === 'minimalism' || styleId === 'light-ui' ? '#111' : styleId === 'brutalism' ? '#000' : '#111')
   const tipBg = styleId === 'glassmorphism' ? 'rgba(0,0,0,0.75)' :
     styleId === 'neumorphism' ? '#e0e5ec' :
@@ -1332,7 +1335,7 @@ function generateTooltipCode(styleId) {
 /* ── DROPDOWN ── */
 function generateDropdownCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
   const menuBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.12)' :
@@ -1465,7 +1468,7 @@ function generateDropdownCode(styleId) {
 /* ── TABS ── */
 function generateTabsCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
   const contentBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.08)' :
@@ -1579,7 +1582,7 @@ function generateTabsCode(styleId) {
 /* ── BREADCRUMB ── */
 function generateBreadcrumbCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.4)'
   const activeColor = styleId === 'cyberpunk' ? '#00ffff' :
@@ -1687,7 +1690,7 @@ function generateBreadcrumbCode(styleId) {
 /* ── ACCORDION ── */
 function generateAccordionCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.45)'
   const itemBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
@@ -1827,7 +1830,7 @@ function generateAccordionCode(styleId) {
 /* ── STEPPER ── */
 function generateStepperCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
   const activeBg = s.pillBg
@@ -1992,7 +1995,7 @@ function generateStepperCode(styleId) {
 /* ── TIMELINE ── */
 function generateTimelineCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
   const cardBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
@@ -2155,7 +2158,7 @@ function generateTimelineCode(styleId) {
 /* ── SKELETON LOADER ── */
 function generateSkeletonCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const containerBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
     styleId === 'neumorphism' ? '#e0e5ec' :
     styleId === 'minimalism' ? '#fff' :
@@ -2296,7 +2299,7 @@ function generateSkeletonCode(styleId) {
 /* ── CHIP / TAG GROUP ── */
 function generateChipCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.85)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
   const activeBg = s.pillBg
@@ -2405,7 +2408,7 @@ function generateChipCode(styleId) {
 /* ── DATA TABLE ── */
 function generateTableCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.4)'
   const tableBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.08)' :
@@ -2585,7 +2588,7 @@ function generateTableCode(styleId) {
 /* ── SIDEBAR ── */
 function generateSidebarCode(styleId) {
   const s = badgeStyleMap[styleId] || badgeStyleMap.glassmorphism
-  const isDark = ['glassmorphism','bento-ui','dark-ui','cyberpunk','retro','gradient-ui','fluent-design','skeuomorphism'].includes(styleId)
+  const isDark = DARK_STYLES.includes(styleId)
   const textColor = isDark ? 'rgba(255,255,255,0.9)' : (styleId === 'brutalism' ? '#000' : '#111')
   const subColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(0,0,0,0.38)'
   const sidebarBg = styleId === 'glassmorphism' ? 'rgba(255,255,255,0.1)' :
@@ -2787,6 +2790,8 @@ function generateSidebarCode(styleId) {
 }
 
 export function getComponentCode(componentId, styleId) {
+  const extra = getExtraComponentCode(componentId, styleId)
+  if (extra) return extra
   if (componentId === 'badge') return generateBadgeCode(styleId)
   if (componentId === 'toggle') return generateToggleCode(styleId)
   if (componentId === 'avatar') return generateAvatarCode(styleId)
@@ -2804,5 +2809,6 @@ export function getComponentCode(componentId, styleId) {
   if (componentId === 'table') return generateTableCode(styleId)
   if (componentId === 'sidebar') return generateSidebarCode(styleId)
   
-  return codes[componentId]?.[styleId] || codes[componentId]?.glassmorphism || fallback
+  // Hand-written snippet if one exists, else generate from the style's tokens
+  return codes[componentId]?.[styleId] || getTokenComponentCode(componentId, styleId) || fallback
 }

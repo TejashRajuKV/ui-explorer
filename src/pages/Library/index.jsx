@@ -28,7 +28,7 @@ export default function LibraryIndex() {
         padding: '8px 16px',
         borderRadius: 100,
         border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-        background: active ? 'rgba(108,99,255,0.15)' : 'var(--bg-glass)',
+        background: active ? 'rgba(254,137,50,0.15)' : 'var(--bg-glass)',
         color: active ? 'var(--accent)' : 'var(--text-secondary)',
         fontSize: 13,
         fontWeight: active ? 600 : 500,
@@ -86,7 +86,7 @@ export default function LibraryIndex() {
                   outline: 'none',
                   transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
                 }}
-                onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(108,99,255,0.15)' }}
+                onFocus={e => { e.target.style.borderColor = 'var(--accent)'; e.target.style.boxShadow = '0 0 0 3px rgba(254,137,50,0.15)' }}
                 onBlur={e => { e.target.style.borderColor = 'var(--border)'; e.target.style.boxShadow = 'none' }}
               />
               {search && (
@@ -152,7 +152,7 @@ export default function LibraryIndex() {
               </p>
               <button
                 onClick={() => { setSearch(''); setActiveCategory('All'); setActiveDifficulty('All') }}
-                style={{ marginTop: 16, padding: '10px 20px', background: 'var(--accent)', color: '#fff', border: 'none', borderRadius: 8, cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600 }}
+                style={{ marginTop: 16, padding: '10px 20px', background: 'var(--accent)', color: 'var(--plum)', border: 'none', borderRadius: 8, cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600 }}
               >
                 Clear Filters
               </button>

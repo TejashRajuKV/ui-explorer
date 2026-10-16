@@ -2,17 +2,18 @@
    Dynamic StyleDetail Themes
 ───────────────────────────────────────────── */
 
-/* Hide background blur circles on stark/clean themes */
-html[data-active-style="brutalism"] [style*="blur("],
-html[data-active-style="minimalism"] [style*="blur("],
-html[data-active-style="retro"] [style*="blur("],
-html[data-active-style="light-ui"] [style*="blur("],
-html[data-active-style="skeuomorphism"] [style*="blur("] {
+/* Hide background blur circles on stark/clean themes.
+   Everything below is scoped to <main> so the site navbar and footer are untouched. */
+html[data-active-style="brutalism"] main [style*="blur("],
+html[data-active-style="minimalism"] main [style*="blur("],
+html[data-active-style="retro"] main [style*="blur("],
+html[data-active-style="light-ui"] main [style*="blur("],
+html[data-active-style="skeuomorphism"] main [style*="blur("] {
   display: none !important;
 }
 
 /* --- Glassmorphism --- */
-html[data-active-style="glassmorphism"] {
+html[data-active-style="glassmorphism"] main {
   --bg-primary: transparent;
   --bg-secondary: transparent;
   --bg-card: rgba(255, 255, 255, 0.05);
@@ -29,14 +30,14 @@ html[data-active-style="glassmorphism"] body {
   background: radial-gradient(circle at top left, #291b5c, #120e2b) !important;
   background-attachment: fixed !important;
 }
-html[data-active-style="glassmorphism"] .glass-card, 
-html[data-active-style="glassmorphism"] [style*="var(--bg-card)"] {
+html[data-active-style="glassmorphism"] main .glass-card, 
+html[data-active-style="glassmorphism"] main [style*="var(--bg-card)"] {
   backdrop-filter: blur(24px) !important;
   -webkit-backdrop-filter: blur(24px) !important;
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
 }
-html[data-active-style="glassmorphism"] button {
+html[data-active-style="glassmorphism"] main button {
   backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   background: rgba(108, 99, 255, 0.2) !important;
@@ -44,7 +45,7 @@ html[data-active-style="glassmorphism"] button {
 }
 
 /* --- Neumorphism --- */
-html[data-active-style="neumorphism"] {
+html[data-active-style="neumorphism"] main {
   --bg-primary: #e0e0f0;
   --bg-secondary: #e0e0f0;
   --bg-card: #e0e0f0;
@@ -57,30 +58,30 @@ html[data-active-style="neumorphism"] {
   --radius-sm: 16px;
   --radius-md: 20px;
 }
-html[data-active-style="neumorphism"] .glass-card,
-html[data-active-style="neumorphism"] [style*="var(--bg-card)"] {
+html[data-active-style="neumorphism"] main .glass-card,
+html[data-active-style="neumorphism"] main [style*="var(--bg-card)"] {
   background: #e0e0f0 !important;
   box-shadow: 9px 9px 16px #c8c8e0, -9px -9px 16px rgba(255,255,255, 0.7) !important;
   border: none !important;
   backdrop-filter: none !important;
 }
-html[data-active-style="neumorphism"] button {
+html[data-active-style="neumorphism"] main button {
   background: #e0e0f0 !important;
   box-shadow: 5px 5px 10px #c8c8e0, -5px -5px 10px rgba(255,255,255, 0.7) !important;
   border: none !important;
   color: #6c63ff !important;
   border-radius: 12px !important;
 }
-html[data-active-style="neumorphism"] button:active {
+html[data-active-style="neumorphism"] main button:active {
   box-shadow: inset 5px 5px 10px #c8c8e0, inset -5px -5px 10px rgba(255,255,255, 0.7) !important;
 }
-html[data-active-style="neumorphism"] span[style*="uppercase"] {
+html[data-active-style="neumorphism"] main span[style*="uppercase"] {
   box-shadow: 3px 3px 6px #c8c8e0, -3px -3px 6px rgba(255,255,255, 0.7) !important;
   border: none !important;
 }
 
 /* --- Brutalism --- */
-html[data-active-style="brutalism"] {
+html[data-active-style="brutalism"] main {
   --bg-primary: #ffffff;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
@@ -93,18 +94,18 @@ html[data-active-style="brutalism"] {
   --accent: #ff0000;
   --accent-2: #ffff00;
 }
-html[data-active-style="brutalism"],
-html[data-active-style="brutalism"] h1,
-html[data-active-style="brutalism"] h2,
-html[data-active-style="brutalism"] h3,
-html[data-active-style="brutalism"] h4,
-html[data-active-style="brutalism"] p,
-html[data-active-style="brutalism"] button,
-html[data-active-style="brutalism"] a {
+html[data-active-style="brutalism"] main,
+html[data-active-style="brutalism"] main h1,
+html[data-active-style="brutalism"] main h2,
+html[data-active-style="brutalism"] main h3,
+html[data-active-style="brutalism"] main h4,
+html[data-active-style="brutalism"] main p,
+html[data-active-style="brutalism"] main button,
+html[data-active-style="brutalism"] main a {
   font-family: "Courier New", Courier, monospace !important;
 }
-html[data-active-style="brutalism"] .glass-card,
-html[data-active-style="brutalism"] [style*="var(--bg-card)"] {
+html[data-active-style="brutalism"] main .glass-card,
+html[data-active-style="brutalism"] main [style*="var(--bg-card)"] {
   box-shadow: 6px 6px 0px #000000 !important;
   border: 3px solid #000000 !important;
   backdrop-filter: none !important;
@@ -112,11 +113,11 @@ html[data-active-style="brutalism"] [style*="var(--bg-card)"] {
   transition: transform 0.1s !important;
   background: #ffffff !important;
 }
-html[data-active-style="brutalism"] .glass-card:hover {
+html[data-active-style="brutalism"] main .glass-card:hover {
   transform: translate(-2px, -2px) !important;
   box-shadow: 8px 8px 0px #000000 !important;
 }
-html[data-active-style="brutalism"] button {
+html[data-active-style="brutalism"] main button {
   box-shadow: 4px 4px 0px #000000 !important;
   border: 3px solid #000000 !important;
   border-radius: 0px !important;
@@ -125,11 +126,11 @@ html[data-active-style="brutalism"] button {
   text-transform: uppercase;
   font-weight: 900 !important;
 }
-html[data-active-style="brutalism"] button:hover {
+html[data-active-style="brutalism"] main button:hover {
   transform: translate(-2px, -2px) !important;
   box-shadow: 6px 6px 0px #000000 !important;
 }
-html[data-active-style="brutalism"] span[style*="uppercase"] {
+html[data-active-style="brutalism"] main span[style*="uppercase"] {
   border: 2px solid #000 !important;
   border-radius: 0 !important;
   background: #ffff00 !important;
@@ -138,35 +139,35 @@ html[data-active-style="brutalism"] span[style*="uppercase"] {
 }
 
 /* --- Cyberpunk --- */
-html[data-active-style="cyberpunk"] {
+html[data-active-style="cyberpunk"] main {
   --bg-primary: #0d0d1e;
   --bg-secondary: #0a0a1a;
   --bg-card: #0d0d1e;
-  --text-primary: #00ffff;
-  --text-secondary: #ff00ff;
-  --border: #ff00ff;
+  --text-primary: #e6fbff;
+  --text-secondary: #9aa5c4;
+  --border: rgba(0,255,255,0.3);
   --accent: #00ffff;
   --accent-2: #ffff00;
   --radius-sm: 0px;
   --radius-md: 0px;
   --radius-lg: 0px;
 }
-html[data-active-style="cyberpunk"] h1, 
-html[data-active-style="cyberpunk"] h2, 
-html[data-active-style="cyberpunk"] h3 {
+html[data-active-style="cyberpunk"] main h1, 
+html[data-active-style="cyberpunk"] main h2, 
+html[data-active-style="cyberpunk"] main h3 {
   font-family: 'Space Grotesk', sans-serif !important;
   text-transform: uppercase;
   text-shadow: 2px 2px 0px #ff00ff;
 }
-html[data-active-style="cyberpunk"] .glass-card,
-html[data-active-style="cyberpunk"] [style*="var(--bg-card)"] {
+html[data-active-style="cyberpunk"] main .glass-card,
+html[data-active-style="cyberpunk"] main [style*="var(--bg-card)"] {
   border: 1px solid #00ffff !important;
   box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), inset 0 0 10px rgba(255, 0, 255, 0.1) !important;
   backdrop-filter: none !important;
   border-radius: 0px !important;
   background: #0d0d1e !important;
 }
-html[data-active-style="cyberpunk"] button {
+html[data-active-style="cyberpunk"] main button {
   border: 1px solid #ff00ff !important;
   background: transparent !important;
   color: #00ffff !important;
@@ -175,7 +176,7 @@ html[data-active-style="cyberpunk"] button {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-html[data-active-style="cyberpunk"] span[style*="uppercase"] {
+html[data-active-style="cyberpunk"] main span[style*="uppercase"] {
   border: 1px solid #ffff00 !important;
   background: transparent !important;
   color: #ffff00 !important;
@@ -184,7 +185,7 @@ html[data-active-style="cyberpunk"] span[style*="uppercase"] {
 }
 
 /* --- Bento UI --- */
-html[data-active-style="bento-ui"] {
+html[data-active-style="bento-ui"] main {
   --bg-primary: #1a1a2e;
   --bg-secondary: #16213e;
   --bg-card: #1a1a2e;
@@ -197,20 +198,20 @@ html[data-active-style="bento-ui"] {
   --radius-md: 32px;
   --radius-lg: 40px;
 }
-html[data-active-style="bento-ui"] .glass-card,
-html[data-active-style="bento-ui"] [style*="var(--bg-card)"] {
+html[data-active-style="bento-ui"] main .glass-card,
+html[data-active-style="bento-ui"] main [style*="var(--bg-card)"] {
   box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
   border: none !important;
   border-radius: 32px !important;
   background: #16213e !important;
 }
-html[data-active-style="bento-ui"] button {
+html[data-active-style="bento-ui"] main button {
   border-radius: 100px !important;
   box-shadow: 0 4px 12px rgba(108,99,255,0.3) !important;
   background: #6c63ff !important;
   border: none !important;
 }
-html[data-active-style="bento-ui"] span[style*="uppercase"] {
+html[data-active-style="bento-ui"] main span[style*="uppercase"] {
   border-radius: 100px !important;
   border: none !important;
   background: rgba(255, 101, 132, 0.2) !important;
@@ -218,7 +219,7 @@ html[data-active-style="bento-ui"] span[style*="uppercase"] {
 }
 
 /* --- Material Design --- */
-html[data-active-style="material-design"] {
+html[data-active-style="material-design"] main {
   --bg-primary: #ffffff;
   --bg-secondary: #f5f5f5;
   --bg-card: #ffffff;
@@ -234,28 +235,28 @@ html[data-active-style="material-design"] {
 html[data-active-style="material-design"] body {
   background: #f5f5f5 !important;
 }
-html[data-active-style="material-design"] .glass-card,
-html[data-active-style="material-design"] [style*="var(--bg-card)"] {
+html[data-active-style="material-design"] main .glass-card,
+html[data-active-style="material-design"] main [style*="var(--bg-card)"] {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08) !important;
   border: none !important;
   border-radius: 4px !important;
   backdrop-filter: none !important;
   background: #ffffff !important;
 }
-html[data-active-style="material-design"] button {
+html[data-active-style="material-design"] main button {
   border-radius: 4px !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
   text-transform: uppercase;
   background: #6200ee !important;
   border: none !important;
 }
-html[data-active-style="material-design"] span[style*="uppercase"] {
+html[data-active-style="material-design"] main span[style*="uppercase"] {
   background: #03dac6 !important;
   color: #000 !important;
 }
 
 /* --- Retro --- */
-html[data-active-style="retro"] {
+html[data-active-style="retro"] main {
   --bg-primary: #f7c59f;
   --bg-secondary: #f7c59f;
   --bg-card: #e8c547;
@@ -267,14 +268,14 @@ html[data-active-style="retro"] {
   --radius-md: 0px;
   --radius-lg: 0px;
 }
-html[data-active-style="retro"],
-html[data-active-style="retro"] h1,
-html[data-active-style="retro"] h2,
-html[data-active-style="retro"] h3,
-html[data-active-style="retro"] h4,
-html[data-active-style="retro"] p,
-html[data-active-style="retro"] button,
-html[data-active-style="retro"] a {
+html[data-active-style="retro"] main,
+html[data-active-style="retro"] main h1,
+html[data-active-style="retro"] main h2,
+html[data-active-style="retro"] main h3,
+html[data-active-style="retro"] main h4,
+html[data-active-style="retro"] main p,
+html[data-active-style="retro"] main button,
+html[data-active-style="retro"] main a {
   font-family: "Courier New", Courier, monospace !important;
 }
 html[data-active-style="retro"] body {
@@ -282,15 +283,15 @@ html[data-active-style="retro"] body {
   background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px) !important;
   background-attachment: fixed !important;
 }
-html[data-active-style="retro"] .glass-card,
-html[data-active-style="retro"] [style*="var(--bg-card)"] {
+html[data-active-style="retro"] main .glass-card,
+html[data-active-style="retro"] main [style*="var(--bg-card)"] {
   border: 3px solid #1a1a2e !important;
   background: #e8c547 !important;
   box-shadow: 6px 6px 0px rgba(0,0,0,0.15) !important;
   backdrop-filter: none !important;
   border-radius: 0px !important;
 }
-html[data-active-style="retro"] button {
+html[data-active-style="retro"] main button {
   border: 3px solid #1a1a2e !important;
   border-radius: 0px !important;
   background: #ff6b35 !important;
@@ -299,20 +300,20 @@ html[data-active-style="retro"] button {
   text-transform: uppercase;
   font-weight: 900 !important;
 }
-html[data-active-style="retro"] span[style*="uppercase"] {
+html[data-active-style="retro"] main span[style*="uppercase"] {
   border: 2px solid #1a1a2e !important;
   border-radius: 0px !important;
   box-shadow: 2px 2px 0px #1a1a2e !important;
 }
 
 /* --- Light UI --- */
-html[data-active-style="light-ui"] {
+html[data-active-style="light-ui"] main {
   --bg-primary: #ffffff;
   --bg-secondary: #fafafa;
   --bg-card: #ffffff;
   --text-primary: #212529;
   --text-secondary: #495057;
-  --border: #f8f9fa;
+  --border: #e9ecef;
   --accent: #3b5bdb;
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -321,15 +322,15 @@ html[data-active-style="light-ui"] {
 html[data-active-style="light-ui"] body {
   background: #ffffff !important;
 }
-html[data-active-style="light-ui"] .glass-card,
-html[data-active-style="light-ui"] [style*="var(--bg-card)"] {
+html[data-active-style="light-ui"] main .glass-card,
+html[data-active-style="light-ui"] main [style*="var(--bg-card)"] {
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02) !important;
-  border: 1px solid #f8f9fa !important;
+  border: 1px solid #e9ecef !important;
   border-radius: 12px !important;
   backdrop-filter: none !important;
   background: #ffffff !important;
 }
-html[data-active-style="light-ui"] button {
+html[data-active-style="light-ui"] main button {
   background: #3b5bdb !important;
   border-radius: 6px !important;
   box-shadow: 0 2px 8px rgba(59,91,219,0.2) !important;
@@ -338,7 +339,7 @@ html[data-active-style="light-ui"] button {
 }
 
 /* --- Fluent Design --- */
-html[data-active-style="fluent-design"] {
+html[data-active-style="fluent-design"] main {
   --bg-primary: #f3f3f3;
   --bg-secondary: #f3f3f3;
   --bg-card: rgba(255,255,255,0.45);
@@ -357,15 +358,15 @@ html[data-active-style="fluent-design"] body {
   background-color: #f3f3f3 !important;
   background-attachment: fixed !important;
 }
-html[data-active-style="fluent-design"] .glass-card,
-html[data-active-style="fluent-design"] [style*="var(--bg-card)"] {
+html[data-active-style="fluent-design"] main .glass-card,
+html[data-active-style="fluent-design"] main [style*="var(--bg-card)"] {
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   border: 1px solid rgba(255,255,255,0.8) !important;
   box-shadow: 0 8px 32px rgba(0,0,0,0.06) !important;
   border-radius: 8px !important;
 }
-html[data-active-style="fluent-design"] button {
+html[data-active-style="fluent-design"] main button {
   border-radius: 4px !important;
   background: rgba(0,120,212,0.9) !important;
   backdrop-filter: blur(10px) !important;
@@ -373,7 +374,7 @@ html[data-active-style="fluent-design"] button {
 }
 
 /* --- Minimalism --- */
-html[data-active-style="minimalism"] {
+html[data-active-style="minimalism"] main {
   --bg-primary: #ffffff;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
@@ -388,21 +389,21 @@ html[data-active-style="minimalism"] {
 html[data-active-style="minimalism"] body {
   background: #ffffff !important;
 }
-html[data-active-style="minimalism"] .glass-card,
-html[data-active-style="minimalism"] [style*="var(--bg-card)"] {
+html[data-active-style="minimalism"] main .glass-card,
+html[data-active-style="minimalism"] main [style*="var(--bg-card)"] {
   box-shadow: none !important;
   border: 1px solid #111111 !important;
   border-radius: 0px !important;
   backdrop-filter: none !important;
   background: #ffffff !important;
 }
-html[data-active-style="minimalism"] button {
+html[data-active-style="minimalism"] main button {
   border: 1px solid #111 !important;
   background: #111 !important;
   color: #fff !important;
   border-radius: 0px !important;
 }
-html[data-active-style="minimalism"] span[style*="uppercase"] {
+html[data-active-style="minimalism"] main span[style*="uppercase"] {
   border: 1px solid #111 !important;
   border-radius: 0px !important;
   background: transparent !important;
@@ -410,9 +411,9 @@ html[data-active-style="minimalism"] span[style*="uppercase"] {
 }
 
 /* --- Claymorphism --- */
-html[data-active-style="claymorphism"] {
-  --bg-primary: #ffd6e0;
-  --bg-secondary: #ffd6e0;
+html[data-active-style="claymorphism"] main {
+  --bg-primary: #fdf2f5;
+  --bg-secondary: #fdf2f5;
   --bg-card: #ffd6e0;
   --text-primary: #5a3a44;
   --border: transparent;
@@ -423,31 +424,31 @@ html[data-active-style="claymorphism"] {
   --radius-lg: 48px;
 }
 html[data-active-style="claymorphism"] body {
-  background: #ffd6e0 !important;
+  background: #fdf2f5 !important;
 }
-html[data-active-style="claymorphism"] .glass-card,
-html[data-active-style="claymorphism"] [style*="var(--bg-card)"] {
+html[data-active-style="claymorphism"] main .glass-card,
+html[data-active-style="claymorphism"] main [style*="var(--bg-card)"] {
   background: #ffd6e0 !important;
-  box-shadow: 10px 10px 24px #e6c1c9, -10px -10px 24px #ffebf7, inset 4px 4px 8px rgba(255,255,255,0.8) !important;
+  box-shadow: 0 18px 36px rgba(217,72,106,0.22), inset -6px -6px 14px rgba(160,60,90,0.18), inset 6px 6px 14px rgba(255,255,255,0.75) !important;
   border: none !important;
   backdrop-filter: none !important;
   border-radius: 40px !important;
 }
-html[data-active-style="claymorphism"] button {
+html[data-active-style="claymorphism"] main button {
   background: #a8d8ea !important;
   border-radius: 24px !important;
-  box-shadow: 6px 6px 12px #e6c1c9, -6px -6px 12px #ffebf7, inset 2px 2px 4px rgba(255,255,255,0.5) !important;
+  box-shadow: 0 10px 20px rgba(47,127,166,0.3), inset -4px -4px 8px rgba(26,92,122,0.2), inset 4px 4px 8px rgba(255,255,255,0.7) !important;
   border: none !important;
   color: #1a5c7a !important;
 }
-html[data-active-style="claymorphism"] span[style*="uppercase"] {
+html[data-active-style="claymorphism"] main span[style*="uppercase"] {
   background: #c3f0ca !important;
   color: #2b7034 !important;
   box-shadow: inset 2px 2px 4px rgba(255,255,255,0.5) !important;
 }
 
 /* --- Skeuomorphism --- */
-html[data-active-style="skeuomorphism"] {
+html[data-active-style="skeuomorphism"] main {
   --bg-primary: #d4a76a;
   --bg-secondary: #d4a76a;
   --bg-card: #d4a76a;
@@ -462,14 +463,14 @@ html[data-active-style="skeuomorphism"] body {
   background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 2px, transparent 2px, transparent 4px) !important;
   background-color: #d4a76a !important;
 }
-html[data-active-style="skeuomorphism"] .glass-card,
-html[data-active-style="skeuomorphism"] [style*="var(--bg-card)"] {
+html[data-active-style="skeuomorphism"] main .glass-card,
+html[data-active-style="skeuomorphism"] main [style*="var(--bg-card)"] {
   background: linear-gradient(to bottom, #d4a76a, #c49658) !important;
   box-shadow: 0 6px 12px rgba(0,0,0,0.3), inset 0 2px 0 rgba(255,255,255,0.4) !important;
   border: 1px solid #8b4513 !important;
   backdrop-filter: none !important;
 }
-html[data-active-style="skeuomorphism"] button {
+html[data-active-style="skeuomorphism"] main button {
   background: linear-gradient(to bottom, #8b4513, #5a2e0c) !important;
   border: 1px solid #3c1e08 !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3) !important;
@@ -477,14 +478,14 @@ html[data-active-style="skeuomorphism"] button {
   text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
   color: #fff !important;
 }
-html[data-active-style="skeuomorphism"] span[style*="uppercase"] {
+html[data-active-style="skeuomorphism"] main span[style*="uppercase"] {
   background: #2c5f2e !important;
   border: 1px solid #1a3c1c !important;
   color: #fff !important;
 }
 
 /* --- Dark UI --- */
-html[data-active-style="dark-ui"] {
+html[data-active-style="dark-ui"] main {
   --bg-primary: #0a0a0f;
   --bg-secondary: #0a0a0f;
   --bg-card: #1a1a2e;
@@ -496,20 +497,20 @@ html[data-active-style="dark-ui"] {
 html[data-active-style="dark-ui"] body {
   background: #0a0a0f !important;
 }
-html[data-active-style="dark-ui"] .glass-card,
-html[data-active-style="dark-ui"] [style*="var(--bg-card)"] {
+html[data-active-style="dark-ui"] main .glass-card,
+html[data-active-style="dark-ui"] main [style*="var(--bg-card)"] {
   background: #1a1a2e !important;
   border: 1px solid rgba(255,255,255,0.08) !important;
   box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
 }
-html[data-active-style="dark-ui"] button {
+html[data-active-style="dark-ui"] main button {
   background: #6c63ff !important;
   box-shadow: 0 0 16px rgba(108,99,255,0.4) !important;
   border: none !important;
 }
 
 /* --- Gradient UI --- */
-html[data-active-style="gradient-ui"] {
+html[data-active-style="gradient-ui"] main {
   --bg-primary: transparent;
   --bg-secondary: transparent;
   --bg-card: rgba(255,255,255,0.15);
@@ -519,19 +520,369 @@ html[data-active-style="gradient-ui"] {
   --accent: #ffffff;
 }
 html[data-active-style="gradient-ui"] body {
-  background: linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%) !important;
+  /* Dark scrim keeps white text ≥ 4.5:1 across the whole gradient, including the yellow end */
+  background: linear-gradient(rgba(12, 6, 36, 0.5), rgba(12, 6, 36, 0.5)), linear-gradient(135deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%) !important;
   background-attachment: fixed !important;
 }
-html[data-active-style="gradient-ui"] .glass-card,
-html[data-active-style="gradient-ui"] [style*="var(--bg-card)"] {
+html[data-active-style="gradient-ui"] main .glass-card,
+html[data-active-style="gradient-ui"] main [style*="var(--bg-card)"] {
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
   border: 1px solid rgba(255,255,255,0.5) !important;
   background: rgba(255,255,255,0.15) !important;
 }
-html[data-active-style="gradient-ui"] button {
+html[data-active-style="gradient-ui"] main button {
   background: rgba(255,255,255,0.2) !important;
   backdrop-filter: blur(10px) !important;
   border: 1px solid rgba(255,255,255,0.4) !important;
   color: #fff !important;
+}
+
+/* ─────────────────────────────────────────────
+   Token completion
+   Every token the page reads must be defined per style,
+   otherwise it falls back to the site's sunset palette
+   (e.g. cream muted text that vanishes on white).
+───────────────────────────────────────────── */
+html[data-active-style] main {
+  background: var(--bg-primary);
+  --accent-glow: color-mix(in srgb, var(--accent) 25%, transparent);
+  --shadow-glow: 0 0 32px var(--accent-glow);
+}
+
+/* Headings take the style's own typeface instead of the site serif */
+html[data-active-style] main :is(h1, h2, h3, h4) {
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+html[data-active-style="skeuomorphism"] main :is(h1, h2, h3, h4) { font-family: Georgia, 'Times New Roman', serif !important; }
+html[data-active-style="fluent-design"] main :is(h1, h2, h3, h4, p, span, a, button) { font-family: 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif !important; }
+html[data-active-style="material-design"] main :is(h1, h2, h3, h4, p, span, a, button) { font-family: Roboto, 'Helvetica Neue', Arial, sans-serif !important; }
+
+html[data-active-style="glassmorphism"] main {
+  --bg-card-hover: rgba(255,255,255,0.1);
+  --bg-glass-hover: rgba(255,255,255,0.14);
+  --accent-3: #7ee8c8;
+}
+html[data-active-style="neumorphism"] main {
+  --text-muted: #8a94a6;
+  --bg-card-hover: #e0e0f0;
+  --bg-glass-hover: #e0e0f0;
+  --border-hover: rgba(0,0,0,0.08);
+  --accent-3: #2f855a;
+  --shadow-sm: 3px 3px 6px #c8c8e0, -3px -3px 6px #ffffff;
+}
+html[data-active-style="minimalism"] main {
+  --text-muted: #767676;
+  --bg-glass: #ffffff;
+  --bg-card-hover: #fafafa;
+  --border-hover: #111111;
+  --accent-2: #111111;
+  --accent-3: #111111;
+  --shadow-sm: none;
+}
+html[data-active-style="brutalism"] main {
+  --text-muted: #333333;
+  --bg-glass: #ffffff;
+  --bg-card-hover: #ffff00;
+  --border-hover: #000000;
+  --accent-3: #000000;
+  --shadow-sm: 3px 3px 0 #000000;
+}
+html[data-active-style="material-design"] main {
+  --text-muted: #9e9e9e;
+  --bg-glass: #f5f5f5;
+  --bg-card-hover: #fafafa;
+  --border-hover: rgba(0,0,0,0.12);
+  --accent-3: #018786;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+html[data-active-style="fluent-design"] main {
+  --text-muted: #616161;
+  --bg-glass: rgba(255,255,255,0.6);
+  --bg-card-hover: rgba(255,255,255,0.7);
+  --border-hover: rgba(0,0,0,0.1);
+  --accent-3: #107c10;
+}
+html[data-active-style="bento-ui"] main {
+  --text-muted: #6b6b80;
+  --bg-glass: #16213e;
+  --bg-card-hover: #1f2a4a;
+  --border-hover: rgba(255,255,255,0.12);
+  --accent-3: #43e97b;
+}
+html[data-active-style="claymorphism"] main {
+  /* Pastel surfaces need dark, saturated text & accents to stay readable */
+  --bg-primary: #fdf2f5;
+  --bg-secondary: #fdf2f5;
+  --bg-glass: rgba(255,255,255,0.6);
+  --bg-card-hover: #ffe0e8;
+  --text-secondary: #7a5560;
+  --text-muted: #9c7a84;
+  --accent: #2f7fa6;
+  --accent-2: #d9486a;
+  --accent-3: #3f9a54;
+  --border-hover: transparent;
+}
+html[data-active-style="skeuomorphism"] main {
+  --text-muted: #6b4f3a;
+  --bg-glass: rgba(255,255,255,0.25);
+  --bg-card-hover: #dcb57e;
+  --border-hover: #5a2e0c;
+  --accent-3: #2c5f2e;
+}
+html[data-active-style="cyberpunk"] main {
+  /* Neon is for glows and accents — body text stays a readable cool white */
+  --text-primary: #e6fbff;
+  --text-secondary: #9aa5c4;
+  --text-muted: #5f6a8a;
+  --border: rgba(0,255,255,0.3);
+  --border-hover: #ff00ff;
+  --bg-glass: rgba(0,255,255,0.05);
+  --bg-card-hover: #12122a;
+  --accent-3: #00ff9c;
+}
+html[data-active-style="cyberpunk"] main :is(h1, h2, h3) { color: #00ffff; }
+html[data-active-style="retro"] main {
+  --text-muted: #5a5a6e;
+  --bg-glass: rgba(26,26,46,0.06);
+  --bg-card-hover: #f0d060;
+  --border-hover: #1a1a2e;
+  --accent-2: #c0392b;
+  --accent-3: #2e7d32;
+}
+html[data-active-style="dark-ui"] main {
+  --text-secondary: #a6a6c4;
+  --text-muted: #6b6b88;
+  --bg-glass: rgba(255,255,255,0.04);
+  --bg-card-hover: #22223a;
+  --border-hover: rgba(255,255,255,0.14);
+  --accent-2: #ff6b81;
+  --accent-3: #43e97b;
+}
+html[data-active-style="light-ui"] main {
+  --text-muted: #868e96;
+  --border: #e9ecef;
+  --border-hover: #dee2e6;
+  --bg-glass: #f1f3f5;
+  --bg-card-hover: #f8f9fa;
+  --accent-2: #e03131;
+  --accent-3: #2f9e44;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+}
+html[data-active-style="light-ui"] main .glass-card,
+html[data-active-style="light-ui"] main [style*="var(--bg-card)"] {
+  border-color: #e9ecef !important;
+}
+html[data-active-style="gradient-ui"] main {
+  --text-muted: rgba(255,255,255,0.7);
+  --bg-glass: rgba(255,255,255,0.12);
+  --bg-card-hover: rgba(255,255,255,0.2);
+  --border-hover: rgba(255,255,255,0.4);
+  --accent-2: #FFCC70;
+  --accent-3: #ffffff;
+}
+
+/* ─────────────────────────────────────────────
+   Contrast tuning — every text token ≥ 4.5:1 on its style's background
+───────────────────────────────────────────── */
+html[data-active-style="neumorphism"] main { --text-primary: #2d3446; --text-secondary: #4a5366; --text-muted: #5a6376; }
+html[data-active-style="material-design"] main { --text-secondary: #616161; --text-muted: #6e6e6e; }
+html[data-active-style="bento-ui"] main { --text-muted: #9090a8; }
+html[data-active-style="light-ui"] main { --text-muted: #6c757d; }
+html[data-active-style="claymorphism"] main { --text-muted: #7f5a65; }
+html[data-active-style="skeuomorphism"] main { --text-secondary: #3f2c1e; --text-muted: #4f3827; }
+html[data-active-style="dark-ui"] main { --text-muted: #8686a6; }
+html[data-active-style="cyberpunk"] main { --text-muted: #8290b4; }
+html[data-active-style="glassmorphism"] main { --text-muted: #a49ec4; }
+html[data-active-style="retro"] main { --text-muted: #45455a; }
+
+/* ─────────────────────────────────────────────
+   Neo-Brutalism
+───────────────────────────────────────────── */
+html[data-active-style="neo-brutalism"] main {
+  --bg-primary: #fdf6e3;
+  --bg-secondary: #fdf6e3;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fff4c2;
+  --bg-glass: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #27272a;
+  --text-muted: #52525b;
+  --border: #111111;
+  --border-hover: #111111;
+  --accent: #111111;
+  --accent-2: #e5306f;
+  --accent-3: #0f766e;
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 14px;
+  --shadow-sm: 3px 3px 0 #111;
+}
+html[data-active-style="neo-brutalism"] body { background: #fdf6e3 !important; }
+html[data-active-style="neo-brutalism"] main .glass-card,
+html[data-active-style="neo-brutalism"] main [style*="var(--bg-card)"] {
+  background: #ffffff !important;
+  border: 3px solid #111 !important;
+  box-shadow: 5px 5px 0 #111 !important;
+  backdrop-filter: none !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+}
+html[data-active-style="neo-brutalism"] main .glass-card:hover {
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 7px 7px 0 #111 !important;
+}
+html[data-active-style="neo-brutalism"] main button {
+  background: #ff90e8 !important;
+  color: #111 !important;
+  border: 3px solid #111 !important;
+  border-radius: 10px !important;
+  box-shadow: 4px 4px 0 #111 !important;
+  font-weight: 800 !important;
+}
+html[data-active-style="neo-brutalism"] main button:active {
+  transform: translate(4px, 4px) !important;
+  box-shadow: none !important;
+}
+html[data-active-style="neo-brutalism"] main span[style*="uppercase"] {
+  background: #ffc900 !important;
+  color: #111 !important;
+  border: 2px solid #111 !important;
+}
+
+/* ─────────────────────────────────────────────
+   Aurora UI
+───────────────────────────────────────────── */
+html[data-active-style="aurora-ui"] main {
+  --bg-primary: transparent;
+  --bg-secondary: transparent;
+  --bg-card: rgba(11, 16, 32, 0.6);
+  --bg-card-hover: rgba(20, 28, 54, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.06);
+  --text-primary: #f1f5ff;
+  --text-secondary: #d4dbf0;
+  --text-muted: #aab5d6;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(165, 243, 252, 0.4);
+  --accent: #a5f3fc;
+  --accent-2: #f0abfc;
+  --accent-3: #6ee7b7;
+}
+html[data-active-style="aurora-ui"] body {
+  background:
+    /* Kept soft: page text sits directly on these glows (the style's own rule) */
+    radial-gradient(at 15% 10%, rgba(56, 189, 248, 0.2), transparent 45%),
+    radial-gradient(at 85% 20%, rgba(168, 85, 247, 0.2), transparent 45%),
+    radial-gradient(at 50% 100%, rgba(52, 211, 153, 0.14), transparent 50%),
+    #0b1020 !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="aurora-ui"] main .glass-card,
+html[data-active-style="aurora-ui"] main [style*="var(--bg-card)"] {
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+}
+html[data-active-style="aurora-ui"] main button {
+  background: linear-gradient(135deg, #38bdf8, #a855f7) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35) !important;
+}
+
+/* ─────────────────────────────────────────────
+   Swiss Design
+───────────────────────────────────────────── */
+html[data-active-style="swiss-design"] main {
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f2f2f2;
+  --bg-glass: #f2f2f2;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --border: #111111;
+  --border-hover: #e3000f;
+  --accent: #e3000f;
+  --accent-2: #111111;
+  --accent-3: #111111;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --shadow-sm: none;
+}
+html[data-active-style="swiss-design"] body { background: #ffffff !important; }
+html[data-active-style="swiss-design"] main :is(h1, h2, h3, h4, p, span, a, button, div) {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+html[data-active-style="swiss-design"] main h1 { letter-spacing: -0.04em !important; }
+html[data-active-style="swiss-design"] main .glass-card,
+html[data-active-style="swiss-design"] main [style*="var(--bg-card)"] {
+  background: #ffffff !important;
+  border: none !important;
+  border-top: 2px solid #111 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html[data-active-style="swiss-design"] main button {
+  background: #e3000f !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+}
+html[data-active-style="swiss-design"] main span[style*="uppercase"] {
+  background: transparent !important;
+  color: #111 !important;
+  border: 1px solid #111 !important;
+  border-radius: 0 !important;
+}
+
+/* ─────────────────────────────────────────────
+   Y2K
+───────────────────────────────────────────── */
+html[data-active-style="y2k"] main {
+  --bg-primary: transparent;
+  --bg-secondary: rgba(255, 255, 255, 0.35);
+  --bg-card: #f4f6fc;
+  --bg-card-hover: #ffffff;
+  --bg-glass: rgba(255, 255, 255, 0.55);
+  --text-primary: #2b2d6e;
+  --text-secondary: #3f4280;
+  --text-muted: #555894;
+  --border: #9aa7c7;
+  --border-hover: #1f5fe0;
+  --accent: #1f5fe0;
+  --accent-2: #c026d3;
+  --accent-3: #0f766e;
+  --radius-sm: 16px;
+  --radius-md: 22px;
+  --radius-lg: 26px;
+}
+html[data-active-style="y2k"] body {
+  background: linear-gradient(135deg, #c9d6ff 0%, #f8c8ff 50%, #bdf6ff 100%) !important;
+  background-attachment: fixed !important;
+}
+html[data-active-style="y2k"] main :is(h1, h2, h3, h4) {
+  font-family: 'Trebuchet MS', Verdana, sans-serif !important;
+}
+html[data-active-style="y2k"] main .glass-card,
+html[data-active-style="y2k"] main [style*="var(--bg-card)"] {
+  background: linear-gradient(180deg, #ffffff, #e4e9f5) !important;
+  border: 1px solid #9aa7c7 !important;
+  box-shadow: inset 0 2px 0 #fff, 0 8px 20px rgba(58, 141, 255, 0.2) !important;
+  backdrop-filter: none !important;
+}
+html[data-active-style="y2k"] main button {
+  background: linear-gradient(180deg, #6fb6ff, #1f5fe0) !important;
+  color: #fff !important;
+  border: 1px solid #1a4fb8 !important;
+  border-radius: 100px !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 10px rgba(31, 95, 224, 0.35) !important;
 }

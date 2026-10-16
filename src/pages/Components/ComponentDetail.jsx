@@ -41,7 +41,7 @@ export default function ComponentDetail() {
         padding: '7px 14px',
         borderRadius: 100,
         border: `1px solid ${active ? 'var(--accent)' : 'var(--border)'}`,
-        background: active ? 'rgba(108,99,255,0.15)' : 'var(--bg-glass)',
+        background: active ? 'rgba(254,137,50,0.15)' : 'var(--bg-glass)',
         color: active ? 'var(--accent)' : 'var(--text-secondary)',
         fontSize: 12,
         fontWeight: active ? 600 : 500,
@@ -81,7 +81,7 @@ export default function ComponentDetail() {
               {comp.name} <span style={{ background: 'linear-gradient(135deg,var(--accent),var(--accent-2))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Components</span>
             </h1>
             <p style={{ color: 'var(--text-secondary)', fontSize: 16, maxWidth: 500, lineHeight: 1.7 }}>
-              {comp.description} — in all 14 design styles with copy-ready code.
+              {comp.description} — in all {styles.length} design styles with copy-ready code.
             </p>
           </motion.div>
         </div>

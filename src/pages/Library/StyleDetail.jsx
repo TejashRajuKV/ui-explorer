@@ -275,7 +275,7 @@ export default function StyleDetail() {
             {/* Best Practices */}
             <div id="best-practices">
               <SectionBlock icon="✅" title="Best Practices">
-                <div style={{ background: 'rgba(108,99,255,0.05)', border: '1px solid rgba(108,99,255,0.2)', borderRadius: 'var(--radius-md)', padding: '8px 20px' }}>
+                <div style={{ background: 'rgba(254,137,50,0.05)', border: '1px solid rgba(254,137,50,0.2)', borderRadius: 'var(--radius-md)', padding: '8px 20px' }}>
                   {style.bestPractices.map((p, i) => (
                     <CheckItem key={i} text={p} icon="✓" color="var(--accent)" />
                   ))}
@@ -286,7 +286,7 @@ export default function StyleDetail() {
             {/* Common Mistakes */}
             <div id="mistakes">
               <SectionBlock icon="⚠️" title="Common Mistakes">
-                <div style={{ background: 'rgba(255,101,132,0.05)', border: '1px solid rgba(255,101,132,0.2)', borderRadius: 'var(--radius-md)', padding: '8px 20px' }}>
+                <div style={{ background: 'rgba(205,26,48,0.05)', border: '1px solid rgba(205,26,48,0.2)', borderRadius: 'var(--radius-md)', padding: '8px 20px' }}>
                   {style.commonMistakes.map((m, i) => (
                     <CheckItem key={i} text={m} icon="✗" color="var(--accent-2)" />
                   ))}
@@ -362,14 +362,14 @@ export default function StyleDetail() {
             </div>
 
             {/* CTA: Explore More */}
-            <div style={{ background: 'linear-gradient(135deg, rgba(108,99,255,0.12), rgba(255,101,132,0.08))', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: 24, marginBottom: 20 }}>
+            <div style={{ background: 'linear-gradient(135deg, rgba(254,137,50,0.12), rgba(205,26,48,0.08))', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: 24, marginBottom: 20 }}>
               <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 8 }}>Explore {style.name}</h3>
               <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: 16 }}>
                 See {style.name} components in action, or experiment in the playground.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 <Link to="/components">
-                  <button style={{ width: '100%', padding: '10px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: '#fff', fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>
+                  <button style={{ width: '100%', padding: '10px', background: 'var(--accent)', border: 'none', borderRadius: 8, color: 'var(--plum)', fontWeight: 600, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>
                     View Components →
                   </button>
                 </Link>
@@ -401,7 +401,7 @@ export default function StyleDetail() {
                       padding: '8px 10px',
                       borderRadius: 8,
                       textDecoration: 'none',
-                      background: s.id === styleId ? 'rgba(108,99,255,0.12)' : 'transparent',
+                      background: s.id === styleId ? 'rgba(254,137,50,0.12)' : 'transparent',
                       color: s.id === styleId ? 'var(--accent)' : 'var(--text-secondary)',
                       fontSize: 13,
                       fontWeight: s.id === styleId ? 600 : 400,

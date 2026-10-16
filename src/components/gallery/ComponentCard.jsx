@@ -23,7 +23,7 @@ export default function ComponentCard({ componentId, style, index = 0 }) {
         overflow: 'hidden',
         transition: 'border-color 0.2s ease',
       }}
-      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(108,99,255,0.35)'}
+      onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(254,137,50,0.35)'}
       onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
     >
       {/* Live Preview */}
@@ -54,8 +54,8 @@ export default function ComponentCard({ componentId, style, index = 0 }) {
             style={{
               flex: 1,
               padding: '8px 0',
-              background: showCode ? 'rgba(108,99,255,0.15)' : 'var(--bg-glass)',
-              border: `1px solid ${showCode ? 'rgba(108,99,255,0.3)' : 'var(--border)'}`,
+              background: showCode ? 'rgba(254,137,50,0.15)' : 'var(--bg-glass)',
+              border: `1px solid ${showCode ? 'rgba(254,137,50,0.3)' : 'var(--border)'}`,
               borderRadius: 8,
               color: showCode ? 'var(--accent)' : 'var(--text-secondary)',
               fontSize: 13,
