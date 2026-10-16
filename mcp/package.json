@@ -1,6 +1,6 @@
 {
   "name": "ui-explorer-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server that gives AI tools the UI Explorer library: 18 design styles, 36 components with copy-ready HTML/CSS/Tailwind, and 24 animations.",
   "type": "module",
   "bin": {
